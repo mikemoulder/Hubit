@@ -140,6 +140,7 @@ export function RulesBar() {
           <div className="ml-auto flex shrink-0 items-center gap-3">
             <GateStatus
               violations={v.length}
+              empty={state.lines.length === 0}
               missingDelivery={store.shippingMissing(state).length}
               approved={state.approved}
               live={live}
@@ -298,11 +299,13 @@ export function RulesBar() {
  */
 function GateStatus({
   violations,
+  empty,
   missingDelivery,
   approved,
   live,
 }: {
   violations: number;
+  empty: boolean;
   missingDelivery: number;
   approved: boolean;
   live: boolean;
@@ -327,11 +330,13 @@ function GateStatus({
       <Lock className="size-3.5" aria-hidden />
       {violations
         ? "Rules not met, checkout withheld"
-        : missingDelivery
-          ? "No delivery address, checkout withheld"
-          : approved
-            ? "Approved"
-            : "Checkout withheld until you approve"}
+        : empty
+          ? "Empty cart, checkout withheld"
+          : missingDelivery
+            ? "No delivery address, checkout withheld"
+            : approved
+              ? "Approved"
+              : "Checkout withheld until you approve"}
     </span>
   );
 }
