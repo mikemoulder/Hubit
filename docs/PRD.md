@@ -2,7 +2,7 @@
 
 **Live URL:** https://hubit-store.vercel.app
 **Type:** Frontend web app (Next.js, single page, no backend, no login)
-**Version:** 1.0, describing the app as deployed on 21 Oct 2026
+**Version:** 1.1 (exact cents)
 
 ## 1. What Hubit is
 
@@ -55,7 +55,7 @@ From top to bottom, the page shows:
 - **Quick view dialog:** opens from a product's image or name.
 - **Footer:** shop links and the line "Hubit is a demonstration shop. Nothing ships and no card is charged."
 
-Money is displayed in US dollars **rounded to whole dollars** (for example `$1,205`).
+Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts show no cents (`$1,200`, `$319`). Any other amount shows two decimals (`$14.99`, `$1,070.99`, `$0.99`). An amount is never rounded, so the figures on screen always agree with the budget check.
 
 ## 4. Features and acceptance criteria
 
@@ -102,7 +102,7 @@ Money is displayed in US dollars **rounded to whole dollars** (for example `$1,2
 - Required fields: Full name, Email, Address, City, Postcode, Country.
 - Optional fields: Phone; Flat, unit, building; Delivery notes.
 - The email must look like an address (something@domain.tld). Otherwise the form is incomplete.
-- Delivery speed is Standard (free) or Express ($14.99, which counts against the budget).
+- Delivery speed is Standard (free) or Express, shown as exactly `$14.99`, which counts against the budget. With Express selected, the drawer's Delivery line reads `$14.99`.
 - While required fields are missing, the gate pill reads "No delivery address, checkout withheld". The drawer says "Delivery needs {missing fields} before you can approve."
 
 ### F7. Approval gate (core feature)
@@ -151,3 +151,4 @@ Money is displayed in US dollars **rounded to whole dollars** (for example `$1,2
 7. Mark "I already have a chair" → add a chair → violation → Approve not offered.
 8. Choose Express on a cart $10 under budget → now over budget → Approve not offered.
 9. Invalid email "ada@" → the form is incomplete and Approve is not offered.
+10. **Exact cents:** cart of 34" Ultrawide 165Hz + Standing desk 160cm + Ergonomic mesh adjustable ($1,056), budget 1070, choose Express → the rules bar reads `$1,070.99 of $1,070` and `over by $0.99`, the drawer total reads `$1,070.99`, and Approve is not offered. Raising the budget to 1071 clears the violation.
