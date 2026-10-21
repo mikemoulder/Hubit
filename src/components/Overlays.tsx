@@ -319,7 +319,7 @@ export function QuickView({ id, onClose }: { id: string | null; onClose: () => v
 
 /**
  * The delivery form. A shop element, so it is ink and neutral like the rest of the
- * shelf — with one exception: a field the AGENT typed carries an accent marker, because
+ * shelf, with one exception: a field the AGENT typed carries an accent marker, because
  * that is the only place on the page where the two of you are writing into the same
  * box. Accent still means machine authority and nothing else.
  *

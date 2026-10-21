@@ -1,0 +1,95 @@
+# How Hubit is verified by TestSprite
+
+Everything here happened between 21 Oct 2026 08:05 and 11:05 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links open inside our workspace.
+
+## 1. The wiring
+
+| Piece | Setting | Why |
+|---|---|---|
+| TestSprite project | Frontend UI project `hubit`, environment `default` = https://hubit-store.vercel.app, no sign-in | Hubit has no accounts; every flow works for an anonymous visitor |
+| Test source | [`docs/PRD.md`](PRD.md), uploaded at project creation and kept in the repo | The PRD is what TestSprite plans from, so it changes in the same PR as the behaviour it describes |
+| GitHub App | Installed on `MikeMoulder/Hubit`, Pull Request trigger | Every PR is tested, not just `main` |
+| Trigger event | `Preview` (the GitHub deployment Vercel creates for each PR) | Fires once the preview exists. Vercel's commit status fires twice, once while still building |
+| Target URL | `https://hubit-git-{branch-slug}-mikes-projects-7ac9bd1b.vercel.app` | Vercel's branch alias, so each PR is tested against its own build, never production |
+| Merge gate | On: results are reported as the `TestSprite V3` status check | A failing run marks the PR red |
+| Branch protection | `main` requires `TestSprite V3` to pass | GitHub refuses the merge until it is green |
+| Vercel Deployment Protection | Off for previews | With it on, the preview answers with Vercel's login page and TestSprite tests that instead |
+| CLI | `@testsprite/testsprite-cli` 0.15.0 with an API key | Plan edits, single-test runs and failure bundles from the terminal, alongside the portal |
+
+## 2. Building the suite
+
+1. **Exploration.** The portal's agent explored the live app with the PRD as its source and mapped its features, among them "approval gate and agent checkout registration".
+2. **Plan.** `testsprite test plan generate` staged **54** proposals (2 credits).
+3. **Curation.** About a third were duplicates: "approval is withdrawn after a delivery edit" appeared four times (#25, #36, #43, #50 in the generated table). Every PR run replays the whole suite at 0.5 credits a test, so each duplicate is paid for on every push. We accepted **36**, one per distinct scenario, with `test plan accept --only <ids>`.
+4. **Baseline.** `test run --all` against production: **34/36**. Both failures were flaws in generated tests, not the app (section 5).
+5. **Our own tests.** We wrote five more as plan files and created them with `test create --plan-from`: one for exact cents and four for the demo shopper. That makes **41**.
+
+| Category | Tests | Examples |
+|---|---:|---|
+| Budget rule enforcement | 12 | over budget blocks approval; express pushes a cart over; raising the budget clears it |
+| Catalog browsing | 7 | category, search, both price sorts, combined filters, empty search |
+| Cart management | 5 | add, repeat add, steppers, remove, empty state |
+| Demo shopper and exact cents (ours) | 5 | refused at the gate; orders only after approval; cannot order after approval is lost; stop; $14.99 not $15 |
+| Approval gate | 3 | approve a valid basket; Prioritise never withdraws approval; empty cart cannot be approved |
+| Delivery details | 3 | approval withdrawn by an address edit or a speed change |
+| Ownership rules | 3 | "I already have" blocks a matching item; clearing it restores approval |
+| Quick view | 3 | open from image and from name; add from the dialog |
+
+## 3. The red-first pull requests
+
+Each feature PR starts with a commit that changes only the PRD and adds the tests for the new behaviour. TestSprite runs and goes red, because the behaviour is not there yet. The next commit implements it from the failure bundle, and the check goes green.
+
+| PR | Commit | What it contained | TestSprite |
+|---|---|---|---|
+| [#1 PRD](https://github.com/MikeMoulder/Hubit/pull/1) | `73e3d15` | the PRD | could not start: the project had no tests yet |
+| | `9bde33d` | empty, re-trigger | could not start (same) |
+| | `413e3e3` | re-trigger after the suite existed | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/db331dcb-58b5-4173-86eb-ab4c80151843): a generated test let the agent pick any cart |
+| | `736c12f` | re-trigger after pinning four budget tests | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/c1ee571c-bfe5-447e-bbd2-31601277c845): the agent skipped a page reload |
+| | `fadcad8` | re-trigger after making the reload explicit | [**all 36 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/92d1caef-45a1-4ba0-bd52-50b95e58e626) |
+| [#2 exact cents](https://github.com/MikeMoulder/Hubit/pull/2) | `0c0c9bc` | PRD journey 10 + test "Express delivery is shown and budgeted to the exact cent" | [**36/37, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/5ae8fc17-747f-48c2-86c2-f3facb510753): it saw "$15" and "over by $1" |
+| | `a6b8547` | the fix | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/4e6aa0e7-6c51-49ff-ba7c-27932ed95cb3): the cents test passed; one hung run, one misread test (section 6) |
+| | `b670f3d` | re-trigger after clarifying that test | [**all 37 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/41fa8e6b-b3c4-43f0-bed1-1df82389cae5) |
+| [#3 demo shopper](https://github.com/MikeMoulder/Hubit/pull/3) | `468a926` | PRD F9 + four demo-shopper tests | [**37/41, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/0110035e-03d7-462b-ba94-7330dc33822b): exactly the four new tests failed |
+| | `fa5aca4` | the feature | [**all 41 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/840dd35c-a81f-462e-8537-8d067676a102) on the first run |
+
+Each PR was squash-merged once its check was green, so `main` reads as three commits while every red and green run stays on the PR page.
+
+## 4. Bugs TestSprite found in the app
+
+- **Money was rounded to the dollar.** The budget was checked in cents, but `money()` showed express ($14.99) as "$15". A cart $0.99 over budget read "over by $1", and the agent's own tool text could read "Total: $1,200 of $1,200" while over. We wrote the requirement first and TestSprite failed on it, as the PR intended.
+- **The rules bar metered goods, not the order.** We had not specified this one. In the failure bundle for the cents test, TestSprite's observations included "the rules bar displayed $1,056 of $1,071" with express selected, while the gate counts delivery. The bar could say "$1,056 of $1,070, over by $1". The fix commit in #2 makes the bar meter the order total ([`src/components/RulesBar.tsx`](../src/components/RulesBar.tsx)).
+
+## 5. Generated tests we had to fix
+
+Each of these failed while the app was correct. We read the step log and the failure bundle (`test failure summary <id>`, `test steps <id>`), confirmed the app's behaviour in the code, and rewrote the plan with `test plan put`.
+
+| Test | What went wrong | Fix |
+|---|---|---|
+| Reload resets budget, cart and approval | The recorded steps had no reload at all: approve, then assert the cart is empty | Plan says to navigate to the same URL again, which the agent always does |
+| Clear ownership violation by removing the item | Only one monitor in the cart; removing it left an empty cart, which can never be approved | A keyboard stays in the cart |
+| Delivery express fee counts toward budget | "Add items so the cart is near budget" let the agent pick $1,056, and $1,056 + express never reaches $1,200 | Fixed cart, budget set to 1065 |
+| Removing an item restores budget compliance | "Remove one item" from an arbitrary over-budget cart is not always enough | The PRD's $1,205 cart; remove the $149 keyboard |
+| Budget overage blocks approval | "Set the budget below the cart total" with an empty cart | One $319 monitor, budget 300 |
+| Budget increase clears overage | Arbitrary cart | The $1,205 cart, budget 1300 |
+| Clear ownership violation (again, on PR #2) | The agent read the rules summary "You have a monitor" (the shopper's own setting, correctly still on) as the violation "You already have a monitor" | The step names the violation exactly and says the summary is expected to remain |
+
+What generalised: **a generated plan that leaves a quantity to the agent is a coin toss.** Every test that touches a total now names its products and its budget.
+
+## 6. TestSprite issues we hit
+
+- **A run that never finished.** On `a6b8547`, "Sort catalog by price low to high" passed all 4 steps but stayed `running` for over an hour, so the GitHub status sat on "37 tests queued". `testsprite test cancel <run-id>` released it (0.5 credits refunded), and the check then reported the real result.
+- **Diagnoses that blame hosting.** For every test-design failure in section 5, the failure bundle's root-cause hypothesis pointed at hosting, caching, localStorage or a stale build. Hubit keeps state in memory only. The observations in the bundle were accurate every time. The hypothesis was the part to distrust.
+- **The first PR runs "could not start".** A PR run replays the existing suite, so a project with no tests yet fails before it starts. The GitHub integration docs say this. The status message does not.
+- **Vercel Deployment Protection.** With it on, previews answer with Vercel's SSO page. TestSprite would test that page and charge for it (also reported upstream as testsprite-cli #620).
+
+## 7. Reproduce
+
+```bash
+npm i -g @testsprite/testsprite-cli
+testsprite setup --api-key <key> --no-agent
+testsprite test list --project 2b4a992f-4b37-4f77-ad75-8e74ca05c358
+testsprite test run <test-id> --wait --target-url https://hubit-store.vercel.app
+testsprite test failure summary <test-id>
+```
+
+Credits: 545.5 at the start, 371.5 after the three PRs. A full PR run of 41 tests costs about 20.
