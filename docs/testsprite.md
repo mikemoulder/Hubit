@@ -1,6 +1,6 @@
 # How Hubit is verified by TestSprite
 
-Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links open inside our workspace.
+Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links need access to our TestSprite workspace (sharing is by workspace invite). The same results are public on each pull request, in TestSprite's comment and its `TestSprite V3` check.
 
 ## 1. The wiring
 
