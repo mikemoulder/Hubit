@@ -5,6 +5,7 @@ import { CartDrawer, QuickView } from "@/components/Overlays";
 import { RulesBar } from "@/components/RulesBar";
 import { SiteFooter, SiteHeader } from "@/components/Shell";
 import { DemoShopper } from "@/components/DemoShopper";
+import { Intro } from "@/components/Intro";
 import { ToolRail } from "@/components/ToolRail";
 import { useToolSurface, useRuntime, useStore } from "@/lib/useHubit";
 import { setView } from "@/lib/store";
@@ -34,13 +35,19 @@ export default function Page() {
       </div>
 
       <main className="mx-auto grid max-w-[1400px] grid-cols-1 gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <Catalog
-          category={category}
-          query={query}
-          onQuickView={(id) => setView({ quickView: id })}
-        />
+        {runtime === "local" && <Intro />}
 
-        <aside className="flex flex-col lg:sticky lg:top-[8.5rem] lg:h-[calc(100vh-10rem)]">
+        {/* On a phone the column stacks, and the agent column comes before the shelf:
+            behind forty products the demo shopper is never found. */}
+        <div className="order-2 min-w-0 lg:order-none">
+          <Catalog
+            category={category}
+            query={query}
+            onQuickView={(id) => setView({ quickView: id })}
+          />
+        </div>
+
+        <aside className="order-1 flex flex-col lg:sticky lg:top-[8.5rem] lg:order-none lg:h-[calc(100vh-10rem)]">
           <div className="min-h-0 flex-1">
             <ToolRail />
           </div>
