@@ -41,7 +41,9 @@ export function RulesBar() {
   const [draft, setDraft] = useState<string | null>(null);
 
   const v = store.violations(state);
-  const total = store.cartTotalCents(state);
+  // Goods plus delivery: the figure the budget is actually checked against, so the
+  // meter and "over by" can never disagree with the gate.
+  const total = store.orderTotalCents(state);
   const live = store.checkoutLive(state);
   const budget = state.constraints.budgetCents;
   const pct = budget > 0 ? Math.min(100, (total / budget) * 100) : 0;

@@ -377,8 +377,15 @@ export const CATEGORY_LABEL: Record<Product["category"], string> = {
 
 export const byId = (id: string) => CATALOG.find((p) => p.id === id);
 
-export const money = (cents: number) =>
-  `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+/**
+ * Whole dollars stay whole ($1,200), anything else shows its cents ($14.99). Rounding
+ * to the dollar hid the express charge: a cart $0.99 over budget read "$1,200 of
+ * $1,200", on screen and in every tool result the agent shops from.
+ */
+export const money = (cents: number) => {
+  const digits = cents % 100 === 0 ? 0 : 2;
+  return `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits })}`;
+};
 
 /**
  * True since 2026-09-02: /public/products/ holds all 40 photos, one per id.
