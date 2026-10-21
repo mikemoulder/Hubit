@@ -2,7 +2,7 @@
 
 **Live URL:** https://hubit-store.vercel.app
 **Type:** Frontend web app (Next.js, single page, no backend, no login)
-**Version:** 1.2 (demo shopper)
+**Version:** 1.3 (first screen)
 
 ## 1. What Hubit is
 
@@ -39,6 +39,7 @@ From top to bottom, the page shows:
   - an Edit rules toggle that opens "I already have" and "Prioritise"
   - a gate status pill
   - an approval button when one is allowed
+- **Intro strip** (top of the page, under the rules bar, when no WebMCP agent is connected): the line "An agent can fill this cart. It cannot buy until you approve this exact basket." and a **Run the demo shopper** button. On phones, the Demo shopper panel sits directly under this strip, above the shelf.
 - **Catalog grid:** 40 products, 8 per category, each with:
   - a photo
   - a name and price
@@ -104,7 +105,7 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
 - Optional fields: Phone; Flat, unit, building; Delivery notes.
 - The email must look like an address (something@domain.tld). Otherwise the form is incomplete.
 - Delivery speed is Standard (free) or Express, shown as exactly `$14.99`, which counts against the budget. With Express selected, the drawer's Delivery line reads `$14.99`.
-- While required fields are missing, the gate pill reads "No delivery address, checkout withheld". The drawer says "Delivery needs {missing fields} before you can approve."
+- While the cart has items but required fields are missing, the gate pill reads "No delivery address, checkout withheld". The drawer says "Delivery needs {missing fields} before you can approve."
 
 ### F7. Approval gate (core feature)
 - The **Approve this basket** button appears only when all of these hold:
@@ -112,7 +113,7 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
   - there are no rule violations
   - the delivery form is complete
   - the basket is not already approved
-- With an empty cart, the drawer says "Add something before you can approve a basket." With violations, it says "Bring the cart inside your rules, then approve it."
+- With an empty cart, the gate pill reads "Empty cart, checkout withheld" and the drawer says "Add something before you can approve a basket." With violations, it says "Bring the cart inside your rules, then approve it."
 - Clicking Approve:
   - turns the gate pill to "Checkout is open to the agent"
   - shows "Approved. The agent has a checkout tool for this exact basket." in the drawer
@@ -149,6 +150,11 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
 - **Stop** ends a run at once with "Stopped. Nothing else was done."
 - **Run again** after an order starts a fresh basket.
 
+### F10. First screen
+- A first-time visitor reads what Hubit is before scrolling: the intro strip's line "An agent can fill this cart. It cannot buy until you approve this exact basket." is visible at the top of the page on desktop and on phones.
+- The intro strip's **Run the demo shopper** button starts the demo shopper (F9), exactly like the panel's own button, and brings the panel into view.
+- On phones the Demo shopper panel appears above the shelf, so the core flow is reachable without scrolling past the catalog.
+
 ### F8. Persistence
 - The cart, rules and approval are not persisted. Reloading the page returns to an empty cart, budget $1,200, nothing owned, not approved.
 
@@ -173,3 +179,5 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
 12. **Demo shopper checks out only after approval:** run it, approve the basket → "Order placed for $1,185", `get_order` registered, `checkout` not; Start over empties the cart.
 13. **Approval lost while waiting:** run it, lower the budget to 1100 before approving → the cart is over budget, Approve is not offered, and no order is placed; set the budget back to 1200 and approve → the order is placed.
 14. **Stop:** run it and press Stop → "Stopped. Nothing else was done." and no order.
+15. **First screen:** open the store → the intro line is visible without scrolling; press the intro's Run the demo shopper → the panel narrates "Reading your rules." and reaches "Waiting for you to approve this basket".
+16. **Empty cart:** open the store with nothing in the cart → the gate pill reads "Empty cart, checkout withheld".
