@@ -35,7 +35,7 @@ type ModelContextLike = {
 };
 
 // Declared non-optional on purpose. It lets register() call
-// `document.modelContext.registerTool({...})` verbatim — no cached alias, no `!` — so
+// `document.modelContext.registerTool({...})` verbatim (no cached alias, no `!`), so
 // the call the WebMCP rules name is the call that actually runs, and is greppable in
 // the source. Presence is a RUNTIME question and is answered by hasModelContext()
 // before the call is ever reached; a browser without WebMCP leaves this undefined.

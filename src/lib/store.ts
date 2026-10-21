@@ -213,7 +213,7 @@ export function updateQuantity(productId: string, qty: number) {
  * separate agent path.
  *
  * It goes through invalidateApproval deliberately. You approved a basket going to a
- * particular address, so changing the address afterwards has to ask you again — an
+ * particular address, so changing the address afterwards has to ask you again: an
  * agent must not be able to redirect a parcel you already said yes to.
  */
 export function setShipping(patch: Partial<Shipping>, by: "human" | "agent" = "human") {
