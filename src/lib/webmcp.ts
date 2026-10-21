@@ -19,7 +19,7 @@
  *     it once produced a page with zero tools and no visible error.
  */
 
-import type { RegisteredToolInfo, ToolDef, ToolHost } from "./types";
+import type { RegisteredToolInfo, ToolDef, ToolHost, ToolResult } from "./types";
 
 type Entry = { def: ToolDef; controller: AbortController };
 
@@ -138,6 +138,22 @@ class Host implements ToolHost {
   onChange(cb: () => void): () => void {
     this.listeners.add(cb);
     return () => this.listeners.delete(cb);
+  }
+
+  /**
+   * The in-page caller, for the demo shopper. It reads the same registry the WebMCP
+   * surface is built from, so a gated tool that is not registered cannot be reached
+   * from here either: there is no second path to checkout.
+   */
+  async call(name: string, input: unknown = {}): Promise<ToolResult> {
+    const entry = this.entries.get(name);
+    if (!entry || entry.controller.signal.aborted) {
+      return {
+        content: [{ type: "text", text: `${name} is not registered. There is nothing to call.` }],
+        isError: true,
+      };
+    }
+    return entry.def.execute(input);
   }
 }
 
