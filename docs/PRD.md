@@ -39,7 +39,7 @@ From top to bottom, the page shows:
   - an Edit rules toggle that opens "I already have" and "Prioritise"
   - a gate status pill
   - an approval button when one is allowed
-- **Intro strip** (top of the page, under the rules bar, when no WebMCP agent is connected): the line "An agent can fill this cart. It cannot buy until you approve this exact basket." and a **Run the demo shopper** button. On phones, the Demo shopper panel sits directly under this strip, above the shelf.
+- **Intro strip** (top of the page, under the rules bar, always shown): the line "An agent can fill this cart. It cannot buy until you approve this exact basket." and a **Run the demo shopper** button. On phones, the Demo shopper panel sits directly under this strip, above the shelf.
 - **Catalog grid:** 40 products, 8 per category, each with:
   - a photo
   - a name and price
@@ -52,7 +52,7 @@ From top to bottom, the page shows:
   - a highlighted `checkout` slot
   - a collapsible list of the other tools
   - a call log
-- **Demo shopper panel** (under the tool panel, shown when no WebMCP agent is connected): a "Run the demo shopper" button and a narration list.
+- **Demo shopper panel** (under the tool panel, always shown, including in browsers that expose WebMCP): a "Run the demo shopper" button and a narration list.
 - **Cart drawer:** opens from the cart button.
 - **Quick view dialog:** opens from a product's image or name.
 - **Footer:** shop links and the line "Hubit is a demonstration shop. Nothing ships and no card is charged."

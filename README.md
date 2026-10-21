@@ -2,7 +2,7 @@
 
 **AI agents can now shop for you. Hubit is the consent layer that stops them paying without you: the `checkout` tool does not exist until you approve the exact basket. And on every pull request, TestSprite's own AI agent attacks that promise. If it gets through, the merge is blocked.**
 
-**7 PRs, every one gated by TestSprite · 42 tests, 134 assertion steps · 3 features shipped red then green · 2 real bugs caught before merge · 0 red merges**
+**Every PR gated by TestSprite · 42 tests, 134 assertion steps · 3 features shipped red then green · 2 real bugs caught before merge · 0 red merges**
 
 [Live app](https://hubit-store.vercel.app) · [Watch a PR go red then green](https://github.com/MikeMoulder/Hubit/pull/2) · [Every run, every failure, every fix](docs/testsprite.md)
 

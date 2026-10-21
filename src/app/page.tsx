@@ -35,7 +35,9 @@ export default function Page() {
       </div>
 
       <main className="mx-auto grid max-w-[1400px] grid-cols-1 gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        {runtime === "local" && <Intro />}
+        {/* Always shown. A browser exposing WebMCP is not a browser with an agent attached,
+            and hiding the demo there left recent Chrome with nothing to press. */}
+        <Intro />
 
         {/* On a phone the column stacks, and the agent column comes before the shelf:
             behind forty products the demo shopper is never found. */}
@@ -51,14 +53,12 @@ export default function Page() {
           <div className="min-h-0 flex-1">
             <ToolRail />
           </div>
+          <DemoShopper />
           {runtime === "local" && (
-            <>
-              <DemoShopper />
-              <p className="mt-3 text-xs leading-relaxed text-[var(--color-muted)]">
-                No agent is connected to this tab. The tool surface above is the real one, and
-                the demo shopper calls it exactly as an agent would.
-              </p>
-            </>
+            <p className="mt-3 text-xs leading-relaxed text-[var(--color-muted)]">
+              No agent is connected to this tab. The tool surface above is the real one, and
+              the demo shopper calls it exactly as an agent would.
+            </p>
           )}
         </aside>
       </main>
