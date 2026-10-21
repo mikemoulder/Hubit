@@ -2,7 +2,7 @@
 
 **Live URL:** https://hubit-store.vercel.app
 **Type:** Frontend web app (Next.js, single page, no backend, no login)
-**Version:** 1.1 (exact cents)
+**Version:** 1.2 (demo shopper)
 
 ## 1. What Hubit is
 
@@ -51,6 +51,7 @@ From top to bottom, the page shows:
   - a highlighted `checkout` slot
   - a collapsible list of the other tools
   - a call log
+- **Demo shopper panel** (under the tool panel, shown when no WebMCP agent is connected): a "Run the demo shopper" button and a narration list.
 - **Cart drawer:** opens from the cart button.
 - **Quick view dialog:** opens from a product's image or name.
 - **Footer:** shop links and the line "Hubit is a demonstration shop. Nothing ships and no card is charged."
@@ -132,12 +133,28 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
 - **Withdraw approval** (shown while approved) withdraws it manually.
 - Before approval, the `checkout` slot is NOT REGISTERED in every state.
 
+### F9. Demo shopper (a scripted agent on the real tools)
+- Pressing **Run the demo shopper** starts a scripted agent. It is not an AI model. It calls the same tools a WebMCP agent would, so each call appears in the tool panel's Calls log, and it narrates each step in the panel.
+- **Script, on the default $1,200 budget:**
+  - It clears the cart and adds 34" Ultrawide 165Hz, Standing desk 160cm, Ergonomic mesh adjustable and Mechanical TKL tactile.
+  - If the delivery form is incomplete, it fills it as Ada Lovelace, ada@example.com, 12 Marconi Road, Lagos, 101233, Nigeria. Those fields show an "agent" tag.
+  - Seeing the cart is $5 over, it searches for a cheaper keyboard and swaps the Mechanical TKL for the Low profile mechanical ($129). The cart is then $1,185, within budget.
+  - It then tries to check out.
+- **The gate holds it.** While the basket is not approved, `checkout` is not registered, so the attempt is refused. The narration shows "Refused: checkout is not on my tool surface…" and the panel shows "Waiting for you to approve this basket". No order is placed.
+- **After the shopper approves this basket** (in the cart drawer or the rules bar), `checkout` becomes registered. The demo shopper then places the order on its own, and the narration ends with "Order placed for $1,185. checkout is gone again."
+  - The rules bar shows the banner "Order placed for $1,185…".
+  - In the tool panel, `checkout` returns to NOT REGISTERED and `get_order` shows "REGISTERED, there is an order to read back".
+  - **Start over** empties the cart.
+- **If approval is lost while the shopper waits** (for example, the budget is lowered below the cart), it keeps waiting and never checks out until the basket is approved again.
+- **Stop** ends a run at once with "Stopped. Nothing else was done."
+- **Run again** after an order starts a fresh basket.
+
 ### F8. Persistence
 - The cart, rules and approval are not persisted. Reloading the page returns to an empty cart, budget $1,200, nothing owned, not approved.
 
 ## 5. Out of scope for testing
 
-- Placing an order. In a standard browser there is no human checkout button: checkout is a tool offered only to a connected WebMCP agent.
+- A human checkout button. There is none, by design: checkout is a tool offered only to an agent, either a connected WebMCP agent or the demo shopper (F9).
 - Payment, accounts, email, real shipping.
 
 ## 6. Key user journeys to cover
@@ -152,3 +169,7 @@ Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts sh
 8. Choose Express on a cart $10 under budget → now over budget → Approve not offered.
 9. Invalid email "ada@" → the form is incomplete and Approve is not offered.
 10. **Exact cents:** cart of 34" Ultrawide 165Hz + Standing desk 160cm + Ergonomic mesh adjustable ($1,056), budget 1070, choose Express → the rules bar reads `$1,070.99 of $1,070` and `over by $0.99`, the drawer total reads `$1,070.99`, and Approve is not offered. Raising the budget to 1071 clears the violation.
+11. **Demo shopper stops at the gate:** run it → it builds the $1,185 cart, its checkout attempt is refused, it waits; `checkout` is NOT REGISTERED and no order exists.
+12. **Demo shopper checks out only after approval:** run it, approve the basket → "Order placed for $1,185", `get_order` registered, `checkout` not; Start over empties the cart.
+13. **Approval lost while waiting:** run it, lower the budget to 1100 before approving → the cart is over budget, Approve is not offered, and no order is placed; set the budget back to 1200 and approve → the order is placed.
+14. **Stop:** run it and press Stop → "Stopped. Nothing else was done." and no order.

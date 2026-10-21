@@ -114,4 +114,9 @@ export interface ToolHost {
   register(def: ToolDef): () => void;
   list(): RegisteredToolInfo[];
   onChange(cb: () => void): () => void;
+  /**
+   * Call a tool by name, the way an agent would: only what is registered right now is
+   * callable. An unregistered name is refused, so the demo shopper meets the same gate.
+   */
+  call(name: string, input?: unknown): Promise<ToolResult>;
 }

@@ -4,6 +4,7 @@ import { Catalog } from "@/components/Catalog";
 import { CartDrawer, QuickView } from "@/components/Overlays";
 import { RulesBar } from "@/components/RulesBar";
 import { SiteFooter, SiteHeader } from "@/components/Shell";
+import { DemoShopper } from "@/components/DemoShopper";
 import { ToolRail } from "@/components/ToolRail";
 import { useToolSurface, useRuntime, useStore } from "@/lib/useHubit";
 import { setView } from "@/lib/store";
@@ -39,14 +40,18 @@ export default function Page() {
           onQuickView={(id) => setView({ quickView: id })}
         />
 
-        <aside className="lg:sticky lg:top-[8.5rem] lg:h-[calc(100vh-10rem)]">
-          <ToolRail />
+        <aside className="flex flex-col lg:sticky lg:top-[8.5rem] lg:h-[calc(100vh-10rem)]">
+          <div className="min-h-0 flex-1">
+            <ToolRail />
+          </div>
           {runtime === "local" && (
-            <p className="mt-3 text-xs leading-relaxed text-[var(--color-muted)]">
-              No agent is connected to this tab. Everything on this page works by hand, and
-              the tool surface above is the real one: it is registered right now and nothing
-              on it is simulated.
-            </p>
+            <>
+              <DemoShopper />
+              <p className="mt-3 text-xs leading-relaxed text-[var(--color-muted)]">
+                No agent is connected to this tab. The tool surface above is the real one, and
+                the demo shopper calls it exactly as an agent would.
+              </p>
+            </>
           )}
         </aside>
       </main>
