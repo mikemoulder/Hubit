@@ -209,7 +209,7 @@ export function SiteFooter({
       <div className="border-t border-[var(--color-border)]">
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-2 px-6 py-4 text-xs text-[var(--color-muted)]">
           <p>Hubit is a demonstration shop. Nothing ships and no card is charged.</p>
-          <p>Built for the WebMCP Challenge</p>
+          <p>Every pull request is verified by TestSprite before it can merge.</p>
         </div>
       </div>
     </footer>

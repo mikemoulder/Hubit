@@ -57,6 +57,8 @@ Each feature PR starts with a commit that changes only the PRD and adds the test
 | [#5 first screen](https://github.com/MikeMoulder/Hubit/pull/5) | `708d1dc` | PRD F10 + first-screen test + empty-cart wording | [**39/42, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/36a6ece3-ef56-4745-8693-56f1947b670a): the 2 new checks failed; 1 blocked (the agent missed the drawer's close button) |
 | | `0791b86` | the feature | [41/42](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/f31135d5-b185-4198-bdbe-daef2bca6570): both new checks passed; the reload test's agent skipped the reload again |
 | | `9fdf63d` | re-trigger after the reload test loads `/?reload=1` | [**all 42 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/29981950-34fb-4e59-b4e4-d48149772df4) |
+| [#6 docs](https://github.com/MikeMoulder/Hubit/pull/6) | `1447f73` | this ledger, deeper plans | [41/42, 1 blocked](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/8254e449-8cc1-4033-be7d-ed974738bac0): the replay lost two form fills (section 6) |
+| | `f4e24fe` | empty rerun, no change | [**all 42 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/0d80db65-aaf9-482b-8946-4202d1cddc82) |
 
 Each PR was squash-merged once its check was green, so `main` reads as three commits while every red and green run stays on the PR page.
 
@@ -91,6 +93,8 @@ What generalised: **a generated plan that leaves a quantity to the agent is a co
 
 - **Exported code keeps only the final assertion.** A plan with seven assertion steps exports as Python with one or two `expect` calls; the AI judge evaluates the plan during the run, but the Code tab shows little of it. We order plans so the strongest check is last.
 - **Hand-written code is never retargeted.** `test code put` stores code that is replayed verbatim ("code you wrote yourself is never re-authored"), which sounded like the way to deep, deterministic assertions. We probed it first: code that navigated to production and asserted it had landed on the PR preview failed with `origin not retargeted: https://hubit-store.vercel.app/`, and the replay process receives only the code, a deadline and a video directory. Only agent-authored code follows the PR's target URL, so hand-written tests would silently check production on every PR. We kept the suite agent-authored and made the plans deep instead.
+
+- **A replay that lost input.** On PR #6, "Invalid email keeps delivery form incomplete" was blocked: the step log records six delivery fills as passed within 300 ms, but the run video shows Postcode and Country still empty, so Approve never appeared. The same fill sequence in headless Chrome against the same build kept every value in 5 runs out of 5. A rerun passed.
 
 ## 7. Reproduce
 
