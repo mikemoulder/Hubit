@@ -132,6 +132,16 @@ function toOffer(l: SourceListing, rates: Record<string, number>): Offer {
   };
 }
 
+/**
+ * Stores list sizes in their own order, so a merged list arrives as 8..15, 7, 7.5, 16.
+ * Sizes sort numerically; anything that is not a size keeps the source order.
+ */
+export function sortOptions<T extends { option: string }>(options: T[]): T[] {
+  const num = (o: string) => (/^\d+(\.\d+)?Y?$/i.test(o) ? parseFloat(o) : NaN);
+  if (!options.every((o) => !Number.isNaN(num(o.option)))) return options;
+  return [...options].sort((a, b) => num(a.option) - num(b.option));
+}
+
 /** Cheapest in stock wins; with nothing in stock, the cheapest overall. */
 export function bestOffer(offers: Offer[]): Offer {
   const pool = offers.some((o) => o.available) ? offers.filter((o) => o.available) : offers;
@@ -170,7 +180,7 @@ function buildProduct(id: string, listings: SourceListing[], styleCode: string |
     priceCents: best.priceCents,
     compareAtCents: best.compareAtCents,
     available: offers.some((o) => o.available),
-    options: [...options.values()],
+    options: sortOptions([...options.values()]),
     rating,
     reviewCount,
     reviews,

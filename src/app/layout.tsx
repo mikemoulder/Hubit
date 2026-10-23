@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "@/components/shop/Footer";
+import { Header } from "@/components/shop/Header";
+import { getCatalog } from "@/server/catalog";
 import "./globals.css";
 
 // Self-hosted at build time, so the demo never waits on a font CDN over venue wifi.
@@ -8,25 +12,28 @@ const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hubit-store.vercel.app"),
-  title: "Hubit",
+  title: { default: "Hubit", template: "%s · Hubit" },
   description:
-    "A shop an agent can actually use. You set the rules, your agent does the browsing, and checkout is not a permission it can talk its way into: the tool is absent from its toolbox until you approve the basket.",
+    "One shop over 28 independent stores, for you and your AI agent together. One cart, one payment; Hubit sources each item from the store that has it.",
   openGraph: {
-    title: "Hubit, desk and gear",
-    description:
-      "You set the rules. Your agent does the shopping. It cannot check out until you approve the basket.",
+    title: "Hubit",
+    description: "One shop over 28 independent stores, for you and your AI agent together.",
     type: "website",
-    // Drop a 1200x630 file at /public/og.png. See images-manifest.md.
     images: ["/og.png"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const catalog = getCatalog();
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Suspense fallback={<div className="h-[105px] border-b border-[var(--color-border)]" />}>
+          <Header />
+        </Suspense>
+        {children}
+        <Footer storeCount={catalog.sources.length} takenAt={catalog.takenAt} />
+      </body>
     </html>
   );
 }

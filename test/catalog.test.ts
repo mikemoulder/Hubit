@@ -79,3 +79,18 @@ test("search: every word must match, facets ignore their own filter", () => {
   assert.deepEqual(asc, [...asc].sort((a, b) => a - b));
   assert.equal(search(catalog, { q: "zzzqqq" }).total, 0);
 });
+
+test("merged sizes are listed in numeric order", () => {
+  for (const p of catalog.products) {
+    const nums = p.options.map((o) => o.option);
+    if (!nums.every((o) => /^\d+(\.\d+)?Y?$/i.test(o))) continue;
+    const vals = nums.map((o) => parseFloat(o));
+    assert.deepEqual(vals, [...vals].sort((a, b) => a - b), p.id);
+  }
+});
+
+test("sneakers are footwear wherever they are sold", () => {
+  for (const p of catalog.products.filter((x) => x.offers.length > 1 && /\b(jordan \d|air max|foamposite|dunk)\b/i.test(x.title))) {
+    assert.equal(p.department, "footwear", `${p.id} ${p.title}`);
+  }
+});
