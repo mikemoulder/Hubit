@@ -1,183 +1,130 @@
 # Hubit: Product Requirements Document
 
-**Live URL:** https://hubit-store.vercel.app
-**Type:** Frontend web app (Next.js, single page, no backend, no login)
-**Version:** 1.3 (first screen)
+**Live URL:** https://hubit-store.vercel.app (pull requests are tested on their own Vercel preview)
+**Type:** Full-stack web app (Next.js App Router, server-rendered catalogue, Stripe test-mode payments)
+**Version:** 2.0, the multi-store storefront
 
 ## 1. What Hubit is
 
-Hubit is a demonstration storefront for desk setups: monitors, keyboards, mice, desks and chairs. Its purpose is to let a shopper hand the shopping to an AI agent without handing over permission to pay.
+Hubit is one shop over 28 independent online stores. It stocks **1,695 products** in ten departments. Shoppers buy from Hubit, in **one cart and one payment**; Hubit then sources each item from a store that has it in stock, at the best price, and splits fulfilment between stores behind the scenes. The shopper never chooses a store.
 
-The shopper sets **rules** (a budget and "things I already have"). The agent may browse and fill the cart. **Checkout is withheld until three conditions all hold:**
+The same product sold by several stores (matched on the manufacturer's style code) is **one Hubit product**. For example the **Air Jordan 5 Retro Mens Shoes** (style code HQ7978-001) is stocked by five stores; Hubit shows one price, **$215.00**, and picks the store per size.
 
-1. the cart is inside the shopper's rules,
-2. the delivery form is complete, and
-3. the shopper has approved this exact basket.
+Payments run in **Stripe test mode**. Every charge, decline and invoice is a real Stripe test object; no real card is ever charged and nothing ships.
 
-Any change to the cart, the rules or the delivery address withdraws approval.
-
-Nothing is charged and nothing ships. There is no account and no sign-in. All state lives in the page and resets on reload.
+The catalogue is a frozen snapshot of the stores taken on 23 Oct 2026, so every price below is exact on every deployment.
 
 ## 2. Users
 
-- **Shopper (human):** browses, edits the cart, sets rules, fills delivery details, approves or withdraws approval.
-- **Agent:** reaches the page through the WebMCP browser API, which is not available in standard browsers. Without it, the page shows the runtime as `local`. Every flow in this document works by hand in a standard browser.
+- **Shopper:** browses, searches, adds to the cart, checks out and pays with a Stripe test card.
+- **AI agent:** the home page describes shopping with an agent. The agent's tools are specified separately and are out of scope for this version.
 
-## 3. Page layout
+## 3. Pages
 
-From top to bottom, the page shows:
+| Path | Page |
+|---|---|
+| `/` | Home |
+| `/shop` | Browse and search, with filters (query string: `q`, `dept`, `brand`, `min`, `max`, `stock`, `sort`, `page`) |
+| `/p/<id>` | Product page |
+| `/cart` | Cart |
+| `/checkout` | Checkout |
+| `/orders/<invoice id>` | The order, after payment |
 
-- **Header (sticky):**
-  - the Hubit logo
-  - category navigation: All plus one link each for monitors, keyboards, mice, desks and chairs
-  - a "Search the shelf" field
-  - a cart button showing the item count and, when the cart is not empty, the cart total
-- **Rules bar (sticky, under the header), labelled "Your rules":**
-  - a Budget input in dollars, default **1200**
-  - a spend meter (progress bar labelled "Cart total against budget")
-  - a "$X of $Y" line
-  - an Edit rules toggle that opens "I already have" and "Prioritise"
-  - a gate status pill
-  - an approval button when one is allowed
-- **Intro strip** (top of the page, under the rules bar, always shown): the line "An agent can fill this cart. It cannot buy until you approve this exact basket." and a **Run the demo shopper** button. On phones, the Demo shopper panel sits directly under this strip, above the shelf.
-- **Catalog grid:** 40 products, 8 per category, each with:
-  - a photo
-  - a name and price
-  - a rating
-  - optional badges (Best seller, New, Sale, Low stock)
-  - a struck-through "was" price on Sale items
-  - an Add to cart button
-- **Agent tool surface panel** (right column on desktop):
-  - the runtime label (`local` in normal browsers)
-  - a highlighted `checkout` slot
-  - a collapsible list of the other tools
-  - a call log
-- **Demo shopper panel** (under the tool panel, always shown, including in browsers that expose WebMCP): a "Run the demo shopper" button and a narration list.
-- **Cart drawer:** opens from the cart button.
-- **Quick view dialog:** opens from a product's image or name.
-- **Footer:** shop links and the line "Hubit is a demonstration shop. Nothing ships and no card is charged."
+Every page has the same header: the **HUBIT** wordmark (links home), a search field labelled "Search Hubit" with the placeholder "Search products, brands, style codes", a **Shop** link, and a cart button showing the number of items in the cart (0 when empty).
 
-Money is displayed in US dollars, **exact to the cent**. Whole-dollar amounts show no cents (`$1,200`, `$319`). Any other amount shows two decimals (`$14.99`, `$1,070.99`, `$0.99`). An amount is never rounded, so the figures on screen always agree with the budget check.
+Money is always shown in US dollars **to the cent** (for example `$18.99`, `$215.00`).
+
+Large headings are set in capitals by the stylesheet (the text "Footwear" displays as FOOTWEAR); compare headings without regard to case.
 
 ## 4. Features and acceptance criteria
 
-### F1. Browse the catalog
-- The default view lists all 40 products.
-- Choosing a category shows only that category's 8 products.
-- Search matches product name or description (case-insensitive). With no matches, the grid shows "Nothing on the shelf matches that".
-- The sort control offers Featured, Price low to high, Price high to low, and Rating. The two price sorts order the grid by price.
+### F1. Home
+- The first screen's heading reads **"28 stores" / "One cart"**, with the sentence "1,695 products from independent shops, bought in one payment. Hubit sources each size from the store that has it." and a **Shop everything** button that opens `/shop`.
+- Further down, the section headed **"Same shoe" / "Five stores"** shows the Air Jordan 5 and a caption naming its five stores (Undefeated, Extra Butter, Shoe Palace, Sneaker Politics and A Ma Maniére).
+- **Try a size:** a row of size buttons. Sizes 7, 7.5 and 16 are sold out everywhere and cannot be chosen. Choosing a size shows a line of the form "Size 9: in stock at 5 of 5 stores. Hubit ships it from Undefeated at $215.00."
+- A section headed **"Ten departments"** lists every department with its product count and lowest price; each row links to that department in `/shop`.
+- A section headed **"Two fees, printed"** states the fees: items at each store's own price, shipping $6.99 (free from $75.00), a 5% service fee.
 
-### F2. Quick view
-- Clicking a product's image or name opens a dialog with the name, price, description, specs and an "Add to cart" button.
-- When the product is already in the cart, the button reads "Add another (N in cart)".
-- When the shopper's rules say they already have that category, the dialog warns: "Your rules say you already have a {category}. Adding this puts the cart outside them."
-- The dialog closes with its Close control.
+### F2. Browse and search (`/shop`)
+- With no filters the heading reads **"Everything"** and the count reads **"1,695 products"**.
+- **Departments** (a row of links above the results, and a filter list beside them) with these counts: Footwear 624, Clothing 545, Outdoor 122, Accessories 110, Kitchen 85, Beauty 79, Audio & tech 38, Home 37, Desk 33, Food & drink 22. Choosing one shows only that department and its name as the heading.
+- **Search** matches every word of the query against the product's title, brand, description, tags and style code (case-insensitive). The heading reads `Results for "<query>"`.
+  - "jordan 5" finds 27 products; the first is "Air Jordan 5 Retro Mens Shoes" at $215.00.
+  - "HQ7978-001" finds exactly 1 product.
+  - A query with no matches (for example "zzzqqq") shows **"Nothing matches that"** and "0 products".
+- **Brand** filter, **price** filter (min and max in dollars, applied with **Go**), and **In stock only**.
+- Every active filter shows as a removable chip above the results; **Clear all** removes them.
+- **Sort:** Featured, Price low to high, Price high to low, Rating. Price low to high starts with "125 mL LDPE Bottle w/Dispensing cap" at $1.99; high to low starts with "Cotton Canvas Jacket" at $3,990.00.
+- Results show 24 per page with **Previous** / **Next** links and "Page N of M".
 
-### F3. Cart
-- Add to cart adds one unit. Adding the same product again increases its quantity.
-- The header cart button shows the total item count and the cart total.
-- The cart drawer lists each line, with:
-  - −/+ quantity steppers (the + stepper stops at 10; reducing to 0 removes the line)
-  - a remove control
-  - an empty state: "Nothing in the cart yet"
-- The drawer footer shows Subtotal, Delivery ("Free" for standard, the express charge for express), Total, and "Against a budget of $X".
+### F3. Product page (`/p/<id>`)
+- Shows the brand, the title, the price, photos, a description, and for matched products the style code.
+- **Options** (usually sizes) are pooled from every store that stocks the product, listed in size order; an option sold out everywhere is shown struck through and cannot be chosen.
+- With more than one option, **Add to cart** reads "Choose an option first" and is disabled until one is chosen. With a single option it is ready at once.
+- Adding shows "Added. N in your cart." and a **View cart** link; the header count increases.
+- A sourcing note: "Stocked by 5 of our partner stores. Hubit ships each size from whichever has it at the best price…" (or "Sourced from one partner store.").
+- **Reviews** come from the stores' own customers, with the reviewer's name, star rating and date. A product without reviews says "No reviews yet for this item."
+- An unknown id shows a not-found page.
 
-### F4. Budget rule
-- Changing the budget updates the spend meter and the "$X of $Y" line immediately.
-- The **order total** (goods plus delivery) is compared with the budget.
-- When the total exceeds the budget:
-  - the meter turns red
-  - the rules bar shows "over by $N"
-  - the gate pill reads "Rules not met, checkout withheld"
-  - the drawer lists "Cart is over budget by $N"
-- **Worked example** (default budget $1,200): add the 34" Ultrawide 165Hz ($319), Standing desk 160cm ($349), Ergonomic mesh adjustable ($388) and Mechanical TKL tactile ($149). The total is $1,205, so the cart is over by $5. Removing the keyboard brings it to $1,056, within budget.
-- Raising the budget to 1300 with the $1,205 cart clears the violation.
+### F4. Cart (`/cart`)
+- Each line shows the photo, brand, title, the chosen option, a quantity stepper (−/+, at most 10) and **Remove**. Quantity 0 removes the line.
+- An empty cart says **"Your cart is empty"** with a **Start shopping** button.
+- **Order summary:** Items (count), Shipping, Service fee (5%), Total. All prices are worked out by the server.
+- **Fees:**
+  - Shipping is **$6.99** when the items come to less than $75.00, and **Free** from $75.00.
+  - The service fee is **5% of the items**, rounded to the nearest cent.
+  - Below $75.00 the summary says "Add $X more for free shipping."
+- **Worked examples** (exact):
 
-### F5. "I already have" rule
-- Under Edit rules, the shopper toggles the categories they already own. The summary reads "You have a {category}…" or "You have nothing yet".
-- A cart containing a product from an owned category is outside the rules. The rules bar lists "You already have a {category}", and checkout is withheld.
-- Untoggling the category, or removing the product, clears the violation.
-- "Prioritise" (Quality or Price) is a preference only. It never creates a violation and never withdraws approval.
+| Cart | Items | Shipping | Service fee | Total |
+|---|---|---|---|---|
+| 1 × 8oz Storage Jar – Blue Lid ($4.19) | $4.19 | $6.99 | $0.21 | $11.39 |
+| 2 × 32oz Wide Mouth Surrealist Bottles ($18.99) | $37.98 | $6.99 | $1.90 | $46.87 |
+| 4 × 32oz Wide Mouth Surrealist Bottles | $75.96 | Free | $3.80 | $79.76 |
+| 1 × Air Jordan 5 Retro Mens Shoes, size 9 | $215.00 | Free | $10.75 | $225.75 |
 
-### F6. Delivery details
-- The drawer shows the delivery form when the cart is not empty.
-- Required fields: Full name, Email, Address, City, Postcode, Country.
-- Optional fields: Phone; Flat, unit, building; Delivery notes.
-- The email must look like an address (something@domain.tld). Otherwise the form is incomplete.
-- Delivery speed is Standard (free) or Express, shown as exactly `$14.99`, which counts against the budget. With Express selected, the drawer's Delivery line reads `$14.99`.
-- While the cart has items but required fields are missing, the gate pill reads "No delivery address, checkout withheld". The drawer says "Delivery needs {missing fields} before you can approve."
+- The cart survives a page reload (it is kept in the browser).
+- **Checkout** opens `/checkout`.
 
-### F7. Approval gate (core feature)
-- The **Approve this basket** button appears only when all of these hold:
-  - the cart is not empty
-  - there are no rule violations
-  - the delivery form is complete
-  - the basket is not already approved
-- With an empty cart, the gate pill reads "Empty cart, checkout withheld" and the drawer says "Add something before you can approve a basket." With violations, it says "Bring the cart inside your rules, then approve it."
-- Clicking Approve:
-  - turns the gate pill to "Checkout is open to the agent"
-  - shows "Approved. The agent has a checkout tool for this exact basket." in the drawer
-  - turns the `checkout` slot in the tool panel from "NOT REGISTERED, nothing for the agent to call" to "REGISTERED, the shopper approved this basket"
-- **Approval is withdrawn automatically** by any of these:
-  - adding, removing or changing the quantity of an item
-  - changing the budget
-  - toggling "I already have"
-  - editing any delivery field or the delivery speed
+### F5. Checkout and the pre-payment re-check (`/checkout`)
+- Before payment Hubit **reads every item again from its stores**. The order panel says "Prices and stock checked with the stores just now."
+- If a price changed since the item was added, the panel says so, for example: **"32oz Wide Mouth Surrealist Bottles went up from $18.99 to $21.99 since you added it."** The order total uses the new price.
+- If an item has sold out at every store, the panel says **"<title> has sold out at every store we source from. Remove it"**, and the pay button reads **"Remove sold-out items to pay"** and is disabled until the item is removed.
+- If the cheapest store for a size sold out but another store has it, the shopper sees nothing: the price is unchanged and Hubit ships it from the other store.
+- On previews and in tests the stores' changes since the snapshot are fixed:
+  - 32oz Wide Mouth Surrealist Bottles: $18.99 → **$21.99**.
+  - Analog Archive (Black Aluminum): **sold out** everywhere.
+  - Air Jordan 5 Retro Mens Shoes, size 9: sold out at Undefeated only; still $215.00 from the other four.
+- **Worked examples at checkout:**
+  - 2 × 32oz Wide Mouth Surrealist Bottles: items $43.98, shipping $6.99, service fee $2.20, **total $53.17** (the cart showed $46.87 before the re-check).
+  - 1 × Air Jordan 5, size 9: total **$225.75**, no change shown.
+- **Contact:** Full name, Email (required; must look like name@example.com, otherwise "Enter an email like name@example.com"), Phone (optional).
+- **Delivery address:** Address, City, Postcode (required; otherwise "Required"), Flat/unit (optional), State or region (optional), Country (a list, default United States).
+- **Payment:** a choice of Stripe test cards:
+  - "Visa ending 4242" pays.
+  - "Card that is declined" is refused: **"Your card was declined. Nothing was charged."**
+  - "Card with insufficient funds" is refused: "Your card has insufficient funds… Nothing was charged."
+- The pay button reads **"Pay $<total>"**. If a store changes again between review and payment, nothing is charged and the page says "Something changed at a store since you looked. Nothing was charged; check the new total and pay again."
+- After a successful payment the cart is emptied and the order page opens.
 
-  After any of these, `checkout` returns to NOT REGISTERED and the shopper must approve again.
-- **Approval is NOT withdrawn** by browsing:
-  - changing category
-  - searching
-  - sorting
-  - opening or closing quick view or the cart
-  - changing Prioritise
-- **Withdraw approval** (shown while approved) withdraws it manually.
-- Before approval, the `checkout` slot is NOT REGISTERED in every state.
+### F6. Order page (`/orders/<id>`)
+- Shows **Paid**, the date, the heading **"Order <invoice number>"**, and "Thanks, <first name>."
+- **How it ships:** the items grouped by the store that fulfils them, for example "Ships from Extra Butter" and "Ships from Nalgene", each with Paid ✓, Sent to <store> ✓, and "Shipping (test mode: nothing ships)". The heading line says how many stores fulfil the order.
+- **Receipt:** Items, Shipping, Service fee (5%), and **Paid** equal to the total charged; the delivery address; **Download invoice (PDF)** and **View invoice on Stripe**.
 
-### F9. Demo shopper (a scripted agent on the real tools)
-- Pressing **Run the demo shopper** starts a scripted agent. It is not an AI model. It calls the same tools a WebMCP agent would, so each call appears in the tool panel's Calls log, and it narrates each step in the panel.
-- **Script, on the default $1,200 budget:**
-  - It clears the cart and adds 34" Ultrawide 165Hz, Standing desk 160cm, Ergonomic mesh adjustable and Mechanical TKL tactile.
-  - If the delivery form is incomplete, it fills it as Ada Lovelace, ada@example.com, 12 Marconi Road, Lagos, 101233, Nigeria. Those fields show an "agent" tag.
-  - Seeing the cart is $5 over, it searches for a cheaper keyboard and swaps the Mechanical TKL for the Low profile mechanical ($129). The cart is then $1,185, within budget.
-  - It then tries to check out.
-- **The gate holds it.** While the basket is not approved, `checkout` is not registered, so the attempt is refused. The narration shows "Refused: checkout is not on my tool surface…" and the panel shows "Waiting for you to approve this basket". No order is placed.
-- **After the shopper approves this basket** (in the cart drawer or the rules bar), `checkout` becomes registered. The demo shopper then places the order on its own, and the narration ends with "Order placed for $1,185. checkout is gone again."
-  - The rules bar shows the banner "Order placed for $1,185…".
-  - In the tool panel, `checkout` returns to NOT REGISTERED and `get_order` shows "REGISTERED, there is an order to read back".
-  - **Start over** empties the cart.
-- **If approval is lost while the shopper waits** (for example, the budget is lowered below the cart), it keeps waiting and never checks out until the basket is approved again.
-- **Stop** ends a run at once with "Stopped. Nothing else was done."
-- **Run again** after an order starts a fresh basket.
-
-### F10. First screen
-- A first-time visitor reads what Hubit is before scrolling: the intro strip's line "An agent can fill this cart. It cannot buy until you approve this exact basket." is visible at the top of the page on desktop and on phones.
-- The intro strip's **Run the demo shopper** button starts the demo shopper (F9), exactly like the panel's own button, and brings the panel into view.
-- On phones the Demo shopper panel appears above the shelf, so the core flow is reachable without scrolling past the catalog.
-
-### F8. Persistence
-- The cart, rules and approval are not persisted. Reloading the page returns to an empty cart, budget $1,200, nothing owned, not approved.
-
-## 5. Out of scope for testing
-
-- A human checkout button. There is none, by design: checkout is a tool offered only to an agent, either a connected WebMCP agent or the demo shopper (F9).
-- Payment, accounts, email, real shipping.
+## 5. Out of scope
+- Real payments, real shipping, emails.
+- Agent tools (specified in a later version).
+- Accounts and sign-in (a later version).
 
 ## 6. Key user journeys to cover
-
-1. Browse → filter by category → search → sort → quick view → add to cart.
-2. Build the $1,205 cart → see "over by $5" → remove the keyboard → within budget.
-3. Fill the cart, fill delivery, approve → `checkout` REGISTERED → add one more item → approval withdrawn → `checkout` NOT REGISTERED.
-4. Approve → change the budget → approval withdrawn.
-5. Approve → edit the city → approval withdrawn.
-6. Approve → change category, search, open quick view, switch Prioritise → still approved.
-7. Mark "I already have a chair" → add a chair → violation → Approve not offered.
-8. Choose Express on a cart $10 under budget → now over budget → Approve not offered.
-9. Invalid email "ada@" → the form is incomplete and Approve is not offered.
-10. **Exact cents:** cart of 34" Ultrawide 165Hz + Standing desk 160cm + Ergonomic mesh adjustable ($1,056), budget 1070, choose Express → the rules bar reads `$1,070.99 of $1,070` and `over by $0.99`, the drawer total reads `$1,070.99`, and Approve is not offered. Raising the budget to 1071 clears the violation.
-11. **Demo shopper stops at the gate:** run it → it builds the $1,185 cart, its checkout attempt is refused, it waits; `checkout` is NOT REGISTERED and no order exists.
-12. **Demo shopper checks out only after approval:** run it, approve the basket → "Order placed for $1,185", `get_order` registered, `checkout` not; Start over empties the cart.
-13. **Approval lost while waiting:** run it, lower the budget to 1100 before approving → the cart is over budget, Approve is not offered, and no order is placed; set the budget back to 1200 and approve → the order is placed.
-14. **Stop:** run it and press Stop → "Stopped. Nothing else was done." and no order.
-15. **First screen:** open the store → the intro line is visible without scrolling; press the intro's Run the demo shopper → the panel narrates "Reading your rules." and reaches "Waiting for you to approve this basket".
-16. **Empty cart:** open the store with nothing in the cart → the gate pill reads "Empty cart, checkout withheld".
+1. Home → Shop everything → choose Footwear → 624 products → sort Price high to low.
+2. Search "jordan 5" → open "Air Jordan 5 Retro Mens Shoes" → $215.00 → Add to cart is disabled until a size is chosen → choose 9 → add → header count 1.
+3. Home → "Try a size" → choose 9 → the line names the store and $215.00; sizes 7 and 16 cannot be chosen.
+4. Add 2 × 32oz Wide Mouth Surrealist Bottles → cart: items $37.98, shipping $6.99, fee $1.90, total $46.87 and "Add $37.02 more for free shipping" → raise to 4 → shipping Free, total $79.76.
+5. Cart with the bottles → Checkout → the price-rise notice ($18.99 → $21.99) and total $53.17.
+6. Cart with Analog Archive (Black Aluminum) and the 8oz Storage Jar → Checkout → sold-out notice, pay disabled → Remove it → pay enabled, total $11.39.
+7. Checkout with an invalid email "ada@" and empty address → the field errors, nothing charged.
+8. Checkout with "Card that is declined" → "Your card was declined. Nothing was charged." and the cart is kept.
+9. Air Jordan 5 size 9 + 2 bottles → pay with Visa → order page: Paid, two "Ships from" groups (Extra Butter, Nalgene), receipt: items $258.98, shipping Free, service fee $12.95, **Paid $271.93**, and an invoice PDF link.
+10. Search "zzzqqq" → "Nothing matches that".
