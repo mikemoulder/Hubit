@@ -1,46 +1,51 @@
 import Link from "next/link";
-import { DEPARTMENTS } from "@/server/catalog/sources";
+import { sized } from "@/lib/format";
+import { photo } from "@/server/editorial";
 
+const MENU = [
+  { href: "/shop", label: "Shop everything" },
+  { href: "/shop?dept=footwear", label: "Footwear" },
+  { href: "/shop?dept=apparel", label: "Clothing" },
+  { href: "/shop?dept=home", label: "Home" },
+  { href: "/shop?sort=rating", label: "Best reviewed" },
+  { href: "/cart", label: "Your cart" },
+];
+
+/** Half photograph, half menu: the close of every page. */
 export function Footer({ storeCount, takenAt }: { storeCount: number; takenAt: string }) {
+  const pic = photo("footer");
   return (
-    <footer className="mt-16 border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.5fr_1fr_1.3fr]">
-        <div>
-          <p className="text-base font-semibold tracking-[-0.02em]">Hubit</p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--color-muted)]">
-            One shop over {storeCount} independent stores. You buy from Hubit, in one cart and one
-            payment; Hubit sources each item from the store that has it in stock at the best price.
-            You and your AI agent shop the same page.
-          </p>
-        </div>
-        <nav aria-label="Shop by department">
-          <h2 className="text-sm font-semibold">Shop</h2>
-          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
-            {DEPARTMENTS.map((d) => (
-              <li key={d.id}>
-                <Link
-                  href={`/shop?dept=${d.id}`}
-                  className="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-fg)] hover:underline"
-                >
-                  {d.label}
+    <footer className="mt-40 grid bg-[var(--color-ink)] text-[var(--color-ink-fg)] md:min-h-svh md:grid-cols-2">
+      <Link href={pic.href} className="relative block h-[50svh] overflow-hidden md:h-auto" aria-label={pic.title}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={sized(pic.src, 1600)} alt={pic.alt} loading="lazy" width={1600} height={2000} className="absolute inset-0 size-full object-cover object-[50%_20%]" />
+      </Link>
+      <div className="flex flex-col gap-16 px-[var(--margin)] py-16 md:px-[8%] md:py-20">
+        <p className="display text-lg">Hubit</p>
+        <nav aria-label="Footer">
+          <ul className="space-y-5">
+            {MENU.map((m) => (
+              <li key={m.href}>
+                <Link href={m.href} className="footer-link block text-[8vw] font-semibold leading-none tracking-[-0.02em] md:text-[2.6vw]">
+                  {m.label}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div>
-          <h2 className="text-sm font-semibold">Fees, plainly</h2>
-          <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
-            Every item is priced at its store&rsquo;s own price. Hubit adds a 5% service fee and
-            $6.99 shipping, free on orders of $75 or more. Both are shown before you pay.
+        <div className="grid gap-8 text-[15px] sm:grid-cols-2">
+          <p>
+            One shop over {storeCount} independent stores. Prices are each store&rsquo;s own, read on{" "}
+            {new Date(takenAt).toUTCString().slice(5, 16)}.
+          </p>
+          <p>
+            Built for TestSprite Season 4. Every pull request is tested before it merges.{" "}
+            <a href="https://github.com/MikeMoulder/Hubit" className="link-line underline">
+              Source on GitHub
+            </a>
           </p>
         </div>
-      </div>
-      <div className="border-t border-[var(--color-border)]">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-2 px-4 py-4 text-xs text-[var(--color-muted)] sm:px-6">
-          <p>Payments run in Stripe test mode. Nothing ships and no real card is charged.</p>
-          <p>Catalogue snapshot taken {new Date(takenAt).toUTCString().slice(5, 16)}.</p>
-        </div>
+        <p className="mt-auto text-[13px]">Payments run in Stripe test mode. Nothing ships and no real card is charged.</p>
       </div>
     </footer>
   );

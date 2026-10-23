@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { TikTok_Sans } from "next/font/google";
 import { Footer } from "@/components/shop/Footer";
 import { Header } from "@/components/shop/Header";
+import { Motion } from "@/components/shop/Motion";
 import { getCatalog } from "@/server/catalog";
 import "./globals.css";
 
-// Self-hosted at build time, so the demo never waits on a font CDN over venue wifi.
-const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Self-hosted at build time. One variable family: wide and heavy for display, normal
+// width for reading.
+const sans = TikTok_Sans({ variable: "--font-tiktok", subsets: ["latin"], axes: ["wdth"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hubit-store.vercel.app"),
@@ -26,12 +27,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const catalog = getCatalog();
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={sans.variable}>
       <body className="antialiased">
-        <Suspense fallback={<div className="h-[105px] border-b border-[var(--color-border)]" />}>
+        <Suspense fallback={<div className="h-16" />}>
           <Header />
         </Suspense>
         {children}
+        <Motion />
         <Footer storeCount={catalog.sources.length} takenAt={catalog.takenAt} />
       </body>
     </html>

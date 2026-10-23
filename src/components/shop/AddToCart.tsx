@@ -22,7 +22,7 @@ export function AddToCart({ productId, options }: { productId: string; options: 
 
   if (!firstInStock) {
     return (
-      <p className="rounded-[var(--radius)] bg-[var(--color-surface-2)] px-4 py-3 text-sm" data-testid="sold-out">
+      <p className="bg-[var(--color-surface-2)] px-4 py-3" data-testid="sold-out">
         Sold out at every store we source from.
       </p>
     );
@@ -32,7 +32,7 @@ export function AddToCart({ productId, options }: { productId: string; options: 
     <div className="space-y-4">
       {!single && (
         <fieldset>
-          <legend className="text-sm font-medium">
+          <legend className="font-medium">
             Choose an option {chosen && <span className="font-normal text-[var(--color-muted)]">: {chosen}</span>}
           </legend>
           <div className="mt-2 flex flex-wrap gap-2" data-testid="options">
@@ -47,10 +47,10 @@ export function AddToCart({ productId, options }: { productId: string; options: 
                   setAdded(false);
                 }}
                 className={[
-                  "min-w-12 rounded-md border px-3 py-2 text-sm tabular-nums transition-colors",
+                  "min-h-11 min-w-12 px-3 text-[15px] tabular-nums transition-colors active:scale-95",
                   chosen === o.option
-                    ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-ink-fg)]"
-                    : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-strong)]",
+                    ? "bg-[var(--color-ink)] text-[var(--color-ink-fg)]"
+                    : "bg-[var(--color-surface-2)] hover:bg-[var(--color-surface-3)]",
                   o.available ? "" : "cursor-not-allowed text-[var(--color-muted)] line-through opacity-60",
                 ].join(" ")}
               >
@@ -63,7 +63,7 @@ export function AddToCart({ productId, options }: { productId: string; options: 
       )}
 
       {pick && pick.priceCents && (
-        <p className="text-sm text-[var(--color-muted)]">
+        <p className="text-[15px]">
           {single ? "Price" : `Price in ${pick.option}`}: <span className="font-semibold tabular-nums text-[var(--color-fg)]" data-testid="option-price">{money(pick.priceCents)}</span>
         </p>
       )}
@@ -78,15 +78,15 @@ export function AddToCart({ productId, options }: { productId: string; options: 
             addLine(productId, chosen);
             setAdded(true);
           }}
-          className="rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-medium text-[var(--color-ink-fg)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          className="btn min-h-14 w-full px-8 sm:w-auto"
         >
           {chosen ? "Add to cart" : "Choose an option first"}
         </button>
         {added && (
-          <p className="flex items-center gap-1.5 text-sm" role="status" data-testid="added-status">
+          <p className="flex items-center gap-1.5 text-[15px]" role="status" data-testid="added-status">
             <Check className="size-4 text-[var(--color-ok)]" aria-hidden />
             Added. {inCart} in your cart.{" "}
-            <Link href="/cart" className="font-medium underline underline-offset-4">
+            <Link href="/cart" className="link-line font-medium underline">
               View cart
             </Link>
           </p>

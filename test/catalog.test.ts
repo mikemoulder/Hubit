@@ -94,3 +94,12 @@ test("sneakers are footwear wherever they are sold", () => {
     assert.equal(p.department, "footwear", `${p.id} ${p.title}`);
   }
 });
+
+test("every editorial photograph points at a product in the snapshot", async () => {
+  const { PICKS } = await import("../src/server/editorial.ts");
+  for (const [key, pick] of Object.entries(PICKS)) {
+    const p = catalog.byId.get(pick.productId);
+    assert.ok(p, `${key}: ${pick.productId} is not in the catalogue`);
+    assert.ok(p.images[pick.image], `${key}: image ${pick.image} missing`);
+  }
+});

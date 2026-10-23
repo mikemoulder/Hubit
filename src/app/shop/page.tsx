@@ -48,8 +48,19 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
   }
 
   return (
-    <main className="mx-auto grid max-w-[1400px] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <aside aria-label="Filters" className="space-y-7 text-sm">
+    <main className="px-[var(--margin)] pb-10">
+      <nav aria-label="Departments" className="thin-scroll -mx-[var(--margin)] mb-8 flex gap-1 overflow-x-auto px-[var(--margin)] pt-2">
+        <Link href="/shop" aria-current={!query.department ? "page" : undefined} className={`shrink-0 px-3 py-2 text-[15px] transition-colors ${!query.department ? "bg-[var(--color-ink)] text-[var(--color-ink-fg)]" : "hover:bg-[var(--color-surface-2)]"}`}>
+          All
+        </Link>
+        {DEPARTMENTS.map((d) => (
+          <Link key={d.id} href={`/shop?dept=${d.id}`} aria-current={query.department === d.id ? "page" : undefined} className={`shrink-0 px-3 py-2 text-[15px] transition-colors ${query.department === d.id ? "bg-[var(--color-ink)] text-[var(--color-ink-fg)]" : "hover:bg-[var(--color-surface-2)]"}`}>
+            {d.label}
+          </Link>
+        ))}
+      </nav>
+      <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
+      <aside aria-label="Filters" className="space-y-8 text-[15px]">
         <FilterGroup title="Department">
           {r.facets.departments.map((f) => (
             <FacetLink key={f.value} on={query.department === f.value} href={hrefWith(params, { dept: query.department === f.value ? undefined : f.value })} label={f.label} count={f.count} />
@@ -66,10 +77,10 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
               typeof v === "string" && !["min", "max", "page"].includes(k) ? <input key={k} type="hidden" name={k} value={v} /> : null,
             )}
             <label className="sr-only" htmlFor="min">Minimum price</label>
-            <input id="min" name="min" inputMode="decimal" placeholder="$ min" defaultValue={query.minCents !== undefined ? query.minCents / 100 : ""} className="w-20 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1.5" />
+            <input id="min" name="min" inputMode="decimal" placeholder="$ min" defaultValue={query.minCents !== undefined ? query.minCents / 100 : ""} className="h-10 w-20 bg-[var(--color-surface-2)] px-2" />
             <label className="sr-only" htmlFor="max">Maximum price</label>
-            <input id="max" name="max" inputMode="decimal" placeholder="$ max" defaultValue={query.maxCents !== undefined ? query.maxCents / 100 : ""} className="w-20 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1.5" />
-            <button type="submit" className="rounded-md border border-[var(--color-border)] px-2 py-1.5 hover:bg-[var(--color-surface-2)]">Go</button>
+            <input id="max" name="max" inputMode="decimal" placeholder="$ max" defaultValue={query.maxCents !== undefined ? query.maxCents / 100 : ""} className="h-10 w-20 bg-[var(--color-surface-2)] px-2" />
+            <button type="submit" className="btn min-h-10 px-3">Go</button>
           </form>
         </FilterGroup>
         <FilterGroup title="Availability">
@@ -80,10 +91,10 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
       <section aria-labelledby="results" className="min-w-0">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 id="results" className="text-xl font-semibold tracking-[-0.02em]">
+            <h1 id="results" className="display text-[clamp(28px,3vw,44px)]">
               {query.q ? `Results for “${query.q}”` : (deptLabel ?? "Everything")}
             </h1>
-            <p className="mt-0.5 text-sm text-[var(--color-muted)]" data-testid="result-count">
+            <p className="mt-2 text-[15px] text-[var(--color-muted)]" data-testid="result-count">
               {r.total.toLocaleString("en-US")} {r.total === 1 ? "product" : "products"}
             </p>
           </div>
@@ -96,23 +107,23 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
           <ul className="mt-4 flex flex-wrap gap-2" aria-label="Active filters">
             {chips.map((c) => (
               <li key={c.label}>
-                <Link href={c.href} className="inline-flex items-center gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs hover:border-[var(--color-border-strong)]">
+                <Link href={c.href} className="inline-flex items-center gap-1.5 bg-[var(--color-surface-2)] px-3 py-1.5 text-[13px] transition-colors hover:bg-[var(--color-surface-3)]">
                   {c.label} <X className="size-3" aria-hidden />
                   <span className="sr-only">Remove filter</span>
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/shop" className="inline-flex px-2 py-1 text-xs underline underline-offset-4">Clear all</Link>
+              <Link href="/shop" className="link-line inline-flex px-2 py-1.5 text-[13px] underline">Clear all</Link>
             </li>
           </ul>
         )}
 
         {r.total === 0 ? (
-          <div className="mt-6 flex flex-col items-center rounded-[var(--radius)] border border-dashed border-[var(--color-border-strong)] px-6 py-16 text-center">
+          <div className="mt-6 flex flex-col items-center bg-[var(--color-surface-2)] px-6 py-16 text-center">
             <Search className="size-6 text-[var(--color-muted)]" aria-hidden />
             <p className="mt-3 text-base font-medium">Nothing matches that</p>
-            <p className="mt-1 max-w-sm text-sm text-[var(--color-muted)]">Try a broader word, or remove a filter.</p>
+            <p className="mt-1 max-w-sm text-[15px]">Try a broader word, or remove a filter.</p>
           </div>
         ) : (
           <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 xl:grid-cols-4">
@@ -124,12 +135,13 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
 
         {pages > 1 && (
           <nav aria-label="Pages" className="mt-10 flex items-center justify-center gap-3 text-sm">
-            {r.page > 1 && <Link href={hrefWith(params, { page: String(r.page - 1) })} className="rounded-full border border-[var(--color-border)] px-4 py-1.5 hover:bg-[var(--color-surface-2)]">Previous</Link>}
+            {r.page > 1 && <Link href={hrefWith(params, { page: String(r.page - 1) })} className="btn btn-invert min-h-10 bg-[var(--color-surface-2)] px-4">Previous</Link>}
             <span className="tabular-nums text-[var(--color-muted)]">Page {r.page} of {pages}</span>
-            {r.page < pages && <Link href={hrefWith(params, { page: String(r.page + 1) })} className="rounded-full border border-[var(--color-border)] px-4 py-1.5 hover:bg-[var(--color-surface-2)]">Next</Link>}
+            {r.page < pages && <Link href={hrefWith(params, { page: String(r.page + 1) })} className="btn min-h-10 px-4">Next</Link>}
           </nav>
         )}
       </section>
+      </div>
     </main>
   );
 }
@@ -137,7 +149,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">{title}</h2>
+      <h2 className="mb-2 text-[15px] font-semibold">{title}</h2>
       <ul className="space-y-0.5">{children}</ul>
     </div>
   );
@@ -149,10 +161,10 @@ function FacetLink({ on, href, label, count }: { on: boolean; href: string; labe
       <Link
         href={href}
         aria-current={on ? "true" : undefined}
-        className={`flex items-center justify-between rounded-md px-2 py-1 transition-colors hover:bg-[var(--color-surface-2)] ${on ? "bg-[var(--color-surface-2)] font-medium" : ""}`}
+        className={`flex items-center justify-between px-2 py-1.5 transition-colors ${on ? "bg-[var(--color-ink)] text-[var(--color-ink-fg)]" : "hover:bg-[var(--color-surface-2)]"}`}
       >
         <span className="truncate">{label}</span>
-        {count !== undefined && <span className="ml-2 tabular-nums text-xs text-[var(--color-muted)]">{count}</span>}
+        {count !== undefined && <span className="ml-2 tabular-nums text-[13px] opacity-75">{count}</span>}
       </Link>
     </li>
   );

@@ -7,7 +7,7 @@ export function SortSelect({ value }: { value: string }) {
   const path = usePathname();
   const params = useSearchParams();
   return (
-    <label className="flex items-center gap-2 text-xs text-[var(--color-muted)]">
+    <label className="flex items-center gap-2 text-[15px]">
       Sort
       <select
         value={value}
@@ -18,7 +18,7 @@ export function SortSelect({ value }: { value: string }) {
           next.delete("page");
           router.push(`${path}?${next}`);
         }}
-        className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-xs text-[var(--color-fg)] transition-colors hover:border-[var(--color-border-strong)]"
+        className="h-10 bg-[var(--color-surface-2)] px-3 text-[15px] text-[var(--color-fg)]"
       >
         <option value="featured">Featured</option>
         <option value="price-asc">Price, low to high</option>
