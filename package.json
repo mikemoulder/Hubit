@@ -7,22 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "audit": "node test/run-audit.js",
     "test": "node --test test/*.test.ts",
     "snapshot": "node scripts/snapshot.ts"
   },
   "dependencies": {
-    "@base-ui/react": "^1.7.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "lucide-react": "^1.39.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "shadcn": "^4.20.0",
-    "stripe": "22.6.2",
-    "tailwind-merge": "^3.6.0",
-    "tw-animate-css": "^1.4.0"
+    "stripe": "22.6.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
