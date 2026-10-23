@@ -1,0 +1,2839 @@
+[
+ {
+  "id": "64b3c4e4-cfbd-47fb-8970-86e468eaad7f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Demo shopper cannot check out after approval conditions are lost",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [],
+  "headlineEnvironment": {
+   "id": "f7ae3b05-0264-4114-926c-96635b5c0b56",
+   "name": "github-pr-9"
+  },
+  "description": "",
+  "planStepCount": 9,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the right-hand column, find the 'Demo shopper' panel and click its 'Run the demo shopper' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait (up to 30 seconds) until the Demo shopper panel shows 'Waiting for you to approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer if it is open. In the 'Your rules' bar, clear the Budget input, type 1100, and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows 'over by' text, the gate status reads 'Rules not met, checkout withheld', no 'Approve this basket' button is shown, and no 'Order placed' banner is shown",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait 5 seconds",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify there is still no 'Order placed' banner and the Demo shopper panel still shows 'Waiting for you to approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Change the Budget input back to 1200, click elsewhere, then click 'Approve this basket' in the 'Your rules' bar",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify within 15 seconds the page shows the banner 'Order placed for $1,185'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T10:52:45.740Z",
+  "updatedAt": "2026-10-21T13:26:48.540Z"
+ },
+ {
+  "id": "2749dad3-fc80-45d8-9fcd-8131727cb9ad",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Demo shopper checks out only after the shopper approves",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [],
+  "headlineEnvironment": {
+   "id": "f7ae3b05-0264-4114-926c-96635b5c0b56",
+   "name": "github-pr-9"
+  },
+  "description": "",
+  "planStepCount": 9,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the right-hand column, find the 'Demo shopper' panel and click its 'Run the demo shopper' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait (up to 30 seconds) until the Demo shopper panel shows 'Waiting for you to approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket': use the button at the bottom of the open cart drawer if the drawer is open, otherwise the one in the 'Your rules' bar",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait (up to 15 seconds) until the Demo shopper narration shows 'Order placed for $1,185'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows the banner 'Order placed for $1,185' (close the cart drawer first if it covers the rules bar)",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the agent tool panel shows get_order as 'REGISTERED, there is an order to read back' and checkout as 'NOT REGISTERED'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Start over' in the order banner",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 0 items",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T10:52:43.069Z",
+  "updatedAt": "2026-10-21T13:25:44.829Z"
+ },
+ {
+  "id": "79d8ec7b-91a8-4429-96c0-e83012cc19be",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Demo shopper is refused at the gate until the basket is approved",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "",
+  "planStepCount": 9,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the right-hand column, find the 'Demo shopper' panel and click its 'Run the demo shopper' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait (up to 30 seconds) until the Demo shopper panel shows 'Waiting for you to approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Demo shopper narration includes 'Swapping the Mechanical TKL, tactile for the Low profile mechanical, which saves $20.' and 'Refused: checkout is not on my tool surface'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer's Total reads '$1,185' and the delivery fields are filled with 'Ada Lovelace', 'ada@example.com' and '12 Marconi Road'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar reads '$1,185 of $1,200' and the gate status pill reads 'Checkout withheld until you approve'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call', and its Calls list contains a checkout entry marked as failed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no 'Order placed' banner is shown anywhere on the page",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:08.305Z",
+  "updatedAt": "2026-10-21T13:25:24.257Z"
+ },
+ {
+  "id": "f7e5a0e4-4929-4b66-a5ac-f5dfa2ad74cf",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Demo shopper stops when told to",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [],
+  "headlineEnvironment": {
+   "id": "f7ae3b05-0264-4114-926c-96635b5c0b56",
+   "name": "github-pr-9"
+  },
+  "description": "",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the right-hand column, find the 'Demo shopper' panel and click its 'Run the demo shopper' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Immediately click the 'Stop' button in the Demo shopper panel",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Demo shopper narration ends with 'Stopped. Nothing else was done.' and the panel offers a 'Run again' button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no 'Order placed' banner is shown",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T10:52:48.258Z",
+  "updatedAt": "2026-10-21T13:24:53.238Z"
+ },
+ {
+  "id": "4eedd0f8-16ee-468c-ade9-0b78db9e6581",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Express delivery is shown and budgeted to the exact cent",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [],
+  "headlineEnvironment": {
+   "id": "f7ae3b05-0264-4114-926c-96635b5c0b56",
+   "name": "github-pr-9"
+  },
+  "description": "",
+  "planStepCount": 10,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add these three products to the cart once each using their Add to cart buttons: '34\" Ultrawide 165Hz' ($319), 'Standing desk, 160cm' ($349) and 'Ergonomic mesh, adjustable' ($388)",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar, clear the Budget input and type 1070, then click elsewhere on the page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the cart button in the header, and under 'Delivery speed' choose Express",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer's Delivery line shows exactly '$14.99' (not '$15')",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer's Total shows exactly '$1,070.99' (not '$1,071')",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar reads '$1,070.99 of $1,070' and shows 'over by $0.99' (not 'over by $1')",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no 'Approve this basket' button is shown anywhere on the page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Change the Budget input to 1071 and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar no longer shows any 'over by' text",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T09:19:38.310Z",
+  "updatedAt": "2026-10-21T13:26:34.512Z"
+ },
+ {
+  "id": "694eb4d6-e5da-4b24-84e7-3cd95f965346",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "First screen says what Hubit is and starts the demo shopper",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [],
+  "headlineEnvironment": {
+   "id": "f7ae3b05-0264-4114-926c-96635b5c0b56",
+   "name": "github-pr-9"
+  },
+  "description": "",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page and do not scroll",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify that, without scrolling, the page shows the line 'An agent can fill this cart. It cannot buy until you approve this exact basket.' near the top, above the 'Everything on the shelf' heading",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a 'Run the demo shopper' button is shown next to that line, above the 'Everything on the shelf' heading",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click the 'Run the demo shopper' button that sits next to that intro line (not the one inside the Demo shopper panel)",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Wait (up to 30 seconds) until the Demo shopper panel shows 'Waiting for you to approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Demo shopper panel narration starts with 'Reading your rules.' and includes 'Refused: checkout is not on my tool surface'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T11:50:48.345Z",
+  "updatedAt": "2026-10-21T13:25:18.083Z"
+ },
+ {
+  "id": "e46137f1-c3d0-410b-9992-30b8a80b8a1f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Withhold approval on an empty cart",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "",
+  "planStepCount": 7,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 0 items, the rules bar reads '$0 of $1,200', and the gate status pill reads 'Empty cart, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Nothing in the cart yet' and 'Add something before you can approve a basket.', with no 'Approve this basket' button and no delivery form",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no 'Approve this basket' button is shown in the 'Your rules' bar",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": null,
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:36.756Z",
+  "updatedAt": "2026-10-21T13:25:31.183Z"
+ },
+ {
+  "id": "f75a9cea-0310-49f8-ae02-b67fdedee8d3",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approve a valid basket",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that approving a basket updates the checkout status and confirmation state for the exact basket.",
+  "planStepCount": 10,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill reads 'No delivery address, checkout withheld' and no 'Approve this basket' button is shown",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows an 'Approve this basket' button and the Total reads '$319'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Approval Gate",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:24.710Z",
+  "updatedAt": "2026-10-21T13:26:27.040Z"
+ },
+ {
+  "id": "9a0d8d3e-8097-4566-9b5f-c888f0f8c3db",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Keep approval after changing prioritisation",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that changing the prioritisation preference does not withdraw approval from an already approved basket.",
+  "planStepCount": 11,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar under 'Prioritise', click 'Price', then click 'Quality'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill still reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel still shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Approval Gate",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:14.072Z",
+  "updatedAt": "2026-10-21T13:26:12.283Z"
+ },
+ {
+  "id": "886bdf61-0988-4ccf-af48-1ae3cae32122",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approved basket loses approval after budget change",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify changing the budget withdraws approval from an already approved basket.",
+  "planStepCount": 12,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar, clear the Budget input, type 1300, and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar reads '$319 of $1,300' and an 'Approve this basket' button is offered again",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill no longer reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:11.392Z",
+  "updatedAt": "2026-10-21T13:27:02.843Z"
+ },
+ {
+  "id": "0e2f62a2-d399-4c7d-9616-9dfcb711e507",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approved basket loses approval after cart change",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify any cart edit withdraws approval after the basket has been approved.",
+  "planStepCount": 12,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add 'Mechanical TKL, tactile' ($149) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 2 items and $468, and an 'Approve this basket' button is offered again",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill no longer reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:00.401Z",
+  "updatedAt": "2026-10-21T13:26:25.532Z"
+ },
+ {
+  "id": "f127f140-6b54-4da6-808f-3813988ad49d",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Browsing changes do not withdraw approval",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify browsing actions such as switching categories, searching, sorting, opening quick view, and changing prioritisation do not withdraw approval once the basket is approved.",
+  "planStepCount": 12,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click the 'Desks' category, type 'standing' in 'Search the shelf', choose 'Price, low to high' in the Sort control, then open the quick view of 'Standing desk, 140cm' and close it",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill still reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel still shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a 'Withdraw approval' button is still shown and no 'Approve this basket' button is shown",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:22.160Z",
+  "updatedAt": "2026-10-21T13:27:44.710Z"
+ },
+ {
+  "id": "fb67e764-702d-40ca-b781-722a81124d69",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Budget increase clears overage",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify increasing the budget after an over-budget cart immediately restores budget compliance.",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add exactly these four products to the cart once each: '34\" Ultrawide 165Hz', 'Standing desk, 160cm', 'Ergonomic mesh, adjustable' and 'Mechanical TKL, tactile' (goods total $1,205, against the default $1,200 budget)",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows 'over by' text and the gate status reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar, clear the Budget input, type 1300, and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar no longer shows any 'over by' text and the gate status no longer reads 'Rules not met, checkout withheld'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:51:34.176Z",
+  "updatedAt": "2026-10-21T13:26:19.316Z"
+ },
+ {
+  "id": "7d9e5926-0778-49a8-8504-abb145b70c5f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Budget overage blocks approval",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify the basket is flagged when the cart total exceeds the shopper budget and approval is withheld.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and fill the delivery form with Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an 'Approve this basket' button is shown while the cart is within budget",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar, clear the Budget input, type 300, and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the drawer lists 'Cart is over budget', the gate status reads 'Rules not met, checkout withheld', and no 'Approve this basket' button is shown",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:51:39.416Z",
+  "updatedAt": "2026-10-21T13:26:36.549Z"
+ },
+ {
+  "id": "a2a17b9a-e687-4850-ab51-e487d387b4ec",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Cart can be approved after clearing ownership rule",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify removing the ownership constraint or removing the conflicting item restores approval eligibility.",
+  "planStepCount": 9,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar under 'I already have', toggle Chair on",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add 'Ergonomic mesh, adjustable' ($388) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Toggle Chair off under 'I already have'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the violation 'You already have a chair' is gone and the cart drawer shows an 'Approve this basket' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T11:37:08.084Z",
+  "updatedAt": "2026-10-21T13:26:24.459Z"
+ },
+ {
+  "id": "039669d0-3f20-4e8c-a98b-92e058194cf6",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Delivery express fee counts toward budget",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify selecting express delivery increases the total and can push a near-budget cart over the limit.",
+  "planStepCount": 9,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add exactly these three products to the cart once each: '34\" Ultrawide 165Hz', 'Standing desk, 160cm' and 'Ergonomic mesh, adjustable' (goods total $1,056)",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar, clear the Budget input, type 1065, and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows no 'over by' text, so the cart is within the $1,065 budget with standard delivery",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and under 'Delivery speed' choose Express",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer's Delivery line now shows a non-zero express charge instead of 'Free', and the Total is greater than the subtotal",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar now shows 'over by' text and the gate status reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Under 'Delivery speed' choose Standard again",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'over by' text is gone from the rules bar",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:47:09.477Z",
+  "updatedAt": "2026-10-21T13:26:31.456Z"
+ },
+ {
+  "id": "cca21256-2294-492c-bde7-7e449d83747e",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Incomplete delivery details withhold approval",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify missing required delivery details prevent approval from being offered.",
+  "planStepCount": 7,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and fill only Full name 'Ada Lovelace', Email 'ada@example.com' and Address '12 Marconi Road', leaving City, Postcode and Country empty",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer says 'Delivery needs city, postcode, country before you can approve.' and shows no 'Approve this basket' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill reads 'No delivery address, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:16.874Z",
+  "updatedAt": "2026-10-21T13:25:36.619Z"
+ },
+ {
+  "id": "a11399ad-ad47-4571-9e4e-67a37060124a",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Invalid email keeps delivery form incomplete",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify an invalid email format prevents the delivery form from becoming complete and approval remains withheld.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer says 'Delivery needs a valid email before you can approve.' and shows no 'Approve this basket' button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Change the Email field to 'ada@example.com'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an 'Approve this basket' button now appears in the cart drawer",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T11:37:05.694Z",
+  "updatedAt": "2026-10-21T13:25:34.253Z"
+ },
+ {
+  "id": "ba619de4-642a-4cd0-8aec-e5e9d25a0507",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Reload resets budget cart and approval state",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify reloading the page clears cart contents, resets the budget, and removes approval state.",
+  "planStepCount": 8,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Change the Budget input in the 'Your rules' bar to 1500 and click elsewhere",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' to the cart, open the cart, fill the delivery form with Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria', then click 'Approve this basket'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows 'Checkout is open to the agent' before the fresh load",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Load the storefront fresh by navigating to the current site's home page with '?reload=1' appended to the URL (for example https://<this host>/?reload=1). This full page load replaces the reload and must happen before the next checks",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 0 items and opening the cart shows 'Nothing in the cart yet'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Budget input shows 1200 again",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page no longer shows 'Checkout is open to the agent' and the agent tool panel shows checkout as 'NOT REGISTERED'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:09:20.754Z",
+  "updatedAt": "2026-10-21T13:27:12.594Z"
+ },
+ {
+  "id": "cc51e538-afb4-419e-935a-6ff883b468ed",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Removing an item restores budget compliance",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify removing an item from an over-budget basket brings the cart back within the allowed spend limit.",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add exactly these four products to the cart once each: '34\" Ultrawide 165Hz', 'Standing desk, 160cm', 'Ergonomic mesh, adjustable' and 'Mechanical TKL, tactile' (goods total $1,205, against the default $1,200 budget)",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows 'over by' text and the gate status reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and remove the 'Mechanical TKL, tactile' line",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart still contains the other three products, the rules bar shows no 'over by' text, and the drawer lists no 'Cart is over budget' message",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:51:36.920Z",
+  "updatedAt": "2026-10-21T13:26:33.015Z"
+ },
+ {
+  "id": "2f10d7fc-a5ef-42c9-9358-4b6149487d41",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Search browse and add item from filtered results",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify a shopper can search the catalog, view filtered products, and add one to the cart.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Search for a product by name",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Verify matching results are shown",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open a product quick view from the results",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add the product to the cart from quick view",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart contains the added product",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Budget Rule Enforcement",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:25.879Z"
+ },
+ {
+  "id": "3ac8fc34-e96a-4efd-a0ce-ea4992ed0ae5",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Add an item to an empty cart",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify a product can be added to the cart from the catalog and the cart reflects the item.",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click an add to cart control for a product",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart shows one item with the selected product listed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart total is displayed",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Cart Management",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:24:45.996Z"
+ },
+ {
+  "id": "28fcb8b3-fed2-4618-91ce-af306ee62bac",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Adjust item quantity with steppers",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify the cart quantity controls increase and decrease the selected item count while keeping the line in the cart.",
+  "planStepCount": 7,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add a product to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Increase the item quantity using the cart quantity control",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Decrease the item quantity using the cart quantity control",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart line remains present after quantity adjustments",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the quantity shown for the item reflects the final stepper state",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Cart Management",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:31.163Z"
+ },
+ {
+  "id": "20e3b308-c654-4781-9737-38963c85959f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Increase cart quantity by adding the same product again",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify adding the same product twice increases its quantity and updates the cart total.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add a product to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add the same product to the cart again",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the product quantity in the cart has increased",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart total reflects the increased quantity",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Cart Management",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:45.083Z"
+ },
+ {
+  "id": "341f3ebe-0d02-42ae-9b6d-97993768c71f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Remove an item from the cart",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify removing a cart line clears it from the cart and updates the cart to empty when it was the only item.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add a product to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Remove the product from the cart",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart is empty",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the empty state message is shown",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Cart Management",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:39.303Z"
+ },
+ {
+  "id": "0a5d4171-8861-49a0-be40-997bf431f1a4",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Show the cart empty state after clearing all items",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Verify the cart drawer shows its empty-state behavior when all items have been removed.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add a product to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Remove the only item from the cart",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows an empty cart state",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no cart items are listed",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Cart Management",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:13.101Z"
+ },
+ {
+  "id": "af5d1075-54da-4c67-ae33-90680e0507b2",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Browse all catalog products",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that the default catalog view shows the full desk setup product grid.",
+  "planStepCount": 3,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the full product catalog is displayed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the default view shows all catalog categories available for browsing",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:24:57.484Z"
+ },
+ {
+  "id": "a3bd599b-463e-41de-9d4e-c515d74647d6",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Combine category, search, and sort filters",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that category filtering, search, and sorting work together to narrow and organize the catalog.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select a product category from the catalog navigation",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the search field with a product keyword",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select a price sort option",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify only matching products from the selected category are displayed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the visible results follow the selected sort order",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:26:05.033Z"
+ },
+ {
+  "id": "40b60f93-0300-4359-9f4e-0396f24d6c42",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Filter products by category",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that selecting a category narrows the catalog to products from that category only.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select a product category from the catalog navigation",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify only products from the selected category are displayed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify products from other categories are no longer shown",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:20.658Z"
+ },
+ {
+  "id": "d13ab0c8-ae13-4217-b0c9-ad48d84b152f",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Search the catalog by product name or description",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that search narrows the catalog using case-insensitive matching across product names and descriptions.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the search field with a product keyword",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify only matching products are displayed in the catalog",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify non-matching products are hidden from the results",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:26:02.166Z"
+ },
+ {
+  "id": "2070affc-7960-4337-a528-2b9744595131",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Show empty state for unmatched search",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that the catalog shows the empty state when no products match the current search.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the search field with a keyword that matches no products",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an empty state message is displayed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no product cards are shown in the catalog grid",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:24:48.148Z"
+ },
+ {
+  "id": "09832094-770d-4b51-b2e2-6263abdf090b",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Sort catalog by price high to low",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that the price high to low sort orders the catalog from the most expensive product to the cheapest.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select the price high to low sort option",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the catalog products are ordered by descending price",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify each product price is greater than or equal to the one after it",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:21.074Z"
+ },
+ {
+  "id": "bd87077d-6209-47f8-aa87-fa8893a79ee3",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Sort catalog by price low to high",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that the price low to high sort orders the catalog from the cheapest product to the most expensive.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select the price low to high sort option",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the catalog products are ordered by ascending price",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify each product price is less than or equal to the one after it",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Catalog Browsing",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:16.350Z"
+ },
+ {
+  "id": "53ba5655-f97f-4127-9f24-b66147cdb9e9",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approval is withdrawn after changing the delivery speed",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that switching delivery speed after approval withdraws approval for the exact basket.",
+  "planStepCount": 14,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and under 'Delivery speed' choose Express",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer's Delivery line now shows '$14.99' and the Total reads '$333.99'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows an 'Approve this basket' button again instead of the 'Approved.' message",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill no longer reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Delivery Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:05.044Z",
+  "updatedAt": "2026-10-21T13:26:55.647Z"
+ },
+ {
+  "id": "d02e460b-8807-4bd8-9dc3-3ea118bb4162",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approval is withdrawn after editing delivery details",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that changing a completed delivery form after approval withdraws the basket approval state.",
+  "planStepCount": 13,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and change the City field from 'Lagos' to 'Abuja'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer no longer shows 'Approved. The agent has a checkout tool for this exact basket.' and shows an 'Approve this basket' button again",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill no longer reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Delivery Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T12:00:19.633Z",
+  "updatedAt": "2026-10-21T13:26:44.327Z"
+ },
+ {
+  "id": "1d95e89a-8906-44c1-a78c-90359f7ae358",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Complete delivery details with standard shipping",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that a shopper can enter all required delivery details with standard shipping and reach the approved basket state.",
+  "planStepCount": 13,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store homepage",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add a product to the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the full name field with \"Explore Test\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the email field with \"explore-test@example.com\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the address field with \"123 Test Street\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the city field with \"Test City\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the postcode field with \"10101\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill in the country field with \"Nigeria\"",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Select standard delivery",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Submit the basket approval",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the basket is approved for this exact cart",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the checkout gate indicates approval is open",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Delivery Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:26:02.515Z"
+ },
+ {
+  "id": "0b1cd034-6ab9-4514-a1dd-31a252a2ad30",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Approval is withdrawn after adding an owned-category item",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that adding a product after approval removes checkout approval and returns the basket to not registered.",
+  "planStepCount": 13,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add '34\" Ultrawide 165Hz' ($319) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart with the header cart button and fill the delivery form: Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click 'Approve this basket' at the bottom of the cart drawer",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart drawer shows 'Approved. The agent has a checkout tool for this exact basket.'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the cart drawer by clicking the X button in its top-right corner, then confirm the drawer has slid away and the 'Your rules' bar is no longer dimmed before continuing",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill in the 'Your rules' bar reads 'Checkout is open to the agent' and a 'Withdraw approval' button is shown",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'REGISTERED, the shopper approved this basket'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar under 'I already have', toggle Monitor on",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows 'You already have a monitor' and the gate status pill reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the gate status pill no longer reads 'Checkout is open to the agent'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'Agent tool surface' panel shows checkout as 'NOT REGISTERED, nothing for the agent to call'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no 'Approve this basket' button is shown",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Ownership Rules",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T11:59:58.067Z",
+  "updatedAt": "2026-10-21T13:27:29.166Z"
+ },
+ {
+  "id": "f5f96133-8c35-42d1-b898-00d8a5fa254e",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Block cart items from an owned category",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that marking a category as already owned prevents matching products from being approved in the cart.",
+  "planStepCount": 6,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar under 'I already have', toggle Chair on",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules summary reads 'You have a chair'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add 'Ergonomic mesh, adjustable' ($388) to the cart with its Add to cart button",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows the violation 'You already have a chair' and the gate status pill reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Open the cart and verify it says 'Bring the cart inside your rules, then approve it.' and shows no 'Approve this basket' button",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Ownership Rules",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T11:37:17.503Z",
+  "updatedAt": "2026-10-21T13:26:45.333Z"
+ },
+ {
+  "id": "84dd5e9e-a035-457f-bd24-0fe7a344631e",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Clear ownership violation by removing the owned-category item",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validates that removing the product from an owned category returns the cart to a rules-compliant state.",
+  "planStepCount": 8,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the storefront home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "In the 'Your rules' bar under 'I already have', toggle Monitor on",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add 'Mechanical TKL, tactile' (a keyboard) and '34\" Ultrawide 165Hz' (a monitor) to the cart",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the rules bar shows 'You already have a monitor' and the gate status reads 'Rules not met, checkout withheld'",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open the cart and remove the '34\" Ultrawide 165Hz' line, leaving only the keyboard",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the red rule-violation message 'You already have a monitor' is gone and the gate status no longer reads 'Rules not met, checkout withheld', and that the cart still contains 'Mechanical TKL, tactile'. Note: the separate rules summary 'You have a monitor' is the shopper's own setting and is EXPECTED to remain, because Monitor is still toggled on",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Fill the delivery form with Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Lagos', Postcode '101233', Country 'Nigeria'",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an 'Approve this basket' button is now shown (in the cart drawer or the rules bar)",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Ownership Rules",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T10:36:22.843Z",
+  "updatedAt": "2026-10-21T14:43:31.014Z"
+ },
+ {
+  "id": "82b5d512-c5f7-4bc4-84e5-9eb7c0bf3626",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Add a product to the cart from quick view",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that a shopper can open quick view and add the product to the cart from the dialog.",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open quick view for a product from its image or name",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Add the product to the cart from the quick view dialog",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart reflects the added product",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the quick view action updates to indicate the product is already in the cart",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Quick View Product Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:25:07.366Z"
+ },
+ {
+  "id": "2ad4a327-e4d2-4b64-bd1b-41e2fff86e3c",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Close quick view dialog",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that the quick view dialog can be closed after inspecting a product.",
+  "planStepCount": 5,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Open quick view for a product from its image or name",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Close the quick view dialog",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the catalog view is shown again",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the quick view dialog is no longer displayed",
+    "structured": false
+   }
+  ],
+  "priority": "Medium",
+  "category": "Quick View Product Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:24:51.873Z"
+ },
+ {
+  "id": "d5cbd7ec-f6bb-4c9e-8b07-272e28e072e2",
+  "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+  "projectName": "hubit",
+  "name": "Open quick view from a product image",
+  "type": "frontend",
+  "createdFrom": "cli",
+  "isIntegration": false,
+  "status": "passed",
+  "statusByEnvironment": [
+   {
+    "environmentId": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+    "environmentName": "default",
+    "status": "passed"
+   }
+  ],
+  "headlineEnvironment": {
+   "id": "def11a06-dcc9-4838-bc27-bad3e60c6d5f",
+   "name": "default"
+  },
+  "description": "Validate that selecting a product image opens the quick view dialog with the product\u2019s details and add-to-cart action.",
+  "planStepCount": 4,
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Navigate to the store home page",
+    "structured": false
+   },
+   {
+    "type": "action",
+    "description": "Click the image for a product in the catalog",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a product quick view dialog is displayed",
+    "structured": false
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the dialog shows the product name, price, description, and add-to-cart action",
+    "structured": false
+   }
+  ],
+  "priority": "High",
+  "category": "Quick View Product Details",
+  "produces": null,
+  "consumes": null,
+  "createdAt": "2026-10-21T08:30:54.099Z",
+  "updatedAt": "2026-10-21T13:24:51.871Z"
+ }
+]
