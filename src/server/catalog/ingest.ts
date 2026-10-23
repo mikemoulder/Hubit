@@ -47,7 +47,7 @@ export async function ingest(sources: Source[], perSource: number, concurrency =
         if (missing) throw new Error(`No FX rate for ${missing.currency}`);
         // Reviewed listings first, so the products we keep carry the reviews a source has.
         got.sort((a, b) => Number(b.reviewCount > 0) - Number(a.reviewCount > 0));
-        listings.push(...got.slice(0, perSource));
+        listings.push(...got.slice(0, s.limit ?? perSource));
       } catch (e) {
         errors.push({ sourceId: s.id, error: e instanceof Error ? e.message : String(e) });
       }

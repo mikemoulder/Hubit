@@ -27,6 +27,8 @@ export type Source = {
   department: Department;
   /** Ships from, shown as seller information. */
   country: string;
+  /** Listings to keep from this source; the snapshot default applies otherwise. */
+  limit?: number;
 };
 
 export type Review = {

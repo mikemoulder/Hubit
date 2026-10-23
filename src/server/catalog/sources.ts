@@ -1,7 +1,8 @@
 import type { Department, Source } from "./types.ts";
 
 // Every store Hubit sources from. Each one was probed on 23 Oct 2026 and answered
-// its platform's public catalogue endpoint without a key.
+// its platform's public catalogue endpoint without a key. (Ridge was dropped the
+// same day: it began answering 403.)
 export const SOURCES: Source[] = [
   { id: "allbirds", name: "Allbirds", platform: "shopify", domain: "allbirds.com", department: "footwear", country: "US" },
   { id: "rothys", name: "Rothy's", platform: "shopify", domain: "rothys.com", department: "footwear", country: "US" },
@@ -10,12 +11,22 @@ export const SOURCES: Source[] = [
   { id: "outdoorvoices", name: "Outdoor Voices", platform: "shopify", domain: "outdoorvoices.com", department: "apparel", country: "US" },
   { id: "tentree", name: "tentree", platform: "shopify", domain: "tentree.com", department: "apparel", country: "CA" },
   { id: "superstitch", name: "Superstitch MFG", platform: "woocommerce", domain: "superstitchmfg.com", department: "apparel", country: "NL" },
+  // Multi-brand sneaker and streetwear shops. They stock the same Nike, Jordan and
+  // Oakley products, identified by the manufacturer's style code, so one Hubit
+  // product can have several sources to fulfil it from.
+  { id: "undefeated", name: "Undefeated", platform: "shopify", domain: "undefeated.com", department: "footwear", country: "US", limit: 120 },
+  { id: "cncpts", name: "Concepts", platform: "shopify", domain: "cncpts.com", department: "footwear", country: "US", limit: 120 },
+  { id: "bodega", name: "Bodega", platform: "shopify", domain: "bdgastore.com", department: "footwear", country: "US", limit: 120 },
+  { id: "extrabutter", name: "Extra Butter", platform: "shopify", domain: "extrabutterny.com", department: "footwear", country: "US", limit: 120 },
+  { id: "shoepalace", name: "Shoe Palace", platform: "shopify", domain: "shoepalace.com", department: "footwear", country: "US", limit: 120 },
+  { id: "feature", name: "Feature", platform: "shopify", domain: "feature.com", department: "footwear", country: "US", limit: 120 },
+  { id: "sneakerpolitics", name: "Sneaker Politics", platform: "shopify", domain: "sneakerpolitics.com", department: "footwear", country: "US", limit: 120 },
+  { id: "amamaniere", name: "A Ma Maniére", platform: "shopify", domain: "a-ma-maniere.com", department: "footwear", country: "US", limit: 120 },
   { id: "colourpop", name: "ColourPop", platform: "shopify", domain: "colourpop.com", department: "beauty", country: "US" },
   { id: "native", name: "Native", platform: "shopify", domain: "nativecos.com", department: "beauty", country: "US" },
   { id: "brooklinen", name: "Brooklinen", platform: "shopify", domain: "brooklinen.com", department: "home", country: "US" },
   { id: "fellow", name: "Fellow", platform: "shopify", domain: "fellowproducts.com", department: "kitchen", country: "US" },
   { id: "joco", name: "JOCO Cups", platform: "woocommerce", domain: "jococups.com", department: "kitchen", country: "AU" },
-  { id: "ridge", name: "Ridge", platform: "shopify", domain: "ridge.com", department: "accessories", country: "US" },
   { id: "mvmt", name: "MVMT", platform: "shopify", domain: "mvmt.com", department: "accessories", country: "US" },
   { id: "puravida", name: "Pura Vida", platform: "shopify", domain: "puravidabracelets.com", department: "accessories", country: "US" },
   { id: "skullcandy", name: "Skullcandy", platform: "shopify", domain: "skullcandy.com", department: "audio-tech", country: "US" },
