@@ -53,7 +53,7 @@ export const DEPARTMENTS: { id: Department; label: string }[] = [
 // A source's own category can move a listing out of the store's default department,
 // e.g. Death Wish apparel is clothing, not food.
 const DEPARTMENT_HINTS: [RegExp, Department][] = [
-  [/\b(shoe|sneaker|runner|loafer|boot|sandal|slipper|flat)s?\b/i, "footwear"],
+  [/\b(shoe|sneaker|runner|loafer|boot|sandal|slipper|flat|footwear|slide|clog)s?\b/i, "footwear"],
   [/\b(apparel|shirt|tee|hoodie|jacket|pant|short|sweater|knit|woven|denim|jean|bra|legging|outerwear|sportswear|mens|womens)s?\b/i, "apparel"],
   [/\b(mug|cup|tumbler|glass|kettle|brewer|grinder|carafe|drinkware)s?\b/i, "kitchen"],
   [/\b(bag|backpack|pack|duffel|headlamp|lantern|bottle)s?\b/i, "outdoor"],

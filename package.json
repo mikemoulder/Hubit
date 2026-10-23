@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "audit": "node test/run-audit.js"
+    "audit": "node test/run-audit.js",
+    "test": "node --test test/*.test.ts",
+    "snapshot": "node scripts/snapshot.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

@@ -42,7 +42,10 @@ async function shopCurrency(domain: string): Promise<string> {
 
 export async function fetchShopify(source: Source, fetchedAt: string): Promise<SourceListing[]> {
   const [{ body }, currency] = await Promise.all([
-    getJson<{ products: ShopifyProduct[] }>(`https://${source.domain}/products.json?limit=250`),
+    // country=US pins Shopify Markets to US pricing. Without it the store prices for
+    // wherever the request comes from: Undefeated quotes $240 to a European server
+    // for a shoe it sells for $215 in the US, under the same "USD" label.
+    getJson<{ products: ShopifyProduct[] }>(`https://${source.domain}/products.json?limit=250&country=US`),
     shopCurrency(source.domain),
   ]);
   return body.products.map((p) => ({
