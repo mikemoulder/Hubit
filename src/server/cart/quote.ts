@@ -1,4 +1,4 @@
-import type { Catalog } from "../catalog/catalog.ts";
+import type { Catalog, Product } from "../catalog/catalog.ts";
 import { totalsFor, type Totals } from "../catalog/pricing.ts";
 import { isRoute, route } from "../catalog/routing.ts";
 
@@ -24,10 +24,13 @@ export type Quote = Totals & { lines: QuoteLine[]; itemCount: number; purchasabl
 export const MAX_LINES = 50;
 export const MAX_QTY = 10;
 
-export function quote(catalog: Catalog, request: QuoteRequestLine[]): Quote {
+/** Looks a product up for one line; the re-check passes freshly read products here. */
+export type ProductLookup = (productId: string, option: string) => Product | undefined;
+
+export function quote(catalog: Catalog, request: QuoteRequestLine[], lookup?: ProductLookup): Quote {
   const lines: QuoteLine[] = request.slice(0, MAX_LINES).map((req) => {
     const qty = Math.min(MAX_QTY, Math.max(1, Math.floor(req.qty) || 1));
-    const product = catalog.byId.get(req.productId);
+    const product = lookup ? lookup(req.productId, req.option) : catalog.byId.get(req.productId);
     if (!product) {
       return { ...req, qty, title: "Unavailable item", brand: "", image: null, unitCents: 0, lineCents: 0, problem: "not-found" };
     }

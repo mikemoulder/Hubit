@@ -103,3 +103,27 @@ test("every editorial photograph points at a product in the snapshot", async () 
     assert.ok(p.images[pick.image], `${key}: image ${pick.image} missing`);
   }
 });
+
+test("re-check: a price rise, a sell-out and a silent re-route are all found", async () => {
+  const { recheck, snapshotReader } = await import("../src/server/checkout/recheck.ts");
+  const drift = JSON.parse(readFileSync(new URL("../data/recheck-drift.json", import.meta.url), "utf8")).drift;
+  const lines = [
+    { productId: "nalgene-789703", option: "One size", qty: 2 },
+    { productId: "ugmonk-8677665996950", option: "One size", qty: 1 },
+    { productId: "hq7978-001", option: "9", qty: 1 },
+  ];
+  const r = await recheck(catalog, lines, snapshotReader(drift), "snapshot");
+  assert.deepEqual(
+    r.changes.map((c) => [c.productId, c.kind, c.fromCents, c.toCents]),
+    [
+      ["nalgene-789703", "price-up", 1899, 2199],
+      ["ugmonk-8677665996950", "sold-out", 12900, 0],
+    ],
+  );
+  // The shoe still costs $215, so the shopper hears nothing, but it ships from another store.
+  const shoe = r.quote.lines[2];
+  assert.equal(shoe.unitCents, 21500);
+  assert.notEqual(shoe.fulfilledBy?.sourceId, "undefeated");
+  assert.equal(r.quote.purchasable, false, "a sold-out line blocks payment until removed");
+  assert.equal(r.quote.subtotalCents, 2199 * 2 + 21500);
+});

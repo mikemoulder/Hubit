@@ -116,14 +116,15 @@ export function CartView() {
             Add {money(toFree)} more for free shipping.
           </p>
         )}
-        <button
-          type="button"
-          disabled
-          className="btn btn-invert mt-6 w-full"
-          data-testid="checkout"
-        >
-          {quote.purchasable ? "Checkout (coming next)" : "Fix the items above"}
-        </button>
+        {quote.purchasable ? (
+          <Link href="/checkout" className="btn btn-invert mt-6 w-full" data-testid="checkout">
+            Checkout
+          </Link>
+        ) : (
+          <button type="button" disabled className="btn btn-invert mt-6 w-full" data-testid="checkout">
+            Fix the items above
+          </button>
+        )}
       </aside>
     </div>
   );

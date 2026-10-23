@@ -1,0 +1,8 @@
+{
+  "about": "What the stores 'changed' after the snapshot, as seen by the pre-payment re-check on previews and in tests. Production reads the stores live instead.",
+  "drift": [
+    { "sourceId": "nalgene", "listingId": "789703", "priceCents": 2199, "note": "32oz Wide Mouth Surrealist Bottles: $18.99 -> $21.99" },
+    { "sourceId": "ugmonk", "listingId": "8677665996950", "available": false, "note": "Analog Archive (Black Aluminum) sells out" },
+    { "sourceId": "undefeated", "listingId": "6702795784453", "option": "9", "available": false, "note": "Air Jordan 5 size 9 sells out at Undefeated; four other stores still have it at $215" }
+  ]
+}
