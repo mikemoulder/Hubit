@@ -127,3 +127,22 @@ test("re-check: a price rise, a sell-out and a silent re-route are all found", a
   assert.equal(r.quote.purchasable, false, "a sold-out line blocks payment until removed");
   assert.equal(r.quote.subtotalCents, 2199 * 2 + 21500);
 });
+
+test("search ignores words that appear only in a description", () => {
+  const mugs = search(catalog, { q: "mug", pageSize: 50 }).items.map((p) => p.title);
+  assert.equal(mugs.length, 5);
+  for (const t of mugs) assert.ok(/mug|bundle/i.test(t), `"${t}" is not a mug`);
+  assert.ok(!mugs.includes("Pumpkin Spice Suncatcher"));
+  assert.equal(search(catalog, { q: "mug", department: "kitchen" }).total, 4);
+  assert.equal(search(catalog, { q: "jordan 5" }).total, 27);
+});
+
+test("reviewers known only by an initial are shown as verified buyers", async () => {
+  const { reviewerName, detail } = await import("../src/server/catalog/present.ts");
+  assert.equal(reviewerName("T"), "Verified buyer T.");
+  assert.equal(reviewerName("kb"), "Verified buyer kb.");
+  assert.equal(reviewerName("Aden Cornelison"), "Aden Cornelison");
+  const pride = detail(catalog.byId.get("nalgene-748191")!);
+  assert.equal(pride.reviews[0].author, "Verified buyer T.");
+  assert.ok(pride.reviews.every((r) => r.author.length >= 3));
+});

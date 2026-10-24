@@ -48,7 +48,8 @@ Large headings are set in capitals by the stylesheet (the text "Footwear" displa
 ### F2. Browse and search (`/shop`)
 - With no filters the heading reads **"Everything"** and the count reads **"1,695 products"**.
 - **Departments** (a row of links above the results, and a filter list beside them) with these counts: Footwear 624, Clothing 545, Outdoor 122, Accessories 110, Kitchen 85, Beauty 79, Audio & tech 38, Home 37, Desk 33, Food & drink 22. Choosing one shows only that department and its name as the heading.
-- **Search** matches every word of the query against the product's title, brand, description, tags and style code (case-insensitive). The heading reads `Results for "<query>"`.
+- **Search** matches every word of the query against the product's title, brand, the store's own tags, department and style code (case-insensitive). Descriptions are not searched: a word mentioned in passing ("enjoy with your morning mug") does not make a product a match.
+  - "mug" finds 5 products: four mugs and a coffee-and-mug bundle. In Kitchen it finds 4. The heading reads `Results for "<query>"`.
   - "jordan 5" finds 27 products; the first is "Air Jordan 5 Retro Mens Shoes" at $215.00.
   - "HQ7978-001" finds exactly 1 product.
   - A query with no matches (for example "zzzqqq") shows **"Nothing matches that"** and "0 products".

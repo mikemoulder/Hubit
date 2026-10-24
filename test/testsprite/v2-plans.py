@@ -81,7 +81,8 @@ TESTS = [
        (V, "Verify the first card is 'Crossbones Klean Kanteen Mug' priced '$25.00' and the second 'Hell Hound Mug' priced '$38.00'"),
        (V, "Verify removable chips for '“mug”' and 'Kitchen' are shown"),
        (A, "Remove the 'Kitchen' chip"),
-       (V, "Verify the count is now larger than 4 and every result still matches 'mug'")]),
+       (V, "Verify the count reads '5 products': every result's name contains 'Mug' except 'White Chocolate Pistachio Ground Bundle', a coffee-and-mug bundle"),
+       (V, "Verify no coffee, jacket or suncatcher whose name does not mention a mug is listed")]),
 
     # ---------- Product page (was: Quick view) ----------
     t("d5cbd7ec", "Open a product page from its card",
@@ -206,7 +207,7 @@ TESTS = [
     t("2f10d7fc", "Search, open a result and add it",
       "From search results to the cart in one journey.",
       [(A, "Type 'bottle' into the header search field and press Enter"),
-       (V, "Verify the count reads '39 products'"),
+       (V, "Verify the count reads '24 products'"),
        (A, f"Click the result '{BOTTLE}'"),
        (V, "Verify the product page price reads '$18.99'"),
        (A, "Click 'Add to cart', then click 'View cart'"),
@@ -308,7 +309,8 @@ TESTS = [
       "A reviewed product shows each review with name, rating and date.",
       [(A, "Open /p/nalgene-748191 on this site"),
        (V, "Verify the title reads '32oz Wide Mouth Pride Bottle' and the rating reads '5.0 from 5 reviews'"),
-       (V, "Verify the Reviews section shows 5 reviews, each with a reviewer name and a date, the first dated '2025-06-12'"),
+       (V, "Verify the Reviews section shows 5 reviews, each with a reviewer name and a date"),
+       (V, "Verify the first review, dated '2025-06-12', is credited to 'Verified buyer T.' rather than a bare initial"),
        (A, "Open /p/hq7978-001"),
        (V, "Verify the Reviews section says 'No reviews yet for this item.'")]),
 

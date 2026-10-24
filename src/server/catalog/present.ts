@@ -47,6 +47,12 @@ export function summary(p: Product): ProductSummary {
   };
 }
 
+/** Some stores keep only an initial ("T", "kb"); on its own it reads as a missing name. */
+export function reviewerName(author: string): string {
+  const a = author.trim();
+  return a.length >= 3 ? a : a ? `Verified buyer ${a}.` : "Verified buyer";
+}
+
 export function detail(p: Product): ProductDetail {
   return {
     ...summary(p),
@@ -54,7 +60,7 @@ export function detail(p: Product): ProductDetail {
     images: p.images,
     styleCode: p.styleCode,
     options: p.options,
-    reviews: p.reviews,
+    reviews: p.reviews.map((r) => ({ ...r, author: reviewerName(r.author) })),
     syncedAt: p.offers.map((o) => o.fetchedAt).sort()[0],
   };
 }

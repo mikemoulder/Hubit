@@ -211,7 +211,11 @@
    },
    {
     "type": "assertion",
-    "description": "Verify the count is now larger than 4 and every result still matches 'mug'"
+    "description": "Verify the count reads '5 products': every result's name contains 'Mug' except 'White Chocolate Pistachio Ground Bundle', a coffee-and-mug bundle"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no coffee, jacket or suncatcher whose name does not mention a mug is listed"
    }
   ]
  },
@@ -687,7 +691,7 @@
    },
    {
     "type": "assertion",
-    "description": "Verify the count reads '39 products'"
+    "description": "Verify the count reads '24 products'"
    },
    {
     "type": "action",
@@ -1071,7 +1075,11 @@
    },
    {
     "type": "assertion",
-    "description": "Verify the Reviews section shows 5 reviews, each with a reviewer name and a date, the first dated '2025-06-12'"
+    "description": "Verify the Reviews section shows 5 reviews, each with a reviewer name and a date"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first review, dated '2025-06-12', is credited to 'Verified buyer T.' rather than a bare initial"
    },
    {
     "type": "action",

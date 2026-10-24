@@ -40,14 +40,16 @@ function indexed(p: Product): Indexed {
     i = {
       title: ` ${tokens(p.title).join(" ")} `,
       brand: ` ${tokens(p.brand).join(" ")} `,
-      rest: ` ${tokens([DEPT_LABEL.get(p.department) ?? "", p.styleCode ?? "", p.description, ...p.tags].join(" ")).join(" ")} `,
+      // Not the description: stores mention mugs in coffee copy and jackets in
+      // suncatcher copy, and a word in passing is not what a shopper searched for.
+      rest: ` ${tokens([DEPT_LABEL.get(p.department) ?? "", p.styleCode ?? "", ...p.tags].join(" ")).join(" ")} `,
     };
     index.set(p, i);
   }
   return i;
 }
 
-/** Every query word must appear somewhere; title hits outrank brand, brand outranks the rest. */
+/** Every query word must appear in the title, brand, tags, department or style code; title hits rank first. */
 function score(p: Product, words: string[]): number {
   const i = indexed(p);
   let total = 0;
