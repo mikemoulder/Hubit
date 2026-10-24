@@ -9,20 +9,24 @@ Kept current with every run. v1 below is unchanged history.
 |---|---|
 | TestSprite project | `hubit` (`2b4a992f…c358`), the same project as v1 |
 | Tests | **42**, the v1 tests rewritten in place (same ids, run history kept); v1 plans archived in [`testsprite-v1/`](testsprite-v1/README.md) |
-| Plan | [`test/testsprite/v2-plans.py`](../test/testsprite/v2-plans.py): 219 steps, **118 assertions** |
+| Plan | [`test/testsprite/v2-plans.py`](../test/testsprite/v2-plans.py): 223 steps, **121 assertions** |
 | PRD | [`PRD.md`](PRD.md) 2.0, uploaded to the project |
-| Local tests | `npm test`: **11/11** pass (catalogue, fees, routing, search, re-check) |
+| Local tests | `npm test`: **13/13** pass (catalogue, fees, routing, search relevance, reviewer names, re-check) |
 
 ### Runs
 | When (UTC) | What | Target | Result | Run ids |
 |---|---|---|---|---|
 | 23 Oct 21:59 | Spot check, 4 riskiest rewritten tests | `v2` preview | **4/4 passed**: Try a size 4/4 steps, price re-check 7/7, Visa payment 14/14, two-store order 17/17 | `13fc78d2`, `340b2d42`, `04b3f14b`, `bf22a188` |
+| 24 Oct 06:27 | **PR #10**, all 42, on `80ac32a` | PR #10 preview | **40/42, red.** Caught two real bugs: (1) removing the Kitchen filter on a "mug" search listed coffees, a jacket and a suncatcher that only mention a mug in their description; (2) a review credited to "T" read as a missing name | execution `407d002d` |
+| 24 Oct | Fix pushed: `26f1c30` (search ignores descriptions; "Verified buyer T."), local tests 13/13, 3 plans updated | | | |
+| 24 Oct | **PR #10**, all 42, on `26f1c30` | PR #10 preview | **41/42, 1 blocked, 0 failed.** Both bugs fixed. The blocked test (brand and price filters) passed every check, then its agent tried to remove the "In stock" chip off-plan and stalled | execution `78819fcc` |
+| 24 Oct | Plan fix: chip removal made an explicit step (now 10 steps); single run | `v2` preview | **10/10 passed** | `1b1215e3` |
 
 ### Commits on `v2` before PR A (9)
 `e415479` adapters + snapshot · `f3f709d` multi-brand sources · `2dd35df` catalogue, fees, routing · `86b191f` storefront · `54c7749` art direction · `a209ffa` checkout + Stripe · `0810036` PRD 2.0 · `d6caa60` remove v1 · `71df402` suite carried to v2
 
 ### Credits
-About 130 before v2 testing; 2 spent on the spot check.
+About 130 before v2 testing. Spent: spot check 2, PR #10 run 1 21, run 2 21, single run 0.5: about 44.5.
 
 
 Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links need access to our TestSprite workspace (sharing is by workspace invite). The same results are public on each pull request, in TestSprite's comment and its `TestSprite V3` check.

@@ -767,7 +767,15 @@
    },
    {
     "type": "assertion",
-    "description": "Verify the count reads '1,490 products'"
+    "description": "Verify the count reads '1,490 products' and a chip reads 'In stock'"
+   },
+   {
+    "type": "action",
+    "description": "Click the 'In stock' chip above the results to remove that filter"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'In stock' chip is gone and the count reads '1,695 products'"
    }
   ]
  },
