@@ -98,6 +98,7 @@ export default async function ProductPage({ params }: Props) {
                       <Star key={s} aria-hidden className={s < r.rating ? "size-3.5 fill-[var(--color-ink)] text-[var(--color-ink)]" : "size-3.5 text-[var(--color-muted)]"} />
                     ))}
                   </span>
+                  <span className="font-medium tabular-nums" data-testid="review-rating">{r.rating}/5</span>
                   <span className="font-medium">{r.author}</span>
                   <span className="text-[13px] text-[var(--color-muted)]">{r.date}</span>
                 </p>
