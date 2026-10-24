@@ -1,0 +1,1230 @@
+[
+ {
+  "idPrefix": "af5d1075",
+  "name": "Browse every product from 28 stores",
+  "description": "The shop lists the whole catalogue: 1,695 products, 24 per page.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the heading reads 'Everything' and the count reads '1,695 products'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   },
+   {
+    "type": "assertion",
+    "description": "Verify exactly 24 product cards are shown, each with a brand, a title and a price in dollars with cents (for example '$215.00')"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page navigation reads 'Page 1 of 71' and offers a 'Next' link"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Next'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the navigation now reads 'Page 2 of 71' and offers both 'Previous' and 'Next'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "40b60f93",
+  "name": "Filter products by department",
+  "description": "Each department shows only its own products, with the count from the PRD.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop on this site"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Footwear' in the row of department links above the results"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the heading reads 'Footwear' and the count reads '624 products'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a removable filter chip 'Footwear' is shown above the results"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Desk' in the department links"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the heading reads 'Desk' and the count reads '33 products'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   },
+   {
+    "type": "action",
+    "description": "Click 'All' in the department links"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '1,695 products' again"
+   }
+  ]
+ },
+ {
+  "idPrefix": "d13ab0c8",
+  "name": "Search by product name, brand or style code",
+  "description": "Search matches every word against title, brand, tags and the manufacturer style code.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Type 'jordan 5' into the header search field labelled 'Search Hubit' and press Enter"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page heading reads 'Results for “jordan 5”' and the count reads '27 products'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first result is 'Air Jordan 5 Retro Mens Shoes' priced '$215.00'"
+   },
+   {
+    "type": "action",
+    "description": "Search for 'HQ7978-001' the same way"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '1 product' and the only result is 'Air Jordan 5 Retro Mens Shoes'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "2070affc",
+  "name": "Show the empty state for a search with no matches",
+  "description": "A query that matches nothing says so plainly and offers a way back.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop?q=zzzqqq on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '0 products'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows 'Nothing matches that' and 'Try a broader word, or remove a filter.'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Clear all' above the results"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '1,695 products'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "bd87077d",
+  "name": "Sort by price, low to high",
+  "description": "Price sorting orders the whole result set by Hubit's price.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop on this site"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Price, low to high' in the Sort select"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first product card is '125 mL LDPE Bottle w/Dispensing cap' priced '$1.99'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the prices of the first eight cards never decrease from one card to the next"
+   }
+  ]
+ },
+ {
+  "idPrefix": "09832094",
+  "name": "Sort by price, high to low",
+  "description": "The most expensive item leads when sorting high to low.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop on this site"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Price, high to low' in the Sort select"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first product card is 'Cotton Canvas Jacket' priced '$3,990.00'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the prices of the first eight cards never increase from one card to the next"
+   }
+  ]
+ },
+ {
+  "idPrefix": "a3bd599b",
+  "name": "Combine department, search and sort",
+  "description": "Filters stack, and each shows as a removable chip.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop?dept=kitchen on this site"
+   },
+   {
+    "type": "action",
+    "description": "Type 'mug' into the header search field and press Enter, then if the Kitchen filter was dropped open /shop?dept=kitchen&q=mug"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Price, low to high' in the Sort select"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '4 products'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first card is 'Crossbones Klean Kanteen Mug' priced '$25.00' and the second 'Hell Hound Mug' priced '$38.00'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify removable chips for '“mug”' and 'Kitchen' are shown"
+   },
+   {
+    "type": "action",
+    "description": "Remove the 'Kitchen' chip"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '5 products': every result's name contains 'Mug' except 'White Chocolate Pistachio Ground Bundle', a coffee-and-mug bundle"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no coffee, jacket or suncatcher whose name does not mention a mug is listed"
+   }
+  ]
+ },
+ {
+  "idPrefix": "d5cbd7ec",
+  "name": "Open a product page from its card",
+  "description": "A product page shows brand, title, price, photos, sourcing and the style code.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop?q=HQ7978-001 on this site and click the product card"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows the brand 'Jordan', the title 'Air Jordan 5 Retro Mens Shoes' and the price '$215.00'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the sourcing note reads 'Stocked by 5 of our partner stores' and mentions shipping each size from whichever has it at the best price"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify 'Style code HQ7978-001' is shown"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the breadcrumb shows 'Shop / Footwear / Jordan'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "2ad4a327",
+  "name": "Sizes pooled from every store, sold-out sizes blocked",
+  "description": "Options come from all stores; a size sold out everywhere cannot be chosen.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the add button reads 'Choose an option first' and is disabled"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the size buttons are in numeric order starting 7, 7.5, 8 and ending 15, 16"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify sizes 7, 7.5 and 16 are disabled (struck through)"
+   },
+   {
+    "type": "action",
+    "description": "Click size '9'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the legend reads 'Choose an option: 9', the line 'Price in 9: $215.00' appears, and the add button reads 'Add to cart' and is enabled"
+   }
+  ]
+ },
+ {
+  "idPrefix": "82b5d512",
+  "name": "Add a product to the cart from its page",
+  "description": "Adding confirms in place and updates the header count.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site"
+   },
+   {
+    "type": "action",
+    "description": "Click size '10', then click 'Add to cart'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page says 'Added. 1 in your cart.' with a 'View cart' link"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 1"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Add to cart' again"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page says 'Added. 2 in your cart.' and the header cart button shows 2"
+   }
+  ]
+ },
+ {
+  "idPrefix": "3ac8fc34",
+  "name": "Add an item to an empty cart",
+  "description": "The cart shows the line, the fees and the total worked out by the server.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /cart on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify it shows 'Your cart is empty' and a 'Start shopping' button"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify one line '8oz Storage Jar – Blue Lid' with quantity 1 and line total '$4.19'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the summary reads Items (1) '$4.19', Shipping '$6.99', Service fee (5%) '$0.21', Total '$11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the hint reads 'Add $70.81 more for free shipping.'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "20e3b308",
+  "name": "Adding the same product again raises its quantity",
+  "description": "A repeat add merges into one line rather than adding a second.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site and click 'Add to cart' twice"
+   },
+   {
+    "type": "action",
+    "description": "Open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify exactly one line '32oz Wide Mouth Surrealist Bottles' with quantity 2 and line total '$37.98'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the summary reads Items (2) '$37.98', Shipping '$6.99', Service fee (5%) '$1.90', Total '$46.87'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the hint reads 'Add $37.02 more for free shipping.' and the header cart button shows 2"
+   }
+  ]
+ },
+ {
+  "idPrefix": "28fcb8b3",
+  "name": "Steppers change quantity, totals and free shipping",
+  "description": "Each step is re-priced by the server; crossing $75 makes shipping free.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site, click 'Add to cart' once, then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify quantity 1, Items '$18.99', Shipping '$6.99', Total '$26.93'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Increase quantity' three times"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify quantity 4, line total '$75.96', Items (4) '$75.96'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Shipping reads 'Free', Service fee (5%) '$3.80' and Total '$79.76', and the free-shipping hint is gone"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Decrease quantity' once"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify quantity 3, Items '$56.97', Shipping '$6.99' and Total '$66.81'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "341f3ebe",
+  "name": "Remove one line and keep the other",
+  "description": "Removing a line re-prices the rest.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001, choose size '9' and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify two lines and Total '$230.15' (Items $219.19, Shipping Free, Service fee $10.96)"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Remove' on the 'Air Jordan 5 Retro Mens Shoes' line"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify only '8oz Storage Jar – Blue Lid' remains and the Total reads '$11.39' with Shipping '$6.99'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "0a5d4171",
+  "name": "Empty the cart and see the empty state",
+  "description": "Decreasing to zero removes the line; an empty cart offers a way back to shopping.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /cart"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Decrease quantity' once"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows 'Your cart is empty' and a 'Start shopping' button"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 0"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Start shopping'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the shop opens with the count '1,695 products'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "4eedd0f8",
+  "name": "Every amount is shown to the cent",
+  "description": "Fees and totals are exact cents, never rounded to whole dollars.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site, click 'Add to cart' twice, then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Service fee (5%) reads exactly '$1.90' and the Total reads exactly '$46.87' (not $47)"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Shipping reads exactly '$6.99' (not $7)"
+   }
+  ]
+ },
+ {
+  "idPrefix": "fb67e764",
+  "name": "Free shipping starts at exactly $75.00",
+  "description": "Shipping is $6.99 below $75.00 of items and Free from $75.00.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site, click 'Add to cart' three times, then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Items (3) '$56.97' and Shipping '$6.99'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Increase quantity' once"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Items (4) '$75.96' and Shipping 'Free'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "cc51e538",
+  "name": "The service fee is 5% of the items, rounded to the cent",
+  "description": "The fee follows the items as they change.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site, choose size '9', click 'Add to cart', then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Items '$215.00', Shipping 'Free', Service fee (5%) '$10.75' and Total '$225.75'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Increase quantity' once"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Items '$430.00', Service fee (5%) '$21.50' and Total '$451.50'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "7d9e5926",
+  "name": "The cart total matches the fees printed on the home page",
+  "description": "The home page states the fees; the cart charges exactly those.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site and scroll to the section headed 'Two fees, printed'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify it lists 'Shipping $6.99, free from $75.00' and 'Service fee 5% of the items'"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315, click 'Add to cart', then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Shipping '$6.99' and Service fee (5%) '$0.21' on Items '$4.19'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "886bdf61",
+  "name": "Checkout re-checks prices with the stores",
+  "description": "A price that rose since the item was added is reported and charged at the new price.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site, click 'Add to cart' twice, then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart Total reads '$46.87'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Checkout'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order panel says 'Prices and stock checked with the stores just now.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a notice says '32oz Wide Mouth Surrealist Bottles went up from $18.99 to $21.99 since you added it.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order panel reads Items '$43.98', Shipping '$6.99', Service fee (5%) '$2.20' and Total '$53.17'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the pay button reads 'Pay $53.17'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "0e2f62a2",
+  "name": "A size sold out at one store is re-routed silently",
+  "description": "When the cheapest store sells out of a size but others have it, the price holds and nothing is shown.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site, choose size '9', click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order panel says 'Prices and stock checked with the stores just now.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no price-change or sold-out notice is shown"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order panel reads Items '$215.00', Shipping 'Free', Service fee (5%) '$10.75' and Total '$225.75', and the pay button reads 'Pay $225.75'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "f127f140",
+  "name": "Browsing never changes the cart or its total",
+  "description": "Searching, sorting and opening products leave the cart exactly as it was.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /shop?dept=footwear, then sort by 'Price, high to low', then search 'jordan', then open /p/hq7978-001 without adding it"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button still shows 1"
+   },
+   {
+    "type": "action",
+    "description": "Open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the only line is '8oz Storage Jar – Blue Lid' and the Total reads '$11.39'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "ba619de4",
+  "name": "The cart survives a page reload",
+  "description": "The cart is kept in the browser and re-priced on load.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 on this site, click 'Add to cart' twice, then open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Total reads '$46.87'"
+   },
+   {
+    "type": "action",
+    "description": "Load /cart again with '?reload=1' appended to the URL (a full page load)"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify '32oz Wide Mouth Surrealist Bottles' is still there with quantity 2 and the Total still reads '$46.87'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "2f10d7fc",
+  "name": "Search, open a result and add it",
+  "description": "From search results to the cart in one journey.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Type 'bottle' into the header search field and press Enter"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '24 products'"
+   },
+   {
+    "type": "action",
+    "description": "Click the result '32oz Wide Mouth Surrealist Bottles'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the product page price reads '$18.99'"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Add to cart', then click 'View cart'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the cart shows the bottle with quantity 1 and Total '$26.93'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "039669d0",
+  "name": "Departments on the home page link to their shelves",
+  "description": "The 'Ten departments' list shows counts and opens each department.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site and scroll to the section headed 'Ten departments'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify it lists Footwear, Clothing, Beauty, Home, Kitchen, Accessories, Audio & tech, Outdoor, Desk and Food & drink"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Footwear row shows '624' and the Desk row shows '33'"
+   },
+   {
+    "type": "action",
+    "description": "Click the 'Desk' row"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify /shop opens with the heading 'Desk' and the count '33 products'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   }
+  ]
+ },
+ {
+  "idPrefix": "a2a17b9a",
+  "name": "Brand and price filters narrow the results",
+  "description": "Brand, price range and in-stock filters each narrow the list and can be removed.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /shop?brand=Allbirds on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '40 products' and every card's brand is 'Allbirds'"
+   },
+   {
+    "type": "action",
+    "description": "Open /shop, type 10 in the '$ min' field and 20 in the '$ max' field, then click 'Go'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '164 products', a chip reads '$10 to $20', and every visible price is between $10.00 and $20.00"
+   },
+   {
+    "type": "action",
+    "description": "Open /shop and click 'In stock only'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the count reads '1,490 products' and a chip reads 'In stock'"
+   },
+   {
+    "type": "action",
+    "description": "Click the 'In stock' chip above the results to remove that filter"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the 'In stock' chip is gone and the count reads '1,695 products'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "cca21256",
+  "name": "Nothing to check out with an empty cart",
+  "description": "Checkout with no items offers a way back to the shop and no payment.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /checkout on this site with an empty cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page shows 'There is nothing to check out' and a 'Start shopping' button"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify no pay button is shown"
+   }
+  ]
+ },
+ {
+  "idPrefix": "a11399ad",
+  "name": "An invalid email is refused at checkout",
+  "description": "Contact details are validated by the server; nothing is charged.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "Fill Full name 'Ada Lovelace', Email 'ada@', Address '12 Marconi Road', City 'Brooklyn', Postcode '11201'"
+   },
+   {
+    "type": "action",
+    "description": "Click the pay button 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Email field shows 'Enter an email like name@example.com'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page is still /checkout and the header cart button still shows 1"
+   }
+  ]
+ },
+ {
+  "idPrefix": "1d95e89a",
+  "name": "Required delivery fields are enforced",
+  "description": "Every missing required field is named; optional fields are not.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "Leave every field empty and click 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Full name shows 'Enter your full name' and Email shows 'Enter your email'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Address, City and Postcode each show 'Required'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Phone, 'Flat, unit, building' and 'State or region' show no error"
+   }
+  ]
+ },
+ {
+  "idPrefix": "d02e460b",
+  "name": "Pay with the Visa test card and see the order",
+  "description": "A successful payment empties the cart and opens the order page with the Stripe invoice.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "In Contact and Delivery address fill Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Brooklyn', Postcode '11201' and leave Country as 'United States'"
+   },
+   {
+    "type": "action",
+    "description": "Keep 'Visa ending 4242' selected and click 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an order page opens showing 'Paid', a heading starting 'Order ' and 'Thanks, Ada.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the receipt reads Items '$4.19', Shipping '$6.99', Service fee (5%) '$0.21' and Paid '$11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify 'Delivering to' shows 'Ada Lovelace' and '12 Marconi Road', and a 'Download invoice (PDF)' button is shown"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button shows 0"
+   }
+  ]
+ },
+ {
+  "idPrefix": "53ba5655",
+  "name": "One payment, split between the stores that fulfil it",
+  "description": "An order with items from two stores shows a group per store.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site, choose size '9', click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-789703 and click 'Add to cart' twice, then open /checkout"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order panel Total reads '$271.93'"
+   },
+   {
+    "type": "action",
+    "description": "Fill Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Brooklyn', Postcode '11201' and leave Country as 'United States', keep 'Visa ending 4242' and click 'Pay $271.93'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order page says '2 stores fulfil this order, each sending its part.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify one group reads 'Ships from Nalgene' with the bottles and another 'Ships from Extra Butter' with the Air Jordan 5, size 9"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Paid reads '$271.93'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "f5f96133",
+  "name": "A product sold out everywhere blocks payment",
+  "description": "The re-check finds an item every store has sold out of, and payment waits until it is removed.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/ugmonk-8677665996950 on this site and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 and click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a notice says 'Analog Archive (Black Aluminum) has sold out at every store we source from.' with a 'Remove it' button"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the pay button reads 'Remove sold-out items to pay' and is disabled"
+   }
+  ]
+ },
+ {
+  "idPrefix": "84dd5e9e",
+  "name": "Removing the sold-out item lets the order through",
+  "description": "After removal the order is re-checked and payable.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/ugmonk-8677665996950 on this site and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 and click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Remove it' in the sold-out notice"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the sold-out notice is gone and the order panel Total reads '$11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the pay button reads 'Pay $11.39' and is enabled"
+   }
+  ]
+ },
+ {
+  "idPrefix": "0b1cd034",
+  "name": "Sizes sold out at every store cannot be bought",
+  "description": "On the home page's size picker and the product page alike.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site and scroll to 'Same shoe' / 'Five stores' until 'Try a size' shows"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify sizes 7, 7.5 and 16 are disabled"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify sizes 7, 7.5 and 16 are disabled there too, and choosing size '8' enables 'Add to cart'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "f75a9cea",
+  "name": "A declined card charges nothing and keeps the cart",
+  "description": "Stripe declines the test card; the shopper is told and can try again.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "Fill Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Brooklyn', Postcode '11201' and leave Country as 'United States'"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Card that is declined' and click 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an alert reads 'Your card was declined. Nothing was charged.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the page is still /checkout and the header cart button still shows 1"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Visa ending 4242' and click 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the order page opens showing 'Paid' and Paid '$11.39'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "9a0d8d3e",
+  "name": "Insufficient funds is refused with Stripe's reason",
+  "description": "A second decline path, with its own message.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-740315 on this site, click 'Add to cart', then open /checkout"
+   },
+   {
+    "type": "action",
+    "description": "Fill Full name 'Ada Lovelace', Email 'ada@example.com', Address '12 Marconi Road', City 'Brooklyn', Postcode '11201' and leave Country as 'United States'"
+   },
+   {
+    "type": "action",
+    "description": "Choose 'Card with insufficient funds' and click 'Pay $11.39'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify an alert says the card has insufficient funds and ends 'Nothing was charged.'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the header cart button still shows 1"
+   }
+  ]
+ },
+ {
+  "idPrefix": "e46137f1",
+  "name": "Reviews come from the stores' customers",
+  "description": "A reviewed product shows each review with name, rating and date.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/nalgene-748191 on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the title reads '32oz Wide Mouth Pride Bottle' and the rating reads '5.0 from 5 reviews'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Reviews section shows 5 reviews, each with a reviewer name and a date"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the first review, dated '2025-06-12', is credited to 'Verified buyer T.' rather than a bare initial"
+   },
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the Reviews section says 'No reviews yet for this item.'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "694eb4d6",
+  "name": "The first screen says what Hubit is",
+  "description": "A cold visitor learns what Hubit is and where to start.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the main heading reads '28 stores' 'One cart'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the sentence '1,695 products from independent shops, bought in one payment. Hubit sources each size from the store that has it.' is shown"
+   },
+   {
+    "type": "action",
+    "description": "Click 'Shop everything'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify /shop opens with the count '1,695 products'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "2749dad3",
+  "name": "Try a size: Hubit names the store it would ship from",
+  "description": "The live size picker on the home page reads the five stores' stock.",
+  "priority": "high",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site and scroll down until the size buttons under 'Try a size' are visible"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the caption names Undefeated, Extra Butter, Shoe Palace, Sneaker Politics and A Ma Maniére"
+   },
+   {
+    "type": "action",
+    "description": "Click size '9'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the line reads 'Size 9: in stock at 5 of 5 stores. Hubit ships it from Undefeated at $215.00.'"
+   },
+   {
+    "type": "action",
+    "description": "Click size '8'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the line now starts 'Size 8: in stock at' and ends 'at $215.00.'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "64b3c4e4",
+  "name": "The cart line keeps the chosen size",
+  "description": "Two sizes of one shoe are two lines, each priced on its own.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/hq7978-001 on this site, choose size '9' and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Choose size '10' and click 'Add to cart'"
+   },
+   {
+    "type": "action",
+    "description": "Open /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify two lines for the Air Jordan 5, one showing 'Option: 9' and one 'Option: 10', each '$215.00'"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify Items (2) '$430.00', Service fee (5%) '$21.50' and Total '$451.50'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "79d8ec7b",
+  "name": "Header search and cart are on every page",
+  "description": "The header follows the shopper from page to page.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open the home page of this site, then /shop, then /p/hq7978-001, then /cart"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify each page shows the HUBIT wordmark, the search field with placeholder 'Search products, brands, style codes', a 'Shop' link and the cart button"
+   },
+   {
+    "type": "action",
+    "description": "Click the HUBIT wordmark"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify the home page opens with the heading '28 stores' 'One cart'"
+   }
+  ]
+ },
+ {
+  "idPrefix": "f7e5a0e4",
+  "name": "An unknown product shows a not-found page",
+  "description": "Bad links fail cleanly.",
+  "priority": "medium",
+  "planSteps": [
+   {
+    "type": "action",
+    "description": "Open /p/no-such-product on this site"
+   },
+   {
+    "type": "assertion",
+    "description": "Verify a not-found page is shown (for example '404' or 'could not be found') and no price or add button is shown"
+   }
+  ]
+ }
+]
