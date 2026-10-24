@@ -69,7 +69,7 @@ export function AgentPanel() {
               <ul className="mt-3 space-y-2" data-testid="agent-tools">
                 {TOOLS.map((t) => (
                   <li key={t.name} className="bg-white/[0.07] px-3 py-2.5">
-                    <code className="text-[14px] font-semibold">{t.name}</code>
+                    <p className="font-semibold">{t.title}</p>
                     <p className="mt-0.5 text-[13px] opacity-85">{t.description}</p>
                   </li>
                 ))}
@@ -108,8 +108,12 @@ export function AgentPanel() {
                 <ol className="mt-3 space-y-2" data-testid="agent-calls">
                   {run.calls.map((c, i) => (
                     <li key={i} className={`px-3 py-2.5 ${c.refused ? "bg-[var(--color-danger-soft)] text-[var(--color-danger)]" : "bg-white/[0.07]"}`} data-testid="agent-call" data-tool={c.tool}>
-                      <code className="text-[14px] font-semibold">{c.tool}</code>
-                      {Object.keys(c.input).length > 0 && <code className="ml-2 break-all text-[13px] opacity-85">{JSON.stringify(c.input)}</code>}
+                      <p className="font-semibold">{c.title}</p>
+                      {Object.keys(c.input).length > 0 && (
+                        <p className="mt-0.5 break-all text-[13px] opacity-85">
+                          {Object.entries(c.input).map(([k, v]) => `${k}: ${v}`).join(" · ")}
+                        </p>
+                      )}
                       <p className="mt-1 text-[13px]">{c.result}</p>
                     </li>
                   ))}

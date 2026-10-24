@@ -14,7 +14,10 @@
 export type ToolResult = { content: { type: "text"; text: string }[]; isError?: boolean };
 
 export type ToolDef = {
+  /** The id registered with the browser's agent. */
   name: string;
+  /** What people see: the panel and the call log use this, never the id. */
+  title: string;
   description: string;
   inputSchema: Record<string, unknown>;
   annotations?: { readOnlyHint?: boolean };
@@ -74,6 +77,10 @@ class Host {
     return [...this.entries.keys()];
   }
 
+  title(name: string): string {
+    return this.entries.get(name)?.def.title ?? name.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
+  }
+
   /**
    * Calls a tool the way an agent would: only a registered name can be reached, so
    * the demo agent meets exactly the surface a real one does.
@@ -81,7 +88,7 @@ class Host {
   async call(name: string, input: unknown = {}): Promise<ToolResult> {
     const entry = this.entries.get(name);
     if (!entry) {
-      const what = /pay|checkout|card|charge/i.test(name) ? "payment tool" : `tool called ${name}`;
+      const what = /pay|checkout|card|charge/i.test(name) ? "payment tool" : `tool called "${name}"`;
       return { content: [{ type: "text", text: `Refused: this page offers agents no ${what}.` }], isError: true };
     }
     return entry.def.execute(input);

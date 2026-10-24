@@ -19,7 +19,7 @@
   },
   {
    "type": "assertion",
-   "description": "Verify 'Tool calls' shows search_catalog, then add_to_cart, then view_cart"
+   "description": "Verify 'Tool calls' shows Search catalog, then Add to cart, then View cart"
   },
   {
    "type": "assertion",

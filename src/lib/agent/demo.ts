@@ -9,7 +9,7 @@ import { getHost } from "./webmcp";
 // agent attached (which is every browser a test runner uses). Each call goes
 // through the same registry a WebMCP agent reaches, and is logged as it happens.
 
-export type Call = { tool: string; input: Record<string, unknown>; result: string; refused: boolean };
+export type Call = { tool: string; title: string; input: Record<string, unknown>; result: string; refused: boolean };
 export type Run = { task: string; calls: Call[]; reply: string | null; busy: boolean };
 
 let run: Run | null = null;
@@ -32,7 +32,7 @@ export function useRun(): Run | null {
 
 async function call(tool: string, input: Record<string, unknown> = {}): Promise<Call> {
   const r = await getHost().call(tool, input);
-  const c: Call = { tool, input, result: r.content.map((x) => x.text).join(" "), refused: !!r.isError };
+  const c: Call = { tool, title: getHost().title(tool), input, result: r.content.map((x) => x.text).join(" "), refused: !!r.isError };
   set({ ...run!, calls: [...run!.calls, c] });
   return c;
 }

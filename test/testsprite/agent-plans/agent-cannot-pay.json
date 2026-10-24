@@ -23,7 +23,7 @@
   },
   {
    "type": "assertion",
-   "description": "Verify 'Tool calls' shows pay with the result 'Refused: this page offers agents no payment tool.'"
+   "description": "Verify 'Tool calls' shows Pay with the result 'Refused: this page offers agents no payment tool.'"
   },
   {
    "type": "assertion",

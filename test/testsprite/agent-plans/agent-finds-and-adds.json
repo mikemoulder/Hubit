@@ -15,7 +15,7 @@
   },
   {
    "type": "assertion",
-   "description": "Verify a panel headed 'Your agent' lists the tools search_catalog, get_product, add_to_cart, remove_from_cart and view_cart"
+   "description": "Verify a panel headed 'Your agent' lists the tools Search catalog, Get product, Add to cart, Remove from cart and View cart"
   },
   {
    "type": "assertion",
@@ -27,7 +27,7 @@
   },
   {
    "type": "assertion",
-   "description": "Verify 'Tool calls' shows, in this order, search_catalog, get_product, add_to_cart and view_cart"
+   "description": "Verify 'Tool calls' shows, in this order, Search catalog, Get product, Add to cart and View cart"
   },
   {
    "type": "assertion",

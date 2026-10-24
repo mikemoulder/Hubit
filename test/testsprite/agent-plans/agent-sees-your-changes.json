@@ -35,7 +35,7 @@
   },
   {
    "type": "assertion",
-   "description": "Verify 'Tool calls' ends with view_cart and the reply reads 'Your cart is empty.'"
+   "description": "Verify 'Tool calls' ends with View cart and the reply reads 'Your cart is empty.'"
   }
  ]
 }

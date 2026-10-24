@@ -42,6 +42,7 @@ export function describeCart(q: Quote): string {
 export const TOOLS: ToolDef[] = [
   {
     name: "search_catalog",
+    title: "Search catalog",
     description: "Search Hubit's catalogue of products from 28 stores. Every word must match the title, brand, tags, department or style code.",
     inputSchema: {
       type: "object",
@@ -71,6 +72,7 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: "get_product",
+    title: "Get product",
     description: "Read one product: price, options (sizes) with stock, description and reviews.",
     inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
     annotations: { readOnlyHint: true },
@@ -85,6 +87,7 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: "add_to_cart",
+    title: "Add to cart",
     description: "Add a product to the shopper's cart. The line is marked as added by the agent.",
     inputSchema: {
       type: "object",
@@ -108,6 +111,7 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: "remove_from_cart",
+    title: "Remove from cart",
     description: "Remove a line from the shopper's cart.",
     inputSchema: { type: "object", properties: { productId: { type: "string" }, option: { type: "string" } }, required: ["productId", "option"] },
     async execute(input) {
@@ -121,6 +125,7 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: "view_cart",
+    title: "View cart",
     description: "Read the shopper's cart with Hubit's prices and fees, as the server works them out.",
     inputSchema: { type: "object", properties: {} },
     annotations: { readOnlyHint: true },
