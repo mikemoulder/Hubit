@@ -4,6 +4,7 @@ import { TikTok_Sans } from "next/font/google";
 import { Footer } from "@/components/shop/Footer";
 import { Header } from "@/components/shop/Header";
 import { Motion } from "@/components/shop/Motion";
+import { AgentPanel } from "@/components/agent/AgentPanel";
 import { getCatalog } from "@/server/catalog";
 import "./globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Suspense>
         {children}
         <Motion />
+        <AgentPanel />
         <Footer storeCount={catalog.sources.length} takenAt={catalog.takenAt} />
       </body>
     </html>
