@@ -21,12 +21,21 @@ Kept current with every run. v1 below is unchanged history.
 | 24 Oct | Fix pushed: `26f1c30` (search ignores descriptions; "Verified buyer T."), local tests 13/13, 3 plans updated | | | |
 | 24 Oct | **PR #10**, all 42, on `26f1c30` | PR #10 preview | **41/42, 1 blocked, 0 failed.** Both bugs fixed. The blocked test (brand and price filters) passed every check, then its agent tried to remove the "In stock" chip off-plan and stalled | execution `78819fcc` |
 | 24 Oct | Plan fix: chip removal made an explicit step (now 10 steps); single run | `v2` preview | **10/10 passed** | `1b1215e3` |
+| 24 Oct 06:4x | **PR #10**, all 42, on `c4070a9` | PR #10 preview | **42/42 passed. Green.** Merged as `dec5a45` (06:44 UTC); production now serves v2 | execution `6c6b3597` |
+
+### PR B: "Shop with your agent" (tests first)
+4 new tests written from PRD F7 before the feature exists, created in the project (now **46** tests): `751c0da4` finds and adds · `3cac1aca` cannot pay · `cf171512` one shared cart · `6782a60c` sees your changes. 37 steps, 18 assertions ([`agent-plans.py`](../test/testsprite/agent-plans.py)). Expected first check: 42 pass, 4 fail.
+
+| When (UTC) | What | Result | Run |
+|---|---|---|---|
+| 24 Oct | **PR #11** on `90c7131` (spec + tests only) | **42/46, red as designed**: all 42 existing passed; the 4 new agent tests did not (2 failed, 2 blocked: no agent panel exists yet). Merge held by branch protection | execution `308499a1` |
+| 24 Oct | Feature commit: the agent panel, five WebMCP tools, demo agent; checked locally in headless Chrome against all 4 journeys first | pending | |
 
 ### Commits on `v2` before PR A (9)
 `e415479` adapters + snapshot · `f3f709d` multi-brand sources · `2dd35df` catalogue, fees, routing · `86b191f` storefront · `54c7749` art direction · `a209ffa` checkout + Stripe · `0810036` PRD 2.0 · `d6caa60` remove v1 · `71df402` suite carried to v2
 
 ### Credits
-About 130 before v2 testing. Spent: spot check 2, PR #10 run 1 21, run 2 21, single run 0.5: about 44.5.
+About 130 before v2 testing. Spent: spot check 2, PR #10 runs 21 + 21 + 21, single run 0.5: **about 65.5**, plus PR #11 run 1 23: **about 88.5**. Each PR run now costs about 23 (46 tests).
 
 
 Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links need access to our TestSprite workspace (sharing is by workspace invite). The same results are public on each pull request, in TestSprite's comment and its `TestSprite V3` check.

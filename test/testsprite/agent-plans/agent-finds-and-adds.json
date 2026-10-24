@@ -1,0 +1,49 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "Your agent finds a product and adds it to your cart",
+ "description": "The demo agent calls the page's real tools in order and the item lands in the shopper's own cart, marked as the agent's.",
+ "priority": "p0",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open the home page of this site"
+  },
+  {
+   "type": "action",
+   "description": "Click the 'Your agent' button at the bottom right of the page"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a panel headed 'Your agent' lists the tools search_catalog, get_product, add_to_cart, remove_from_cart and view_cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the panel states 'No payment tool. Paying stays with you.'"
+  },
+  {
+   "type": "action",
+   "description": "Under 'Give the demo agent a task', click 'Find the Air Jordan 5 in size 9 and add it' and wait for the agent's reply"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify 'Tool calls' shows, in this order, search_catalog, get_product, add_to_cart and view_cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the reply reads 'Added Air Jordan 5 Retro Mens Shoes, size 9. Your cart total is $225.75.'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the header cart button shows 1"
+  },
+  {
+   "type": "action",
+   "description": "Close the panel and open /cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the line 'Air Jordan 5 Retro Mens Shoes' shows 'Option: 9', is marked 'Added by your agent', and the Total reads '$225.75'"
+  }
+ ]
+}

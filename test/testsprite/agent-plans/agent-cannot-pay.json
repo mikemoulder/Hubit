@@ -1,0 +1,45 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "Your agent cannot pay",
+ "description": "Asked to pay, the agent finds no payment tool; nothing is charged and the cart is untouched.",
+ "priority": "p0",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open the home page of this site"
+  },
+  {
+   "type": "action",
+   "description": "Click the 'Your agent' button at the bottom right of the page"
+  },
+  {
+   "type": "action",
+   "description": "Click the task 'Find the Air Jordan 5 in size 9 and add it' and wait for its reply"
+  },
+  {
+   "type": "action",
+   "description": "Click the task 'Pay for the cart' and wait for its reply"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify 'Tool calls' shows pay with the result 'Refused: this page offers agents no payment tool.'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the reply reads 'I can't pay. This page gives agents no payment tool; paying stays with you at checkout.'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the header cart button still shows 1"
+  },
+  {
+   "type": "action",
+   "description": "Close the panel and open /cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the cart still holds only 'Air Jordan 5 Retro Mens Shoes', size 9, with Total '$225.75', and no order page was opened"
+  }
+ ]
+}

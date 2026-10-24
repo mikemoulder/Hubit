@@ -2,7 +2,7 @@
 
 **Live URL:** https://hubit-store.vercel.app (pull requests are tested on their own Vercel preview)
 **Type:** Full-stack web app (Next.js App Router, server-rendered catalogue, Stripe test-mode payments)
-**Version:** 2.0, the multi-store storefront
+**Version:** 2.1, shopping with your agent
 
 ## 1. What Hubit is
 
@@ -17,7 +17,7 @@ The catalogue is a frozen snapshot of the stores taken on 23 Oct 2026, so every 
 ## 2. Users
 
 - **Shopper:** browses, searches, adds to the cart, checks out and pays with a Stripe test card.
-- **AI agent:** the home page describes shopping with an agent. The agent's tools are specified separately and are out of scope for this version.
+- **AI agent:** shops the same page through tools the page registers with the browser (WebMCP), instead of scraping it. It can search, read products, fill and read the cart. It cannot pay. See F7.
 
 ## 3. Pages
 
@@ -113,9 +113,20 @@ Large headings are set in capitals by the stylesheet (the text "Footwear" displa
 - **How it ships:** the items grouped by the store that fulfils them, for example "Ships from Extra Butter" and "Ships from Nalgene", each with Paid ✓, Sent to <store> ✓, and "Shipping (test mode: nothing ships)". The heading line says how many stores fulfil the order.
 - **Receipt:** Items, Shipping, Service fee (5%), and **Paid** equal to the total charged; the delivery address; **Download invoice (PDF)** and **View invoice on Stripe**.
 
+### F7. Shop with your agent
+- Every page has a **"Your agent"** button fixed at the bottom right. It opens a panel headed **"Your agent"** and closes with its **Close** control.
+- **Tools.** The panel lists the tools this page offers an AI agent: `search_catalog`, `get_product`, `add_to_cart`, `remove_from_cart` and `view_cart`. Under them it states **"No payment tool. Paying stays with you."** There is no tool that pays, checks out or reads card details.
+- **Runtime.** In a browser with WebMCP the tools are registered with the browser's agent and the panel says "Connected: tools are registered with this browser's agent (WebMCP)." In any other browser it says "No AI agent is connected to this tab. These are the real tools this page offers agents; the demo agent calls them exactly as an agent would."
+- **Demo agent.** Under "Give the demo agent a task" are four tasks. Each runs a fixed script of real tool calls, shown one by one in **"Tool calls"** as the tool's name, its input, and its result, followed by the agent's reply:
+  1. **"Find the Air Jordan 5 in size 9 and add it"**: `search_catalog` {"q":"jordan 5"} → `get_product` {"id":"hq7978-001"} → `add_to_cart` {"productId":"hq7978-001","option":"9","qty":1} → `view_cart`. Reply: "Added Air Jordan 5 Retro Mens Shoes, size 9. Your cart total is $225.75." (when the cart was empty).
+  2. **"Add two of the cheapest wide-mouth bottles"**: `search_catalog` {"q":"wide mouth bottle","sort":"price-asc","inStock":true} → `add_to_cart` {"productId":"nalgene-1030","option":"One size","qty":2} → `view_cart`. Reply: "Added 2 × 32oz Wide Mouth Ultralite Bottle at $11.99 each. Your cart total is $<total>."
+  3. **"Read me the cart"**: `view_cart`. Reply lists each line and the total, or "Your cart is empty."
+  4. **"Pay for the cart"**: the agent looks for a payment tool and finds none. The log shows `pay` as **"Refused: this page offers agents no payment tool."** Reply: "I can't pay. This page gives agents no payment tool; paying stays with you at checkout." The cart is unchanged and no order is created.
+- **One cart.** Whatever the agent adds lands in the shopper's own cart: the header count updates at once, and on `/cart` each line the agent added is marked **"Added by your agent"**. Lines the shopper added carry no mark. The shopper can change or remove the agent's lines like any other, and the agent's next `view_cart` reflects it.
+- **Worked example.** Shopper adds 1 × 8oz Storage Jar – Blue Lid; agent runs task 2: cart items $28.17 (jar $4.19 + bottles $23.98), shipping $6.99, service fee $1.41, **total $36.57**; only the bottles line is marked "Added by your agent".
+
 ## 5. Out of scope
 - Real payments, real shipping, emails.
-- Agent tools (specified in a later version).
 - Accounts and sign-in (a later version).
 
 ## 6. Key user journeys to cover
@@ -129,3 +140,7 @@ Large headings are set in capitals by the stylesheet (the text "Footwear" displa
 8. Checkout with "Card that is declined" → "Your card was declined. Nothing was charged." and the cart is kept.
 9. Air Jordan 5 size 9 + 2 bottles → pay with Visa → order page: Paid, two "Ships from" groups (Extra Butter, Nalgene), receipt: items $258.98, shipping Free, service fee $12.95, **Paid $271.93**, and an invoice PDF link.
 10. Search "zzzqqq" → "Nothing matches that".
+11. Open "Your agent" → five tools listed and "No payment tool. Paying stays with you." → run "Find the Air Jordan 5 in size 9 and add it" → four tool calls logged → header count 1 → /cart shows the shoe, size 9, "Added by your agent", total $225.75.
+12. Agent adds the shoe → run "Pay for the cart" → pay refused, reply says paying stays with you → cart unchanged → no order page.
+13. Shopper adds the jar → agent runs task 2 → cart total $36.57, only the bottles marked "Added by your agent".
+14. Agent adds the shoe → shopper removes it on /cart → agent runs "Read me the cart" → "Your cart is empty."
