@@ -60,7 +60,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         ))}
       </nav>
       <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <aside aria-label="Filters" className="space-y-8 text-[15px]">
+      <aside aria-label="Filters" className="order-2 space-y-8 text-[15px] lg:order-none">
         <FilterGroup title="Department">
           {r.facets.departments.map((f) => (
             <FacetLink key={f.value} on={query.department === f.value} href={hrefWith(params, { dept: query.department === f.value ? undefined : f.value })} label={f.label} count={f.count} />
@@ -88,7 +88,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         </FilterGroup>
       </aside>
 
-      <section aria-labelledby="results" className="min-w-0">
+      <section aria-labelledby="results" className="order-1 min-w-0 lg:order-none">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 id="results" className="display text-[clamp(28px,3vw,44px)]">
