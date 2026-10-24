@@ -2,7 +2,7 @@
 
 **Live URL:** https://hubit-store.vercel.app (pull requests are tested on their own Vercel preview)
 **Type:** Full-stack web app (Next.js App Router, server-rendered catalogue, Stripe test-mode payments)
-**Version:** 2.1, shopping with your agent
+**Version:** 2.2, stores and price history
 
 ## 1. What Hubit is
 
@@ -29,8 +29,9 @@ The catalogue is a frozen snapshot of the stores taken on 23 Oct 2026, so every 
 | `/cart` | Cart |
 | `/checkout` | Checkout |
 | `/orders/<invoice id>` | The order, after payment |
+| `/stores` | The stores Hubit sources from |
 
-Every page has the same header: the **HUBIT** wordmark (links home), a search field labelled "Search Hubit" with the placeholder "Search products, brands, style codes", a **Shop** link, and a cart button showing the number of items in the cart (0 when empty).
+Every page has the same header: the **HUBIT** wordmark (links home), a search field labelled "Search Hubit" with the placeholder "Search products, brands, style codes", a **Shop** link, a **Stores** link, and a cart button showing the number of items in the cart (0 when empty).
 
 Money is always shown in US dollars **to the cent** (for example `$18.99`, `$215.00`).
 
@@ -125,6 +126,15 @@ Large headings are set in capitals by the stylesheet (the text "Footwear" displa
 - **One cart.** Whatever the agent adds lands in the shopper's own cart: the header count updates at once, and on `/cart` each line the agent added is marked **"Added by your agent"**. Lines the shopper added carry no mark. The shopper can change or remove the agent's lines like any other, and the agent's next View cart reflects it.
 - **Worked example.** Shopper adds 1 × 8oz Storage Jar – Blue Lid; agent runs task 2: cart items $28.17 (jar $4.19 + bottles $23.98), shipping $6.99, service fee $1.41, **total $36.57**; only the bottles line is marked "Added by your agent".
 
+### F8. Stores and price history
+- **Stores page** (`/stores`, from the header's **Stores** link): the heading **"28 stores"**, a sentence ending "**N of 28 answered at their last reading.**", and a table with one row per store: Store, Sells (its main department), Runs on (Shopify or WooCommerce), Products on Hubit, Ships from (country code), Last read (date), Status ("Answered" or "Didn't answer last time"). Each store name links to a search for it.
+  - Examples: **Allbirds** — Footwear, Shopify, 40 products, US. **Nalgene** — Outdoor, WooCommerce, 40, US. **JOCO Cups** — Kitchen, WooCommerce, 39, AU. **Undefeated** — Footwear, Shopify, 120, US.
+  - Production reads every store once a day (a scheduled job) and records whether it answered. Previews have no daily readings: every store shows Last read **23 Oct 2026** (the catalogue snapshot) and **Answered**, so the sentence reads "28 of 28 answered".
+- **Price history** on every product page, in a section headed **"Price history"**: Hubit's price each time the product's stores were read, newest first, each labelled **"Store catalogue"** (the snapshot, 23 Oct), **"Daily store check"** (production only) or **"Checked at checkout"** (every checkout re-check), with its date and time in UTC, above a small step chart.
+  - When the newest reading differs from the price shown on the page, a note says **"Latest store reading: $X (date). You'll see the up-to-date price at checkout."**
+  - Example: after a shopper reaches checkout with the 32oz Wide Mouth Surrealist Bottles (re-checked at $21.99), that product's history shows **$21.99 · Checked at checkout** as its newest reading, the note "Latest store reading: $21.99 …", and **$18.99 · Store catalogue** (23 Oct) as its oldest.
+- Every paid order is recorded with the store each line was routed to.
+
 ## 5. Out of scope
 - Real payments, real shipping, emails.
 - Accounts and sign-in (a later version).
@@ -144,3 +154,6 @@ Large headings are set in capitals by the stylesheet (the text "Footwear" displa
 12. Agent adds the shoe → run "Pay for the cart" → pay refused, reply says paying stays with you → cart unchanged → no order page.
 13. Shopper adds the jar → agent runs task 2 → cart total $36.57, only the bottles marked "Added by your agent".
 14. Agent adds the shoe → shopper removes it on /cart → agent runs "Read me the cart" → "Your cart is empty."
+15. Header → Stores → "28 stores" → the Allbirds, Nalgene and JOCO Cups rows as in F8 → click Nalgene → a search for Nalgene.
+16. Product page for 8oz Storage Jar – Blue Lid → "Price history" → newest reading $4.19 → oldest "Store catalogue" on 23 Oct.
+17. Bottles → checkout (re-check $21.99) → product page → newest reading "$21.99 · Checked at checkout" and the "Latest store reading" note.
