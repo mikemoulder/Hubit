@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Star, Store } from "lucide-react";
 import { AddToCart } from "@/components/shop/AddToCart";
+import { PriceHistory } from "@/components/shop/PriceHistory";
+import { priceHistory } from "@/server/db/history";
 import { money, sized, timeAgo } from "@/lib/format";
 import { getCatalog } from "@/server/catalog";
 import { detail } from "@/server/catalog/present";
@@ -19,6 +21,7 @@ export default async function ProductPage({ params }: Props) {
   const product = getCatalog().byId.get((await params).id);
   if (!product) notFound();
   const p = detail(product);
+  const readings = await priceHistory(product);
   const dept = DEPARTMENTS.find((d) => d.id === p.department)!;
 
   return (
@@ -84,7 +87,9 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
 
-      <section id="reviews" aria-labelledby="reviews-h" className="mt-32 max-w-3xl">
+      <PriceHistory readings={readings} currentCents={p.priceCents} />
+
+      <section id="reviews" aria-labelledby="reviews-h" className="mt-24 max-w-3xl">
         <h2 id="reviews-h" className="display text-[clamp(28px,3vw,44px)]">Reviews</h2>
         {p.reviews.length === 0 ? (
           <p className="mt-3">No reviews yet for this item. Reviews here come from the store&rsquo;s own customers.</p>

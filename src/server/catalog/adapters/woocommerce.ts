@@ -43,13 +43,14 @@ function toMinor(value: string, minorUnit: number): number {
 
 const reviewsPerProduct = 5;
 
-export async function fetchWooCommerce(source: Source, fetchedAt: string): Promise<SourceListing[]> {
+/** `reviews: false` skips the one-request-per-product review reads (the daily sync only needs prices). */
+export async function fetchWooCommerce(source: Source, fetchedAt: string, opts: { reviews?: boolean } = {}): Promise<SourceListing[]> {
   const base = `https://${source.domain}/wp-json/wc/store/v1`;
   const { body: products } = await getJson<WooProduct[]>(`${base}/products?per_page=100`);
 
   // The newest reviews per reviewed product, one request each, a few at a time.
   const reviewsByProduct = new Map<number, Review[]>();
-  const reviewed = products.filter((p) => p.review_count > 0).map((p) => p.id);
+  const reviewed = opts.reviews === false ? [] : products.filter((p) => p.review_count > 0).map((p) => p.id);
   async function worker() {
     for (let id = reviewed.shift(); id; id = reviewed.shift()) {
       const { body } = await getJson<WooReview[]>(`${base}/products/reviews?product_id=${id}&per_page=${reviewsPerProduct}`);

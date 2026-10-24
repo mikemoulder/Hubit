@@ -39,6 +39,9 @@ export function Header() {
           <Link href="/shop" className="link-line hidden sm:inline" aria-current={path === "/shop" ? "page" : undefined}>
             Shop
           </Link>
+          <Link href="/stores" className="link-line hidden sm:inline" aria-current={path === "/stores" ? "page" : undefined}>
+            Stores
+          </Link>
           <Link href="/cart" data-testid="cart-link" className="btn min-h-10 px-4">
             <ShoppingBag className="size-4" aria-hidden />
             <span className="tabular-nums" data-testid="cart-count">
