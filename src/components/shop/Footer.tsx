@@ -7,7 +7,7 @@ const MENU = [
   { href: "/shop?dept=footwear", label: "Footwear" },
   { href: "/shop?dept=apparel", label: "Clothing" },
   { href: "/shop?dept=home", label: "Home" },
-  { href: "/shop?sort=rating", label: "Best reviewed" },
+  { href: "/stores", label: "Our stores" },
   { href: "/cart", label: "Your cart" },
 ];
 

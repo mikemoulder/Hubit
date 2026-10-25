@@ -10,5 +10,5 @@ export function parseLines(raw: unknown): QuoteRequestLine[] | null {
 
 /** What the browser may see of a re-check: no store routing. */
 export function forShopper(r: Recheck) {
-  return { ...r, quote: { ...r.quote, lines: r.quote.lines.map((l) => ({ ...l, fulfilledBy: undefined })) } };
+  return { ...r, readings: undefined, quote: { ...r.quote, lines: r.quote.lines.map((l) => ({ ...l, fulfilledBy: undefined })) } };
 }

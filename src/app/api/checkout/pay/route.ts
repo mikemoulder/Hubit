@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCatalog } from "@/server/catalog";
 import { payForQuote, validateDetails, type Address, type Contact } from "@/server/checkout/pay";
 import { recheck, readerFor } from "@/server/checkout/recheck";
+import { recordOrder } from "@/server/db/history";
 import { TEST_CARDS, type TestCard } from "@/server/stripe";
 import snapshot from "../../../../../data/catalog-snapshot.json" with { type: "json" };
 import { forShopper, parseLines } from "../shared";
@@ -32,7 +33,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ reason: "changed", review: forShopper(r) }, { status: 409 });
   }
 
-  const result = await payForQuote(r.quote, contact as Contact, address as Address, card, body?.by === "agent" ? "agent" : "human");
+  const by = body?.by === "agent" ? "agent" : "human";
+  const result = await payForQuote(r.quote, contact as Contact, address as Address, card, by);
   if (!result.ok) return NextResponse.json({ reason: "declined", message: result.message }, { status: 402 });
+  await recordOrder(result.orderId, result.number, r.quote, by);
   return NextResponse.json(result);
 }

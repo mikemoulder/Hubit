@@ -1,0 +1,37 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "See every store Hubit sources from",
+ "description": "The Stores page lists the 28 shops with what they sell, their platform, product counts and when each was last read.",
+ "priority": "p1",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open the home page of this site and click 'Stores' in the header"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the heading reads '28 stores' and the text says '28 of 28 answered at their last reading.' Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the table has the columns Store, Sells, Runs on, Products on Hubit, Ships from, Last read and Status, and 28 store rows"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the Allbirds row reads Footwear, Shopify, 40, US, '23 Oct 2026', Answered"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the Nalgene row reads Outdoor, WooCommerce, 40, US and the JOCO Cups row reads Kitchen, WooCommerce, 39, AU"
+  },
+  {
+   "type": "action",
+   "description": "Click 'Nalgene' in the Store column"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a search for 'Nalgene' opens with Nalgene products"
+  }
+ ]
+}

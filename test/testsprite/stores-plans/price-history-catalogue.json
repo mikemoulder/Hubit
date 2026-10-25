@@ -1,0 +1,25 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "A product's price history starts at the store catalogue",
+ "description": "Every product page shows when its stores were read and what Hubit charged then.",
+ "priority": "p1",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open /p/nalgene-740315 on this site"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a section headed 'Price history' is shown. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the newest reading shows '$4.19'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the oldest reading shows '$4.19 · Store catalogue' dated '23 Oct'"
+  }
+ ]
+}

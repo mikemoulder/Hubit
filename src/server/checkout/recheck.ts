@@ -17,7 +17,10 @@ export type Change = {
   toCents: number;
 };
 
-export type Recheck = { quote: Quote; changes: Change[]; checkedAt: string; mode: "live" | "snapshot" };
+/** One offer as a store reported it during the re-check. */
+export type OfferReading = { product_id: string; source_id: string; listing_id: string; price_cents: number; available: boolean };
+
+export type Recheck = { quote: Quote; changes: Change[]; checkedAt: string; mode: "live" | "snapshot"; readings: OfferReading[] };
 
 export interface SourceReader {
   /** The offer's variants as the store reports them now, or null if it could not be reached. */
@@ -125,5 +128,14 @@ export async function recheck(catalog: Catalog, lines: QuoteRequestLine[], reade
       });
     }
   });
-  return { quote: after, changes, checkedAt: new Date().toISOString(), mode };
+  // Every offer that was read again, at its cheapest in-stock price, for the price history.
+  const readings: OfferReading[] = [];
+  for (const [key, p] of fresh) {
+    const option = key.slice(key.indexOf("|") + 1);
+    for (const o of p.offers) {
+      const v = o.variants.find((x) => x.option === option);
+      if (v) readings.push({ product_id: p.id, source_id: o.sourceId, listing_id: o.listingId, price_cents: v.priceCents, available: v.available });
+    }
+  }
+  return { quote: after, changes, checkedAt: new Date().toISOString(), mode, readings };
 }

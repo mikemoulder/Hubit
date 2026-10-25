@@ -1,0 +1,37 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "A price change seen at checkout appears in the price history",
+ "description": "The checkout re-check is recorded: the product's history shows the new reading and says the price moved.",
+ "priority": "p1",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open /p/nalgene-789703 on this site, click 'Add to cart', then open /checkout"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a notice says '32oz Wide Mouth Surrealist Bottles went up from $18.99 to $21.99 since you added it.'"
+  },
+  {
+   "type": "action",
+   "description": "Open /p/nalgene-789703 again"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a section headed 'Price history' is shown and its newest reading is '$21.99 · Checked at checkout'. Headings are displayed in capitals by the stylesheet; compare text without regard to case."
+  },
+  {
+   "type": "assertion",
+   "description": "Verify a note reads 'Latest store reading: $21.99' and says you'll see the up-to-date price at checkout"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the oldest reading is '$18.99 · Store catalogue' dated '23 Oct'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the product's price at the top of the page still reads '$18.99'"
+  }
+ ]
+}
