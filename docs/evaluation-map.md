@@ -1,5 +1,7 @@
 # Evaluation map
 
+> **History: this describes Hubit v1**, the single-store version from September 2026. Hubit is now the multi-store shop described in the [main README](../README.md). This file is kept unchanged as a record.
+
 Where everything lives. This is navigation, not argument: each claim Hubit makes points
 at the file and line that implements it, and at the assertion that proves it.
 

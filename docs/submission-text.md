@@ -1,5 +1,7 @@
 # Hubit: submission text
 
+> **History: this describes Hubit v1**, the single-store version from September 2026. Hubit is now the multi-store shop described in the [main README](../README.md). This file is kept unchanged as a record.
+
 *The four required parts of the Devpost text description. This file is the source of
 truth; the same words go in the submission form.*
 
