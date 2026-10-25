@@ -39,6 +39,7 @@ Kept current with every run. v1 below is unchanged history.
 
 | When (UTC) | What | Result | Run |
 |---|---|---|---|
+| 25 Oct | **PR #12** on `d6f519d` (spec + tests only) | **46/49, red as designed**: all 46 existing passed; exactly the 3 new tests failed (`/stores` was a 404; no price history on product pages) | execution `4d6aff2f` |
 
 ### Commits on `v2` before PR A (9)
 `e415479` adapters + snapshot · `f3f709d` multi-brand sources · `2dd35df` catalogue, fees, routing · `86b191f` storefront · `54c7749` art direction · `a209ffa` checkout + Stripe · `0810036` PRD 2.0 · `d6caa60` remove v1 · `71df402` suite carried to v2
