@@ -1,0 +1,41 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "Your agent sees what you change",
+ "description": "The shopper removes the agent's line; the agent's next look at the cart reflects it.",
+ "priority": "p1",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open the home page of this site"
+  },
+  {
+   "type": "action",
+   "description": "Click the 'Your agent' button at the bottom right of the page"
+  },
+  {
+   "type": "action",
+   "description": "Click the task 'Find the Air Jordan 5 in size 9 and add it' and wait for its reply"
+  },
+  {
+   "type": "action",
+   "description": "Close the panel, open /cart and click 'Remove' on the Air Jordan 5 line"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the cart shows 'Your cart is empty'"
+  },
+  {
+   "type": "action",
+   "description": "Click the 'Your agent' button at the bottom right of the page"
+  },
+  {
+   "type": "action",
+   "description": "Click the task 'Read me the cart' and wait for its reply"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify 'Tool calls' ends with View cart and the reply reads 'Your cart is empty.'"
+  }
+ ]
+}

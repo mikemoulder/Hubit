@@ -205,3 +205,16 @@ a {
     transform: translateX(12px);
   }
 }
+
+/* The agent panel slides in from the right. */
+@media (prefers-reduced-motion: no-preference) {
+  .agent-in {
+    animation: agent-in 260ms var(--ease-out) both;
+  }
+}
+@keyframes agent-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}

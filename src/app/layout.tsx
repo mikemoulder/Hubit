@@ -4,7 +4,7 @@ import { TikTok_Sans } from "next/font/google";
 import { Footer } from "@/components/shop/Footer";
 import { Header } from "@/components/shop/Header";
 import { Motion } from "@/components/shop/Motion";
-import { getCatalog } from "@/server/catalog";
+import { AgentPanel } from "@/components/agent/AgentPanel";
 import "./globals.css";
 
 // Self-hosted at build time. One variable family: wide and heavy for display, normal
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const catalog = getCatalog();
   return (
     <html lang="en" className={sans.variable}>
       <body className="antialiased">
@@ -34,7 +33,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Suspense>
         {children}
         <Motion />
-        <Footer storeCount={catalog.sources.length} takenAt={catalog.takenAt} />
+        <AgentPanel />
+        <Footer />
       </body>
     </html>
   );

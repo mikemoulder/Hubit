@@ -1,0 +1,49 @@
+{
+ "projectId": "2b4a992f-4b37-4f77-ad75-8e74ca05c358",
+ "type": "frontend",
+ "name": "You and your agent fill one cart",
+ "description": "Lines the shopper adds and lines the agent adds share one cart and one total; only the agent's are marked.",
+ "priority": "p0",
+ "planSteps": [
+  {
+   "type": "action",
+   "description": "Open /p/nalgene-740315 on this site and click 'Add to cart'"
+  },
+  {
+   "type": "action",
+   "description": "Click the 'Your agent' button at the bottom right of the page"
+  },
+  {
+   "type": "action",
+   "description": "Click the task 'Add two of the cheapest wide-mouth bottles' and wait for its reply"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify 'Tool calls' shows Search catalog, then Add to cart, then View cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the reply says 'Added 2 × 32oz Wide Mouth Ultralite Bottle at $11.99 each.' and gives the cart total '$36.57'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the header cart button shows 3"
+  },
+  {
+   "type": "action",
+   "description": "Close the panel and open /cart"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the '32oz Wide Mouth Ultralite Bottle' line has quantity 2 and is marked 'Added by your agent'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify the '8oz Storage Jar – Blue Lid' line is not marked 'Added by your agent'"
+  },
+  {
+   "type": "assertion",
+   "description": "Verify Items '$28.17', Shipping '$6.99', Service fee (5%) '$1.41' and Total '$36.57'"
+  }
+ ]
+}

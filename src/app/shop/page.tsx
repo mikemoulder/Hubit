@@ -136,7 +136,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         {pages > 1 && (
           <nav aria-label="Pages" className="mt-10 flex items-center justify-center gap-3 text-sm">
             {r.page > 1 && <Link href={hrefWith(params, { page: String(r.page - 1) })} className="btn btn-invert min-h-10 bg-[var(--color-surface-2)] px-4">Previous</Link>}
-            <span className="tabular-nums text-[var(--color-muted)]">Page {r.page} of {pages}</span>
+            <span aria-current="page" className="tabular-nums text-[var(--color-muted)]">{`Page ${r.page} of ${pages}`}</span>
             {r.page < pages && <Link href={hrefWith(params, { page: String(r.page + 1) })} className="btn min-h-10 px-4">Next</Link>}
           </nav>
         )}
