@@ -41,6 +41,7 @@ Kept current with every run. v1 below is unchanged history.
 |---|---|---|---|
 | 25 Oct | **PR #12** on `d6f519d` (spec + tests only) | **46/49, red as designed**: all 46 existing passed; exactly the 3 new tests failed (`/stores` was a 404; no price history on product pages) | execution `4d6aff2f` |
 | 25 Oct | **PR #12** on `5184880` (feature `7d3796f` + phone layout `ec8957c`) | **49/49 passed. Green.** Merged as `3644c38`; `/stores` and price history live in production | execution `f5bfe52b` |
+| 25 Oct | **PR #13** (this ledger, docs only) on `182bf14` | **48/49, 1 failed. A real bug that only appears with use**: the price-history list showed the newest 8 readings, and the 16 checkout readings from earlier test runs had pushed the 23 Oct store-catalogue reading out of it. Fix: the first reading always stays, after a "9 more readings" line | execution `76118c80` |
 
 The bot replaces its PR comment on every push, so each red run above is also recorded in a comment on its PR: on #11 and #12 before each fix was pushed; on #2, #3, #5 and #10 afterwards, from their commit statuses.
 
