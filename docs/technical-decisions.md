@@ -1,5 +1,7 @@
 # Technical decisions
 
+> **History: this describes Hubit v1**, the single-store version from September 2026. Hubit is now the multi-store shop described in the [main README](../README.md). This file is kept unchanged as a record.
+
 Five decisions where a real alternative was considered and rejected. Each one is
 invisible in the code by construction: you cannot see the option that was not taken.
 

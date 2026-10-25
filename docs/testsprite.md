@@ -42,6 +42,7 @@ Kept current with every run. v1 below is unchanged history.
 | 25 Oct | **PR #12** on `d6f519d` (spec + tests only) | **46/49, red as designed**: all 46 existing passed; exactly the 3 new tests failed (`/stores` was a 404; no price history on product pages) | execution `4d6aff2f` |
 | 25 Oct | **PR #12** on `5184880` (feature `7d3796f` + phone layout `ec8957c`) | **49/49 passed. Green.** Merged as `3644c38`; `/stores` and price history live in production | execution `f5bfe52b` |
 | 25 Oct | **PR #13** (this ledger, docs only) on `182bf14` | **48/49, 1 failed. A real bug that only appears with use**: the price-history list showed the newest 8 readings, and the 16 checkout readings from earlier test runs had pushed the 23 Oct store-catalogue reading out of it. Fix: the first reading always stays, after a "9 more readings" line | execution `76118c80` |
+| 25 Oct | **PR #13** on `d02065e` (fix: price history always keeps its first reading) | **49/49 passed. Green.** Merged as `15c2ae0` | execution `4768a65f` |
 
 The bot replaces its PR comment on every push, so each red run above is also recorded in a comment on its PR: on #11 and #12 before each fix was pushed; on #2, #3, #5 and #10 afterwards, from their commit statuses.
 
@@ -49,7 +50,7 @@ The bot replaces its PR comment on every push, so each red run above is also rec
 `e415479` adapters + snapshot · `f3f709d` multi-brand sources · `2dd35df` catalogue, fees, routing · `86b191f` storefront · `54c7749` art direction · `a209ffa` checkout + Stripe · `0810036` PRD 2.0 · `d6caa60` remove v1 · `71df402` suite carried to v2
 
 ### Credits
-About 130 before v2 testing. Spent: spot check 2, PR #10 runs 21 + 21 + 21, single run 0.5: **about 65.5**, plus PR #11 runs 23 + 23 and a single 0.5. Balance checked with `testsprite credits`: **17.5 left** on 24 Oct; **317.5** after the 25 Oct top-up, before PR #11 run 3; **271.5** after PR #11 runs 3 and 4; **222.5** after PR #12 runs 1 and 2 (about 24.5 each at 49 tests). Each PR run now costs about 23 (46 tests).
+About 130 before v2 testing. Spent: spot check 2, PR #10 runs 21 + 21 + 21, single run 0.5: **about 65.5**, plus PR #11 runs 23 + 23 and a single 0.5. Balance checked with `testsprite credits`: **17.5 left** on 24 Oct; **317.5** after the 25 Oct top-up, before PR #11 run 3; **271.5** after PR #11 runs 3 and 4; **222.5** after PR #12 runs 1 and 2 (about 24.5 each at 49 tests); **173.5** after PR #13 runs 1 and 2. Each PR run now costs about 23 (46 tests).
 
 
 Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links need access to our TestSprite workspace (sharing is by workspace invite). The same results are public on each pull request, in TestSprite's comment and its `TestSprite V3` check.
