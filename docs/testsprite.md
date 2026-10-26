@@ -24,25 +24,26 @@ Kept current with every run. v1 below is unchanged history.
 | 24 Oct 06:4x | **PR #10**, all 42, on `c4070a9` | PR #10 preview | **42/42 passed. Green.** Merged as `dec5a45` (06:44 UTC); production now serves v2 | execution `6c6b3597` |
 
 ### PR B: "Shop with your agent" (tests first)
-4 new tests written from PRD F7 before the feature exists, created in the project (now **46** tests): `751c0da4` finds and adds · `3cac1aca` cannot pay · `cf171512` one shared cart · `6782a60c` sees your changes. 37 steps, 18 assertions ([`agent-plans.py`](../test/testsprite/agent-plans.py)). Expected first check: 42 pass, 4 fail.
+4 new tests written from PRD F7 before the feature exists, created in the project (now **46** tests): `751c0da4` finds and adds · `3cac1aca` cannot pay · `cf171512` one shared cart · `6782a60c` sees your changes. 37 steps, 18 assertions ([`agent-plans.py`](../test/testsprite/agent-plans.py)).
 
 | When (UTC) | What | Result | Run |
 |---|---|---|---|
-| 24 Oct | **PR #11** on `90c7131` (spec + tests only) | **42/46, red as designed**: all 42 existing passed; the 4 new agent tests did not (2 failed, 2 blocked: no agent panel exists yet). Merge held by branch protection | execution `308499a1` |
+| 24 Oct | **PR #11** on `90c7131` (spec + tests only) | **42/46**: all 42 existing passed; the 4 new agent tests did not (2 failed, 2 blocked: no agent panel existed yet). Merge held by branch protection | execution `308499a1` |
 | 24 Oct | **PR #11** on `12f8237` (feature `f6d9cc5` + headline fix) | **45/46**: all **4 agent tests passed**; 1 failed: each review showed its rating as star icons only, so no per-review rating could be read | execution `2a3291dc` |
 | 24 Oct | Fix: each review shows its rating as text ("5/5"); single run on a CLI preview | **4/4 passed** | `77ac957d` |
 | 25 Oct | **PR #11** on `08e8f1d` (rating fix `3a4f142` + plain tool names) | **45/46**: the reviews test now **passes**; 1 failed: "Browse every product from 28 stores" reached page 2 but could not read the current page number. The page renders "Page 2 of 71", but as four separate text nodes. Fix: one text node, marked as the current page | execution `d4385fcc` |
 | 25 Oct | **PR #11** on `a324376` (page label as one line of text) | **46/46 passed. Green.** Merged as `77b14a7` | execution `629cbc76` |
 
 ### PR C: "Stores and price history" (tests first)
-3 new tests written from PRD F8 before the feature exists, created in the project (now **49** tests): `4728f581` · `475bc732` · `6bd720c6` ([`stores-plans.py`](../test/testsprite/stores-plans.py)). Expected first check: 46 pass, 3 fail.
+3 new tests written from PRD F8 before the feature exists, created in the project (now **49** tests): `4728f581` · `475bc732` · `6bd720c6` ([`stores-plans.py`](../test/testsprite/stores-plans.py)).
 
 | When (UTC) | What | Result | Run |
 |---|---|---|---|
-| 25 Oct | **PR #12** on `d6f519d` (spec + tests only) | **46/49, red as designed**: all 46 existing passed; exactly the 3 new tests failed (`/stores` was a 404; no price history on product pages) | execution `4d6aff2f` |
+| 25 Oct | **PR #12** on `d6f519d` (spec + tests only) | **46/49**: all 46 existing passed; the 3 new tests failed (`/stores` was a 404; no price history on product pages) | execution `4d6aff2f` |
 | 25 Oct | **PR #12** on `5184880` (feature `7d3796f` + phone layout `ec8957c`) | **49/49 passed. Green.** Merged as `3644c38`; `/stores` and price history live in production | execution `f5bfe52b` |
 | 25 Oct | **PR #13** (this ledger, docs only) on `182bf14` | **48/49, 1 failed. A real bug that only appears with use**: the price-history list showed the newest 8 readings, and the 16 checkout readings from earlier test runs had pushed the 23 Oct store-catalogue reading out of it. Fix: the first reading always stays, after a "9 more readings" line | execution `76118c80` |
 | 25 Oct | **PR #13** on `d02065e` (fix: price history always keeps its first reading) | **49/49 passed. Green.** Merged as `15c2ae0` | execution `4768a65f` |
+| 25 Oct | **PR #14** (README for v2, docs only) on `c5728ba` | **49/49 passed. Green.** Merged as `cb4f24b` | execution `4f415a60` |
 
 The bot replaces its PR comment on every push, so each red run above is also recorded in a comment on its PR: on #11 and #12 before each fix was pushed; on #2, #3, #5 and #10 afterwards, from their commit statuses.
 
@@ -50,8 +51,10 @@ The bot replaces its PR comment on every push, so each red run above is also rec
 `e415479` adapters + snapshot · `f3f709d` multi-brand sources · `2dd35df` catalogue, fees, routing · `86b191f` storefront · `54c7749` art direction · `a209ffa` checkout + Stripe · `0810036` PRD 2.0 · `d6caa60` remove v1 · `71df402` suite carried to v2
 
 ### Credits
-About 130 before v2 testing. Spent: spot check 2, PR #10 runs 21 + 21 + 21, single run 0.5: **about 65.5**, plus PR #11 runs 23 + 23 and a single 0.5. Balance checked with `testsprite credits`: **17.5 left** on 24 Oct; **317.5** after the 25 Oct top-up, before PR #11 run 3; **271.5** after PR #11 runs 3 and 4; **222.5** after PR #12 runs 1 and 2 (about 24.5 each at 49 tests); **173.5** after PR #13 runs 1 and 2. Each PR run now costs about 23 (46 tests).
+About 130 before v2 testing. Spent: spot check 2, PR #10 runs 21 + 21 + 21, single run 0.5: **about 65.5**, plus PR #11 runs 23 + 23 and a single 0.5. Balance checked with `testsprite credits`: **17.5 left** on 24 Oct; **317.5** after the 25 Oct top-up, before PR #11 run 3; **271.5** after PR #11 runs 3 and 4; **222.5** after PR #12 runs 1 and 2 (about 24.5 each at 49 tests); **173.5** after PR #13 runs 1 and 2. Each PR run now costs about 24.5 (49 tests).
 
+
+## v1 ledger (the single-store shop)
 
 Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this repo and one TestSprite 3.0 project. Every result below links to the commit it ran on. The TestSprite dashboard links need access to our TestSprite workspace (sharing is by workspace invite). The same results are public on each pull request, in TestSprite's comment and its `TestSprite V3` check.
 
@@ -89,9 +92,9 @@ Everything here happened on 21 Oct 2026 between 08:05 and 13:20 UTC, in this rep
 | Ownership rules | 3 | "I already have" blocks a matching item; clearing it restores approval |
 | Quick view | 3 | open from image and from name; add from the dialog |
 
-## 3. The red-first pull requests
+## 3. The pull requests
 
-Each feature PR starts with a commit that changes only the PRD and adds the tests for the new behaviour. TestSprite runs and goes red, because the behaviour is not there yet. The next commit implements it from the failure bundle, and the check goes green.
+Each feature PR starts with a commit that changes only the PRD and adds the tests for the new behaviour. The next commit implements the behaviour, using TestSprite's failure bundle from the first run.
 
 | PR | Commit | What it contained | TestSprite |
 |---|---|---|---|
@@ -100,25 +103,24 @@ Each feature PR starts with a commit that changes only the PRD and adds the test
 | | `413e3e3` | re-trigger after the suite existed | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/db331dcb-58b5-4173-86eb-ab4c80151843): a generated test let the agent pick any cart |
 | | `736c12f` | re-trigger after pinning four budget tests | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/c1ee571c-bfe5-447e-bbd2-31601277c845): the agent skipped a page reload |
 | | `fadcad8` | re-trigger after making the reload explicit | [**all 36 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/92d1caef-45a1-4ba0-bd52-50b95e58e626) |
-| [#2 exact cents](https://github.com/MikeMoulder/Hubit/pull/2) | `0c0c9bc` | PRD journey 10 + test "Express delivery is shown and budgeted to the exact cent" | [**36/37, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/5ae8fc17-747f-48c2-86c2-f3facb510753): it saw "$15" and "over by $1" |
+| [#2 exact cents](https://github.com/MikeMoulder/Hubit/pull/2) | `0c0c9bc` | PRD journey 10 + test "Express delivery is shown and budgeted to the exact cent" | [**36/37**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/5ae8fc17-747f-48c2-86c2-f3facb510753): it saw "$15" and "over by $1" |
 | | `a6b8547` | the fix | [35/36](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/4e6aa0e7-6c51-49ff-ba7c-27932ed95cb3): the cents test passed; one hung run, one misread test (section 6) |
 | | `b670f3d` | re-trigger after clarifying that test | [**all 37 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/41fa8e6b-b3c4-43f0-bed1-1df82389cae5) |
-| [#3 demo shopper](https://github.com/MikeMoulder/Hubit/pull/3) | `468a926` | PRD F9 + four demo-shopper tests | [**37/41, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/0110035e-03d7-462b-ba94-7330dc33822b): exactly the four new tests failed |
+| [#3 demo shopper](https://github.com/MikeMoulder/Hubit/pull/3) | `468a926` | PRD F9 + four demo-shopper tests | [**37/41**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/0110035e-03d7-462b-ba94-7330dc33822b): exactly the four new tests failed |
 | | `fa5aca4` | the feature | [**all 41 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/840dd35c-a81f-462e-8537-8d067676a102) on the first run |
-
 | [#4 README](https://github.com/MikeMoulder/Hubit/pull/4) | `e42bd55` | this documentation | [all 41 passed](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/c26d99ba-43db-4da1-9d66-5ba0ff2d104b): docs-only PRs are held too |
-| [#5 first screen](https://github.com/MikeMoulder/Hubit/pull/5) | `708d1dc` | PRD F10 + first-screen test + empty-cart wording | [**39/42, red as intended**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/36a6ece3-ef56-4745-8693-56f1947b670a): the 2 new checks failed; 1 blocked (the agent missed the drawer's close button) |
+| [#5 first screen](https://github.com/MikeMoulder/Hubit/pull/5) | `708d1dc` | PRD F10 + first-screen test + empty-cart wording | [**39/42**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/36a6ece3-ef56-4745-8693-56f1947b670a): the 2 new checks failed; 1 blocked (the agent missed the drawer's close button) |
 | | `0791b86` | the feature | [41/42](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/f31135d5-b185-4198-bdbe-daef2bca6570): both new checks passed; the reload test's agent skipped the reload again |
 | | `9fdf63d` | re-trigger after the reload test loads `/?reload=1` | [**all 42 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/29981950-34fb-4e59-b4e4-d48149772df4) |
 | [#6 docs](https://github.com/MikeMoulder/Hubit/pull/6) | `1447f73` | this ledger, deeper plans | [41/42, 1 blocked](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/8254e449-8cc1-4033-be7d-ed974738bac0): the replay lost two form fills (section 6) |
 | | `f4e24fe` | empty rerun, no change | [**all 42 passed**](https://www.testsprite.com/dashboard-v3/o/246d5e7a-a6f9-5509-a518-effce4212ccf/projects/2b4a992f-4b37-4f77-ad75-8e74ca05c358/execution/0d80db65-aaf9-482b-8946-4202d1cddc82) |
 
-Each PR was squash-merged once its check was green, so `main` reads as three commits while every red and green run stays on the PR page.
+Each PR was squash-merged once its check was green, so `main` has one commit per PR while every red and green run stays on the PR page.
 
 ## 4. Bugs TestSprite found in the app
 
-- **Money was rounded to the dollar.** The budget was checked in cents, but `money()` showed express ($14.99) as "$15". A cart $0.99 over budget read "over by $1", and the agent's own tool text could read "Total: $1,200 of $1,200" while over. We wrote the requirement first and TestSprite failed on it, as the PR intended.
-- **The rules bar metered goods, not the order.** We had not specified this one. In the failure bundle for the cents test, TestSprite's observations included "the rules bar displayed $1,056 of $1,071" with express selected, while the gate counts delivery. The bar could say "$1,056 of $1,070, over by $1". The fix commit in #2 makes the bar meter the order total ([`src/components/RulesBar.tsx`](../src/components/RulesBar.tsx)).
+- **Money was rounded to the dollar.** The budget was checked in cents, but `money()` showed express ($14.99) as "$15". A cart $0.99 over budget read "over by $1", and the agent's own tool text could read "Total: $1,200 of $1,200" while over.
+- **The rules bar metered goods, not the order.** We had not specified this one. In the failure bundle for the cents test, TestSprite's observations included "the rules bar displayed $1,056 of $1,071" with express selected, while the gate counts delivery. The bar could say "$1,056 of $1,070, over by $1". The fix commit in #2 makes the bar meter the order total ([`src/components/RulesBar.tsx`](https://github.com/MikeMoulder/Hubit/blob/64e322d/src/components/RulesBar.tsx), v1).
 
 ## 5. Generated tests we had to fix
 

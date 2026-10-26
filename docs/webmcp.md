@@ -109,7 +109,7 @@ Three details in that table are deliberate and are the kind of thing a reviewer 
 
 ### One seam
 
-[`src/lib/webmcp.ts`](../src/lib/webmcp.ts) is the **only** file in the project that touches `document.modelContext`. 165 lines. Everything else in the app talks to a `ToolHost` interface, which means the runtime's quirks are contained in one reviewable place instead of smeared across the components.
+[`src/lib/webmcp.ts`](https://github.com/MikeMoulder/Hubit/blob/64e322d/src/lib/webmcp.ts) is the **only** file in the project that touches `document.modelContext`. 165 lines. Everything else in the app talks to a `ToolHost` interface, which means the runtime's quirks are contained in one reviewable place instead of smeared across the components.
 
 Inside it, a `Host` class keeps **our own registry** alongside the browser's, and every registration owns an `AbortController`:
 
@@ -199,8 +199,8 @@ Each condition is visible on the page, and each one closes the gate on its own.
 
 | Condition                              | Implementation                                                | Why it gates checkout                                                                                                                                        |
 | -------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| The cart is inside the shopper's rules | `violations()`, [`store.ts:144`](../src/lib/store.ts#L144)       | The budget check runs on `orderTotalCents`, goods **plus delivery**, so choosing express can push a compliant cart back out of bounds                        |
-| The order has somewhere to go          | `shippingComplete()`, [`store.ts:139`](../src/lib/store.ts#L139) | An order that cannot be delivered is not a tool the agent should be holding. An incomplete address withholds `checkout` exactly the way a broken budget does |
+| The cart is inside the shopper's rules | `violations()`, [`store.ts:144`](https://github.com/MikeMoulder/Hubit/blob/64e322d/src/lib/store.ts#L144)       | The budget check runs on `orderTotalCents`, goods **plus delivery**, so choosing express can push a compliant cart back out of bounds                        |
+| The order has somewhere to go          | `shippingComplete()`, [`store.ts:139`](https://github.com/MikeMoulder/Hubit/blob/64e322d/src/lib/store.ts#L139) | An order that cannot be delivered is not a tool the agent should be holding. An incomplete address withholds `checkout` exactly the way a broken budget does |
 | The shopper approved **this** basket   | `state.approved`                                              | Consent is granted to a specific cart going to a specific address, not to the session                                                                        |
 
 `violations` is **derived on every read, never stored**, so there is no cached verdict that can drift out of sync with the cart.
@@ -296,7 +296,7 @@ The tool rail follows the same discipline. `checkout` owns the top of the panel 
 
 ## The capability audit
 
-[`test/capability-audit.js`](../test/capability-audit.js) is **105 assertions driven through** **`document.modelContext.executeTool`** **in flagged Chrome**. It is not a unit test suite. Every assertion takes the same path an agent takes.
+[`test/capability-audit.js`](https://github.com/MikeMoulder/Hubit/blob/64e322d/test/capability-audit.js) is **105 assertions driven through** **`document.modelContext.executeTool`** **in flagged Chrome**. It is not a unit test suite. Every assertion takes the same path an agent takes.
 
 Two rules make it evidence rather than decoration:
 
@@ -367,7 +367,7 @@ Then open `http://localhost:3000` in Chrome with `chrome://flags/#enable-webmcp-
 | What the WebMCP runtime actually does, measured       | [`docs/webmcp-findings.md`](webmcp-findings.md)         |
 | Five decisions, each with the alternative we rejected | [`docs/technical-decisions.md`](technical-decisions.md) |
 | How the audit is built and what it covers             | [`test/README.md`](../test/README.md)                           |
-| The seam, all 165 lines of it                         | [`src/lib/webmcp.ts`](../src/lib/webmcp.ts)                     |
+| The seam, all 165 lines of it                         | [`src/lib/webmcp.ts`](https://github.com/MikeMoulder/Hubit/blob/64e322d/src/lib/webmcp.ts)                     |
 
 ## Licence
 

@@ -1,5 +1,7 @@
 # WebMCP runtime findings
 
+> Measured on Hubit v1 (September 2026). File references below (`src/lib/webmcp.ts`, `test/capability-audit.js`) point to v1 code, which is in the history at [`64e322d`](https://github.com/MikeMoulder/Hubit/blob/64e322d/). In v2 the WebMCP host is [`src/lib/agent/webmcp.ts`](../src/lib/agent/webmcp.ts).
+
 What `document.modelContext` actually does, measured rather than assumed. The source
 files cite these by number: a comment reading "finding 3" means item 3 below.
 
