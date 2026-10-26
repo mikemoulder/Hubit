@@ -4,7 +4,7 @@
 
 **[Live app](https://hubit-store.vercel.app)** · **[A PR where TestSprite caught a bug, then went green after the fix](https://github.com/mikemoulder/Hubit/pull/2)** · **[Every run, every failure, every fix](docs/testsprite.md)** · **[Product spec](docs/PRD.md)**
 
-| 1,695 products | 28 stores | 49 TestSprite tests | 152 assertion steps | 13 of 13 PRs gated | 7 bugs caught before merge |
+| 1,695 products | 28 stores | 49 TestSprite tests | 152 assertion steps | 14 of 14 PRs gated | 7 bugs caught before merge |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 
 ![Hubit's home page: "28 stores, one cart", with the "Your agent" button in the corner.](assets/screenshots/v2/home.png)
@@ -275,7 +275,7 @@ Hubit's claims are specific: "$225.75, not $225", "size 9 ships from Undefeated"
 2. **Curated.** About a third were duplicates. One scenario appeared four times. Every PR run replays the whole suite at about 0.5 credits a test, so each duplicate would be paid for on every push. We kept **36**, one per distinct scenario.
 3. **Extended and deepened.** We wrote more tests as plan files and created them with `test create --plan-from`. We then rewrote the shallow ones so each states the app's exact words and numbers before and after every change, and ends on its strongest check.
 4. **Carried forward, not thrown away.** When Hubit grew from a single store (v1) into the multi-store shop (v2), the 42 tests were **rewritten in place**: same test ids, run history kept, new plans for the new product ([v1 plans archived](docs/testsprite-v1/)).
-5. **Grown test-first.** Every new v2 feature arrived in a PR whose first commit was only the spec and its new tests, so the suite went red on exactly those tests before the feature existed: 4 agent tests (46 total), then 3 stores and price-history tests (49 total).
+5. **Grown test-first.** Every new v2 feature arrived in a PR whose first commit was only the spec and its new tests, followed by the feature itself: 4 agent tests (46 total), then 3 stores and price-history tests (49 total).
 
 ### What the 49 tests cover
 
@@ -303,7 +303,7 @@ Plans are in the repo: [`v2-plans.py`](test/testsprite/v2-plans.py), [`agent-pla
 
 ### Every pull request, red then green
 
-All 13 pull requests in this repo carry the TestSprite check, and every one was merged green. Seven show the loop working: the check went red, a fix was pushed **to the same PR**, and it went green. TestSprite's bot replaces its comment on every push, so each of these PRs also has a comment recording its red runs with links to the reports.
+All 14 pull requests in this repo carry the TestSprite check, and every one was merged green. Ten went red at least once before they went green on the same PR. TestSprite's bot replaces its comment on every push, so each of these PRs also has a comment recording its red runs with links to the reports.
 
 | PR | What it shipped | TestSprite, run by run |
 |---|---|---|
@@ -317,6 +317,7 @@ All 13 pull requests in this repo carry the TestSprite check, and every one was 
 | [#11](https://github.com/mikemoulder/Hubit/pull/11) | **Shop with your agent** (test-first) | **42/46**, exactly the 4 new tests → 45/46 → 45/46 → **46/46** |
 | [#12](https://github.com/mikemoulder/Hubit/pull/12) | **Stores and price history** (test-first) | **46/49**, exactly the 3 new tests → **49/49** |
 | [#13](https://github.com/mikemoulder/Hubit/pull/13) | Ledger (docs only) | **48/49**: a docs PR caught a real bug in merged code → fix → **49/49** |
+| [#14](https://github.com/mikemoulder/Hubit/pull/14) | This README (docs only) | **49/49** |
 
 **The best single example: [PR #11](https://github.com/mikemoulder/Hubit/pull/11).** It opened with only the spec and four agent tests, and TestSprite went red on exactly those four while all 42 existing tests passed. The feature landed and all four agent tests passed. In the same run TestSprite flagged that review ratings could not be read, then on the next run that the page number could not be read. Each was fixed on the same PR, and the fourth run was 46/46.
 
