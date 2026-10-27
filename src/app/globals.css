@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 /*
-  Blush and aubergine. Two colours that take turns as ground and ink, in roughly equal
-  shares, and no third: the button is a solid block of whichever is not the ground.
+  White and aubergine, with blush kept as the ink on aubergine. Pages sit on plain white
+  so text reads cleanly; the button is a solid aubergine block.
   Surfaces are told apart by a step in tone, never by a line or a shadow.
 
   The agent gets no colour of its own. What it did is marked in words ("Added by your
   agent") on an aubergine chip, the same two colours as everything else.
 */
 @theme inline {
-  --color-bg: #edccbe;
-  --color-surface: #f3dbd0;
-  --color-surface-2: #e8c2b2;
-  --color-surface-3: #dfb3a1;
-  --color-border: #dcb0a0;
-  --color-border-strong: #c99a89;
+  --color-bg: #ffffff;
+  --color-surface: #f8f5f4;
+  --color-surface-2: #f1ebe9;
+  --color-surface-3: #e7dfdc;
+  --color-border: #e6dedb;
+  --color-border-strong: #c8bbb7;
   --color-fg: #351a2b;
   --color-muted: #6c4857;
 
@@ -24,7 +24,7 @@
   /* Kept as names so older components compile; both now resolve to the two colours. */
   --color-accent: #351a2b;
   --color-accent-fg: #edccbe;
-  --color-accent-soft: #e8c2b2;
+  --color-accent-soft: #f1ebe9;
 
   --color-danger: #9b1c2e;
   --color-danger-soft: #f2c9c7;
